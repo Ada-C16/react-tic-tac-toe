@@ -15,7 +15,7 @@ const Square = (props) => {
     // console.log(props.id);
   };
 
-  return <button onClick={printMessage} className='square' id={props.id}>{props.value} </button>;
+  return <button onClick={printMessage} className='square' id={props.id}>{props.value}</button>;
 };
 
 Square.propTypes = {

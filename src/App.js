@@ -7,6 +7,8 @@ import Board from './components/Board';
 const PLAYER_1 = 'x';
 const PLAYER_2 = 'o';
 let currentPlayer = PLAYER_1;
+let message = 'Current player is: x';
+let isGameRunning = true;
 
 const generateSquares = () => {
   const squares = [];
@@ -36,45 +38,59 @@ const App = () => {
 
   // Wave 2
 
-  
 
-  
+
+
 
   const onClickCallback = (key) => {
-    
+    if (!isGameRunning){
+      return
+    }
     const squaresCopy = [...squares];
     console.log(key);
-    
-    
+
+
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (squaresCopy[i][j].id == key){
+        if (squaresCopy[i][j].id == key) {
           squaresCopy[i][j].value = currentPlayer;
-          if (currentPlayer === PLAYER_1){
+          if (currentPlayer === PLAYER_1) {
             currentPlayer = PLAYER_2;
             // console.log(currentPlayer);
-          } else if (currentPlayer === PLAYER_2){
+          } else if (currentPlayer === PLAYER_2) {
             currentPlayer = PLAYER_1;
             // console.log(currentPlayer);
           }
-          }
-        }
-      }
-    
 
-    
+          // console.log(squares[i][j].value);
+        }
+        message = `Current player is: ${currentPlayer}`;
+      }
+    }
+    const winner = checkForWinner();
+    if (winner === 'x' || winner === 'o') {
+      console.log('winner is', winner);
+      console.log(message);
+      message = `Winner is ${winner}`;
+      console.log(message);
+      isGameRunning = false;
+      // 
+    }
+
+
 
 
     // squaresCopy[0][0].value = 'x';
     // console.log(squaresCopy[0][0].value);
-    // console.log(squares[0][1].value);
+
     // console.log(squares[0][0].id);
     setSquares(squaresCopy);
-      
+
+
 
     // make a copy of all the squares
-// iterate through all the squares to see if their id matches the one clicked (parameter x)
+    // iterate through all the squares to see if their id matches the one clicked (parameter x)
 
 
     // iterate through all the sqaure and check for their id's and if id matches the one that came back from sqaure then put x or 0
@@ -82,20 +98,20 @@ const App = () => {
     //determine what data need from square and then what do with that info-(game logic like put x or 0, end or continue game)
     // ID data=more useful than just props.value
   };
-  
 
-  const yesClicked = () => {
 
-    // className
-    // setClickedOn((current) => current + 1);
-    
-    // console.log(clickedOn);
-  };
+  // const yesClicked = () => {
+
+  //   // className
+  //   // setClickedOn((current) => current + 1);
+
+  //   // console.log(clickedOn);
+  // };
 
   const printMessage = () => {
-    
+
     console.log('Now, we\'re in printMessage!');
-};
+  };
 
   // You will need to create a method to change the square
   //   When it is clicked on.
@@ -150,11 +166,11 @@ const App = () => {
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button onClick={printMessage} >Reset Game</button>
+        <h2>{message}</h2>
+        <button onClick={resetGame} >Reset Game</button>
       </header>
       <main>
-        <Board onClickCallback={onClickCallback} squares={squares}/>
+        <Board onClickCallback={onClickCallback} squares={squares} />
       </main>
     </div>
   );
