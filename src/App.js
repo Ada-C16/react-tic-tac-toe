@@ -6,6 +6,7 @@ import Board from './components/Board';
 
 const PLAYER_1 = 'x';
 const PLAYER_2 = 'o';
+let currentPlayer = PLAYER_1;
 
 const generateSquares = () => {
   const squares = [];
@@ -35,14 +36,47 @@ const App = () => {
 
   // Wave 2
 
-  let currentPlayer = PLAYER_1;
+  
 
-  const onClickCallback = (x) => {
-    console.log(x);
-    squares[0][0].value = 'x';
-    console.log(squares[0][0].value);
-    console.log(squares[0][1].value);
-    console.log(squares[0][0].id);
+  
+
+  const onClickCallback = (key) => {
+    
+    const squaresCopy = [...squares];
+    console.log(key);
+    
+    
+
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (squaresCopy[i][j].id == key){
+          squaresCopy[i][j].value = currentPlayer;
+          if (currentPlayer === PLAYER_1){
+            currentPlayer = PLAYER_2;
+            // console.log(currentPlayer);
+          } else if (currentPlayer === PLAYER_2){
+            currentPlayer = PLAYER_1;
+            // console.log(currentPlayer);
+          }
+          }
+        }
+      }
+    
+
+    
+
+
+    // squaresCopy[0][0].value = 'x';
+    // console.log(squaresCopy[0][0].value);
+    // console.log(squares[0][1].value);
+    // console.log(squares[0][0].id);
+    setSquares(squaresCopy);
+      
+
+    // make a copy of all the squares
+// iterate through all the squares to see if their id matches the one clicked (parameter x)
+
+
     // iterate through all the sqaure and check for their id's and if id matches the one that came back from sqaure then put x or 0
     // x = data being sent from square to app (which square was clicked)
     //determine what data need from square and then what do with that info-(game logic like put x or 0, end or continue game)
