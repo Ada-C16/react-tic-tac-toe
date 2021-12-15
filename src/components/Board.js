@@ -13,6 +13,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
         id={square.id}
         onClickCallback={onClickCallback}
         key={square.id}
+        clicked={square.clicked}
       />
     );
   });
@@ -20,7 +21,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
 
 const Board = ({ squares, onClickCallback }) => {
   const squareList = generateSquareComponents(squares, onClickCallback);
-  console.log(squareList);
+  // console.log(squareList);
   return <div className='grid'>{squareList}</div>;
 };
 
@@ -30,6 +31,7 @@ Board.propTypes = {
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         value: PropTypes.string.isRequired,
+        clicked: PropTypes.bool
       })
     )
   ),

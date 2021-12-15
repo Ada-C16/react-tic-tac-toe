@@ -10,3 +10,8 @@
   align-items: center;
   margin: 2px;
 }
+
+.square:active
+{
+  background-color: aqua;
+}

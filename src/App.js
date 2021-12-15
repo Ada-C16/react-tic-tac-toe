@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+// const PLAYER_1 = 'x';
+// const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -17,6 +17,7 @@ const generateSquares = () => {
       squares[row].push({
         id: currentId,
         value: '',
+        clicked: false
       });
       currentId += 1;
     }
@@ -45,50 +46,50 @@ const App = () => {
     setSquares(newBoard);
   };
 
-  const checkForWinner = () => {
-    let i = 0;
+  // const checkForWinner = () => {
+  //   let i = 0;
 
-    // Check all the rows and columns for a winner
-    while (i < 3) {
-      if (
-        squares[i][0].value === squares[i][1].value &&
-        squares[i][2].value === squares[i][1].value &&
-        squares[i][0].value !== ''
-      ) {
-        return squares[i][0].value;
-      } else if (
-        squares[0][i].value === squares[1][i].value &&
-        squares[2][i].value === squares[1][i].value &&
-        squares[0][i].value !== ''
-      ) {
-        return squares[0][i].value;
-      }
-      i += 1;
-    }
-    // Check Top-Left to bottom-right diagonal
-    if (
-      squares[0][0].value === squares[1][1].value &&
-      squares[2][2].value === squares[1][1].value &&
-      squares[1][1].value !== ''
-    ) {
-      return squares[0][0].value;
-    }
+  //   // Check all the rows and columns for a winner
+  //   while (i < 3) {
+  //     if (
+  //       squares[i][0].value === squares[i][1].value &&
+  //       squares[i][2].value === squares[i][1].value &&
+  //       squares[i][0].value !== ''
+  //     ) {
+  //       return squares[i][0].value;
+  //     } else if (
+  //       squares[0][i].value === squares[1][i].value &&
+  //       squares[2][i].value === squares[1][i].value &&
+  //       squares[0][i].value !== ''
+  //     ) {
+  //       return squares[0][i].value;
+  //     }
+  //     i += 1;
+  //   }
+  //   // Check Top-Left to bottom-right diagonal
+  //   if (
+  //     squares[0][0].value === squares[1][1].value &&
+  //     squares[2][2].value === squares[1][1].value &&
+  //     squares[1][1].value !== ''
+  //   ) {
+  //     return squares[0][0].value;
+  //   }
 
-    // Check Top-right to bottom-left diagonal
-    if (
-      squares[0][2].value === squares[1][1].value &&
-      squares[2][0].value === squares[1][1].value &&
-      squares[1][1].value !== ''
-    ) {
-      return squares[0][2].value;
-    }
+  //   // Check Top-right to bottom-left diagonal
+  //   if (
+  //     squares[0][2].value === squares[1][1].value &&
+  //     squares[2][0].value === squares[1][1].value &&
+  //     squares[1][1].value !== ''
+  //   ) {
+  //     return squares[0][2].value;
+  //   }
 
-    return null;
-  };
+  //   return null;
+  // };
 
-  const resetGame = () => {
-    // Complete in Wave 4
-  };
+  // const resetGame = () => {
+  //   // Complete in Wave 4
+  // };
 
   return (
     <div className='App'>
@@ -98,7 +99,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board onClickCallback={updateBoard} squares={squares}/>
       </main>
     </div>
   );
