@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import Square from './components/Square';
-
 import Board from './components/Board';
 
 const PLAYER_1 = 'x';
@@ -22,30 +20,38 @@ const generateSquares = () => {
       currentId += 1;
     }
   }
-
   return squares;
 };
 
-const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
-  const [squares, setSquares] = useState(generateSquares());
+// [
+//   [ { id: 0, value: '' }, { id: 1, value: '' }, { id: 2, value: '' } ],
+//   [ { id: 3, value: '' }, { id: 4, value: '' }, { id: 5, value: '' } ],
+//   [ { id: 6, value: '' }, { id: 7, value: '' }, { id: 8, value: '' } ]
+// ]
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+const App = () => {
+  const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
 
   const updateSquareData = (id) => {
-    const squareData = squares.map((oneSquare) => {
-      if (oneSquare.id === id) {
-        return oneSquare.id;
-      } else {
-        return oneSquare;
-      }
-    });
+    const updatedSquares = [...squares];
 
-    setSquares(squareData);
+    for (const [idx1, nestedArr] of squares.entries()) {
+      for (const [idx2, currentSquare] of nestedArr.entries()) {
+        if (currentSquare.id === id && currentSquare.value === '') {
+          updatedSquares[idx1][idx2].value = currentPlayer;
+        }
+      }
+    }
+
+    setSquares(updatedSquares);
+
+    // figure out how to change players after one takes a turn
+    if (currentPlayer === PLAYER_1) {
+      setCurrentPlayer(PLAYER_2);
+    } else {
+      setCurrentPlayer(PLAYER_1);
+    }
   };
 
   const checkForWinner = () => {
