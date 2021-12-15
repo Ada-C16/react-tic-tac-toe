@@ -34,6 +34,16 @@ const App = () => {
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+  const updateSquares = markedSquare => {
+    const squares = squares.map( square => {
+      if (square.id === markedSquare.id) {
+        return markedSquare;
+      } else {
+        return square;
+      }
+    });
+    setSquares(squares);
+  };
 
   const checkForWinner = () => {
     let i = 0;
