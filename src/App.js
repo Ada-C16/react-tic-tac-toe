@@ -73,7 +73,12 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board
+          squares={squares}
+          onClickCallback={() =>
+            console.log('This will need to be updated later')
+          }
+        />
       </main>
     </div>
   );
