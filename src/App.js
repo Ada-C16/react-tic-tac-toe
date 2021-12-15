@@ -39,13 +39,14 @@ const App = () => {
     setIsX(!isX);
   };
 
-  const turn = isX ? 'X' : 'O';
+  const turn = isX ? 'x' : 'o';
 
   const onClickCallback = (id) => {
     const newSquares = squares.map( (row) => {
       row.map((square) => {
-        if (square.id === id) {
-          const newValue = {value: turn};
+        if (square.id === id && square.used !== true) {
+          const newValue = {value: turn,
+                            used: true};
           let newSquare = Object.assign(square, newValue);
          return newSquare;
         }
