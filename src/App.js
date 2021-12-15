@@ -56,6 +56,22 @@ const App = () => {
     });
     setSquares(newSquares);
     toggleX();
+
+    if (checkForWinner()) {
+      // set all to used: true
+      const newSquares = squares.map( (row) => {
+        row.map((square) => {
+          const newValue = {used: true};
+          let newSquare = Object.assign(square, newValue);
+          return newSquare;
+
+        });
+        return row;
+      });
+      setSquares(newSquares);
+    }
+
+
   };
   
   const checkForWinner = () => {
