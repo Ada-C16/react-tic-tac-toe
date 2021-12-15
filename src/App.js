@@ -33,13 +33,22 @@ const App = () => {
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+    // const toggleTurn = () => {
+  //   setSquares(!squares)
+  // }
+  const [isX, setIsX] = useState(true);
 
+  const toggleX = () => {
+    setIsX(!isX);
+  };
+
+  const turn = isX ? 'X' : 'O';
 
   const onClickCallback = (id) => {
     const newSquares = squares.map( (row) => {
       row.map((square) => {
         if (square.id === id) {
-          const newValue = {value: 'X'};
+          const newValue = {value: turn};
           let newSquare = Object.assign(square, newValue);
          return newSquare;
         }
@@ -48,6 +57,7 @@ const App = () => {
       return row;
     });
     setSquares(newSquares);
+    toggleX();
   };
   
   const checkForWinner = () => {
