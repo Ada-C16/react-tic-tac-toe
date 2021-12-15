@@ -6,9 +6,9 @@ import Board from './components/Board';
 
 const PLAYER_1 = 'x';
 const PLAYER_2 = 'o';
-let currentPlayer = PLAYER_1;
-let message = 'Current player is: x';
-let isGameRunning = true;
+// let currentPlayer = PLAYER_1;
+// let message = 'Current player is: x';
+// let isGameRunning = true;
 
 const generateSquares = () => {
   const squares = [];
@@ -33,6 +33,9 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [message, setMessage] = useState('Current player is: x');
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+  const [isGameRunning, setIsGameRunning] = useState(true);
 
   // const [clickedOn, setClickedOn] = useState(false);
 
@@ -44,7 +47,7 @@ const App = () => {
 
   const onClickCallback = (key) => {
     if (!isGameRunning){
-      return
+      return;
     }
     const squaresCopy = [...squares];
     console.log(key);
@@ -56,25 +59,27 @@ const App = () => {
         if (squaresCopy[i][j].id == key) {
           squaresCopy[i][j].value = currentPlayer;
           if (currentPlayer === PLAYER_1) {
-            currentPlayer = PLAYER_2;
+            setCurrentPlayer(PLAYER_2);
             // console.log(currentPlayer);
+            setMessage(`Current player is: ${PLAYER_2}`);
           } else if (currentPlayer === PLAYER_2) {
-            currentPlayer = PLAYER_1;
+            setCurrentPlayer(PLAYER_1);
             // console.log(currentPlayer);
+            setMessage(`Current player is: ${PLAYER_1}`);
           }
 
           // console.log(squares[i][j].value);
         }
-        message = `Current player is: ${currentPlayer}`;
+        
       }
     }
     const winner = checkForWinner();
     if (winner === 'x' || winner === 'o') {
       console.log('winner is', winner);
-      console.log(message);
-      message = `Winner is ${winner}`;
-      console.log(message);
-      isGameRunning = false;
+      // console.log(message);
+      setMessage(`Winner is ${winner}`);
+      // console.log(message);
+      setIsGameRunning(false);
       // 
     }
 
