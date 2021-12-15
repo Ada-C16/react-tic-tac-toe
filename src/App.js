@@ -1,10 +1,11 @@
+import { PROPERTY_TYPES } from '@babel/types';
 import React, { useState } from 'react';
 import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -30,7 +31,38 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
+  // const [clickedOn, setClickedOn] = useState(false);
+
   // Wave 2
+
+  let currentPlayer = PLAYER_1;
+
+  const onClickCallback = (x) => {
+    console.log(x);
+    squares[0][0].value = 'x';
+    console.log(squares[0][0].value);
+    console.log(squares[0][1].value);
+    console.log(squares[0][0].id);
+    // iterate through all the sqaure and check for their id's and if id matches the one that came back from sqaure then put x or 0
+    // x = data being sent from square to app (which square was clicked)
+    //determine what data need from square and then what do with that info-(game logic like put x or 0, end or continue game)
+    // ID data=more useful than just props.value
+  };
+  
+
+  const yesClicked = () => {
+
+    // className
+    // setClickedOn((current) => current + 1);
+    
+    // console.log(clickedOn);
+  };
+
+  const printMessage = () => {
+    
+    console.log('Now, we\'re in printMessage!');
+};
+
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
@@ -85,10 +117,10 @@ const App = () => {
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <button onClick={printMessage} >Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board onClickCallback={onClickCallback} squares={squares}/>
       </main>
     </div>
   );
