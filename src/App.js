@@ -23,12 +23,6 @@ const generateSquares = () => {
   return squares;
 };
 
-// [
-//   [ { id: 0, value: '' }, { id: 1, value: '' }, { id: 2, value: '' } ],
-//   [ { id: 3, value: '' }, { id: 4, value: '' }, { id: 5, value: '' } ],
-//   [ { id: 6, value: '' }, { id: 7, value: '' }, { id: 8, value: '' } ]
-// ]
-
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
@@ -112,6 +106,7 @@ const App = () => {
   const resetGame = () => {
     setSquares(generateSquares());
     setWinnerHeading('no one yet');
+    setCurrentPlayer(PLAYER_1);
   };
 
   return (
