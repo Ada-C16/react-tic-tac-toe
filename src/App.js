@@ -45,20 +45,8 @@ const App = () => {
     } else {
       setTurn('x');
     }
-    ///*.then(
-    //setTurnInfo(`current player: ${turn}`);
-    //)*/
-    
-  };
-  /*
-  const [isX, setIsX] = useState(true);
-
-  const toggleX = () => {
-    setIsX(!isX);
   };
 
-  const turn = isX ? 'x' : 'o';
-  */
   useEffect(() =>
   setTurnInfo(`current player ${turn}`), [turn]);
 
@@ -88,7 +76,6 @@ const App = () => {
         return row;
       });
       setSquares(newSquares);
-      //toggleTurn();
       setTurnInfo(`Winner is ${checkForWinner()}`);
     }
 
