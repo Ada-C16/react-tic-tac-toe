@@ -175,6 +175,8 @@ To do this, implement the function `generateSquareComponents`. This function sho
 ### `Square`
 
 The `Square` component should display the `value` passed into it.
+//WHERE ARE WE RENDERING SQUARE?
+
 
 The `Square` component should also hold an `id`. `Square` doesn't need to render this ID, but it will be used when handling events!
 

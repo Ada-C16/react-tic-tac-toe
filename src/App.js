@@ -3,8 +3,9 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const player1 = 'X';
+const player2 = 'O';
+
 
 const generateSquares = () => {
   const squares = [];
@@ -21,19 +22,34 @@ const generateSquares = () => {
       currentId += 1;
     }
   }
-
   return squares;
 };
+
+//squares[index].value = "" or "X" or "O"
 
 const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
-  const [squares, setSquares] = useState(generateSquares());
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+  //what is happening here
+  //i want state to re-render my board when a square changes
+  //squares is my array of squares by id
+  //need to access the square by id
+  //how can i tell which square is clicked on?
+  const [squares, setSquares] = useState(generateSquares());
+  //change square to x if player 1
+  //change square to o if player 2
+  
+
+  let currentPlayer = player1;
+  
+
+  const updateBoard = () => {
+    
+  }
+
+
+
 
   const checkForWinner = () => {
     let i = 0;
@@ -76,9 +92,9 @@ const App = () => {
     return null;
   };
 
-  const resetGame = () => {
-    // Complete in Wave 4
-  };
+  // const resetGame = () => {
+  //   // Complete in Wave 4
+  // };
 
   return (
     <div className='App'>
@@ -88,10 +104,15 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares}> hi </Board>
       </main>
     </div>
   );
 };
 
 export default App;
+
+
+//the method we need to create in app
+//will update the GAME BOARD
+//the onClickCallBack function will update the value property of the square object

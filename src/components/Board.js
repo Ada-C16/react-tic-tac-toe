@@ -4,6 +4,8 @@ import Square from './Square';
 import PropTypes from 'prop-types';
 
 // This turns the 2D array into a 1D array
+//renders 9 instances of the Square component
+//
 const generateSquareComponents = (squares, onClickCallback) => {
   const singleArraySquares = [].concat(...squares);
   return singleArraySquares.map((square) => {
