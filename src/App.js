@@ -36,19 +36,23 @@ const App = () => {
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
   const [turn, setTurn] = useState('x');
-  const [turnInfo, setTurnInfo] = useState(`current player: ${turn}`);
+  const [winner, setWinner] = useState(null);
 
   const toggleTurn = () => {
     
     if (turn === 'x'){
       setTurn('o');
+      // set Turn('o', () => setTurnInfo(`current player: ${turn}`));
     } else {
       setTurn('x');
+      // set Turn('o', () => setTurnInfo(`current player: ${turn}`));
     }
   };
 
+  /*
   useEffect(() =>
   setTurnInfo(`current player ${turn}`), [turn]);
+  */
 
   const onClickCallback = (id) => {
     const newSquares = squares.map( (row) => {
@@ -76,7 +80,8 @@ const App = () => {
         return row;
       });
       setSquares(newSquares);
-      setTurnInfo(`Winner is ${checkForWinner()}`);
+      setWinner(checkForWinner());
+      //setTurnInfo(`Winner is ${checkForWinner()}`);
     }
 
 
@@ -133,7 +138,9 @@ const App = () => {
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>{turnInfo}</h2>
+        {/*<h2>{turnInfo}</h2>*/}
+        {winner ?  <h2>Winner is {winner}</h2> : <h2>current player {turn}</h2> }
+        
         <button>Reset Game</button>
       </header>
       <main>
