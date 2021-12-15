@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 import Board from './components/Board';
@@ -24,8 +24,10 @@ const generateSquares = () => {
 
   return squares;
 };
+ 
 
 const App = () => {
+  
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
@@ -33,6 +35,22 @@ const App = () => {
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+  const [turn, setTurn] = useState('x');
+  const [turnInfo, setTurnInfo] = useState(`current player: ${turn}`);
+
+  const toggleTurn = () => {
+    
+    if (turn === 'x'){
+      setTurn('o');
+    } else {
+      setTurn('x');
+    }
+    ///*.then(
+    //setTurnInfo(`current player: ${turn}`);
+    //)*/
+    
+  };
+  /*
   const [isX, setIsX] = useState(true);
 
   const toggleX = () => {
@@ -40,6 +58,9 @@ const App = () => {
   };
 
   const turn = isX ? 'x' : 'o';
+  */
+  useEffect(() =>
+  setTurnInfo(`current player ${turn}`), [turn]);
 
   const onClickCallback = (id) => {
     const newSquares = squares.map( (row) => {
@@ -55,10 +76,8 @@ const App = () => {
       return row;
     });
     setSquares(newSquares);
-    toggleX();
-
+    toggleTurn();
     if (checkForWinner()) {
-      // set all to used: true
       const newSquares = squares.map( (row) => {
         row.map((square) => {
           const newValue = {used: true};
@@ -69,6 +88,8 @@ const App = () => {
         return row;
       });
       setSquares(newSquares);
+      //toggleTurn();
+      setTurnInfo(`Winner is ${checkForWinner()}`);
     }
 
 
@@ -119,11 +140,13 @@ const App = () => {
     // Complete in Wave 4
   };
 
+  
+
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>{turnInfo}</h2>
         <button>Reset Game</button>
       </header>
       <main>
