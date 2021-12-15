@@ -27,32 +27,18 @@ const generateSquares = () => {
  
 
 const App = () => {
-  
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
   const [turn, setTurn] = useState('x');
   const [winner, setWinner] = useState(null);
 
-  const toggleTurn = () => {
-    
+  const toggleTurn = () => {  
     if (turn === 'x'){
       setTurn('o');
-      // set Turn('o', () => setTurnInfo(`current player: ${turn}`));
     } else {
       setTurn('x');
-      // set Turn('o', () => setTurnInfo(`current player: ${turn}`));
     }
   };
 
-  /*
-  useEffect(() =>
-  setTurnInfo(`current player ${turn}`), [turn]);
-  */
 
   const onClickCallback = (id) => {
     const newSquares = squares.map( (row) => {
@@ -81,7 +67,6 @@ const App = () => {
       });
       setSquares(newSquares);
       setWinner(checkForWinner());
-      //setTurnInfo(`Winner is ${checkForWinner()}`);
     }
 
 
@@ -89,8 +74,6 @@ const App = () => {
   
   const checkForWinner = () => {
     let i = 0;
-
-    // Check all the rows and columns for a winner
     while (i < 3) {
       if (
         squares[i][0].value === squares[i][1].value &&
@@ -138,9 +121,7 @@ const App = () => {
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        {/*<h2>{turnInfo}</h2>*/}
-        {winner ?  <h2>Winner is {winner}</h2> : <h2>current player {turn}</h2> }
-        
+        {winner ?  <h2>Winner is {winner}</h2> : <h2>current player {turn}</h2> }        
         <button>Reset Game</button>
       </header>
       <main>
