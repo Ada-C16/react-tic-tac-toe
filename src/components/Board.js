@@ -9,7 +9,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
   
   for (let rowIndex in squares) {
     for (let objectIndex in squares[rowIndex]) {
-      squaresArray.push(<Square value={squares[rowIndex][objectIndex].value}></Square>)
+      squaresArray.push(<Square value={squares[rowIndex][objectIndex].value} id={squares[rowIndex][objectIndex].id}></Square>)
     }
   }
 
