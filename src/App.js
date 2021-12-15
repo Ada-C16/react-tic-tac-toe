@@ -32,21 +32,9 @@ const generateSquares = () => {
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+  const [winnerHeading, setWinnerHeading] = useState('no one yet');
 
-  const updateSquareData = (id) => {
-    const updatedSquares = [...squares];
-
-    for (const [idx1, nestedArr] of squares.entries()) {
-      for (const [idx2, currentSquare] of nestedArr.entries()) {
-        if (currentSquare.id === id && currentSquare.value === '') {
-          updatedSquares[idx1][idx2].value = currentPlayer;
-        }
-      }
-    }
-
-    setSquares(updatedSquares);
-
-    // figure out how to change players after one takes a turn
+  const changeCurrentPlayer = () => {
     if (currentPlayer === PLAYER_1) {
       setCurrentPlayer(PLAYER_2);
     } else {
@@ -95,6 +83,32 @@ const App = () => {
     return null;
   };
 
+  const updateBoard = (id) => {
+    const updatedSquares = [...squares];
+
+    for (const [idx1, nestedArr] of squares.entries()) {
+      for (const [idx2, currentSquare] of nestedArr.entries()) {
+        if (
+          currentSquare.id === id &&
+          currentSquare.value === '' &&
+          checkForWinner() === null
+        ) {
+          updatedSquares[idx1][idx2].value = currentPlayer;
+        }
+      }
+    }
+
+    // update the board
+    setSquares(updatedSquares);
+
+    // either declare winner or change the current player
+    if (checkForWinner() !== null) {
+      setWinnerHeading(currentPlayer);
+    } else {
+      changeCurrentPlayer();
+    }
+  };
+
   const resetGame = () => {
     // Complete in Wave 4
   };
@@ -103,11 +117,11 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>The winner is: {winnerHeading}!</h2>
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} onClickCallback={updateSquareData} />
+        <Board squares={squares} onClickCallback={updateBoard} />
       </main>
     </div>
   );
