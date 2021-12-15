@@ -6,6 +6,9 @@ import Board from './components/Board';
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
 
+// generates a 2-dimensional array of squares containing an object with id and value keys
+// see output below
+
 const generateSquares = () => {
   const squares = [];
 
@@ -29,6 +32,12 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  // starting value of setSquares:
+  // [
+  //   [ { id: 0, value: '' }, { id: 1, value: '' }, { id: 2, value: '' } ],
+  //   [ { id: 3, value: '' }, { id: 4, value: '' }, { id: 5, value: '' } ],
+  //   [ { id: 6, value: '' }, { id: 7, value: '' }, { id: 8, value: '' } ]
+  // ]
 
   // Wave 2
   // You will need to create a method to change the square
@@ -50,6 +59,11 @@ const App = () => {
   const resetGame = () => {
     // Complete in Wave 4
   };
+
+  // I'm calling these functions right here
+  // Just bc the warnings drive me crazy
+  checkForWinner();
+  resetGame();
 
   return (
     <div className="App">
