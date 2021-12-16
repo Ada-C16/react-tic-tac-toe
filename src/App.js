@@ -26,8 +26,9 @@ const generateSquares = () => {
 
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
-
+  const [winner, setWinner] = useState(null);
   const [turn, setTurn] = useState({ playerTurn: false });
+
   const getCurrentPlayer = () => {
     turn.playerTurn = !turn.playerTurn;
 
@@ -41,14 +42,17 @@ const App = () => {
   const onClickCallback = (id) => {
     const updatedSquares = squares.map((square) => {
       for (let nestedSquare of square) {
-        if (nestedSquare.id === id) {
+        if (nestedSquare.id === id && nestedSquare.value === '') {
           nestedSquare.value = getCurrentPlayer();
         }
+      }
+      if (checkForWinner()) {
+        let winner = checkForWinner();
+        setWinner(winner);
       }
       return square;
     });
     setSquares(updatedSquares);
-    // setTurn(turn);
   };
 
   const checkForWinner = () => {
@@ -93,15 +97,18 @@ const App = () => {
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    if (checkForWinner()) {
+      setSquares(generateSquares());
+      setWinner(null);
+    }
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>Current player turn</h2>
-        <button>Reset Game</button>
+        <h2>Winner is {winner}</h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         <Board squares={squares} onClickCallback={onClickCallback} />
