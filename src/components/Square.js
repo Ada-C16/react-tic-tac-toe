@@ -12,13 +12,16 @@ const Square = (props) => {
   const onSquareClick = () => {
     const markedSquare = {
       value: props.value.concat('c'),
-      id: props.id,
-      clicked: !props.clicked
+      id: props.id
     };
-    console.log('Clicked!');
     props.onClickCallback(markedSquare);
-    console.log('square', markedSquare.id , 'value is now:', markedSquare.value);
+    console.log('Clicked', props.id);
+    console.log('Value', props.value);
   };
+
+  // const handleClick = () => {
+    
+  // };
 
   return <button onClick={onSquareClick} className='square'>{props.value}</button>;
 };
@@ -27,7 +30,6 @@ Square.propTypes = {
   value: PropTypes.string.isRequired,
   onClickCallback: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
-  clicked: PropTypes.bool
 };
 
 export default Square;

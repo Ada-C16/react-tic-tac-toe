@@ -17,7 +17,6 @@ const generateSquares = () => {
       squares[row].push({
         id: currentId,
         value: '',
-        clicked: false
       });
       currentId += 1;
     }
@@ -35,16 +34,19 @@ const App = () => {
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+
   const updateBoard = markedSquare => {
     const newBoard = squares.map(square => {
       if (square.id === markedSquare.id) {
-        return markedSquare;
+          return markedSquare;
       } else {
         return square;
       }
     });
     setSquares(newBoard);
+    console.log('We are in the callback function!');
   };
+
 
   // const checkForWinner = () => {
   //   let i = 0;
