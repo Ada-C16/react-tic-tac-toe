@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const PLAYER_1 = 'X';
+const PLAYER_2 = 'O';
 
 const generateSquares = () => {
   const squares = [];
@@ -29,11 +29,16 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setPlayer] = useState(PLAYER_1);
+  const [wonHeading, setWonHeading] = useState('...no one? For now?');
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+  const trackPlayer = () => {
+    if (currentPlayer === PLAYER_1) {
+      setPlayer(PLAYER_2);
+    } else {
+      setPlayer(PLAYER_1);
+    }
+  };
 
   const checkForWinner = () => {
     let i = 0;
@@ -76,19 +81,43 @@ const App = () => {
     return null;
   };
 
+  const updateBoard = (id) => {
+    const newBoard = [...squares];
+
+    for (const [idx1, nestedArr] of squares.entries()) {
+      for (const [idx2, currentSquare] of nestedArr.entries()) {
+        if (
+          currentSquare.id === id &&
+          currentSquare.value === '' &&
+          checkForWinner() === null
+        ) {
+          newBoard[idx1][idx2].value = currentPlayer;
+        }
+      }
+    }
+
+    setSquares(newBoard);
+
+    if (checkForWinner() !== null) {
+      setWonHeading(currentPlayer);
+    } else {
+      trackPlayer();
+    }
+  };
+
   const resetGame = () => {
     // Complete in Wave 4
   };
 
   return (
-    <div className='App'>
-      <header className='App-header'>
+    <div className="App">
+      <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>The winner is {wonHeading} </h2>
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={updateBoard} />
       </main>
     </div>
   );
