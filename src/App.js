@@ -78,6 +78,9 @@ const App = () => {
   };
 
   const resetGame = () => {
+    //trying to reset the header here, too:
+    // headerVar = <h2>Current player is {currentPlayer}</h2>;
+    setWinner(null);
     setSquares(generateSquares);
   };
 
@@ -121,18 +124,22 @@ const App = () => {
     
   };
 
-  let headerVar = <h2>Current player is {currentPlayer}</h2>;
+  // let headerVar = <h2>Current player is {currentPlayer}</h2>;
 
-  if (winner != null) {
-    headerVar = <h2>Winner is {winner}</h2>;
-  }
+  // if (winner != null) {
+  //   headerVar = <h2>Winner is {winner}</h2>;
+  // }
+
+  //conditional rendering
   
 
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        {headerVar}
+        {
+          winner? <h2>Winner is {winner}</h2> : <h2>Current player is {currentPlayer}</h2>
+        }
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
