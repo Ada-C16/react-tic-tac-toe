@@ -9,6 +9,7 @@ const PLAYER_2 = 'o';
 // let currentPlayer = PLAYER_1;
 // let message = 'Current player is: x';
 // let isGameRunning = true;
+// const clickedSquares = [];
 
 const generateSquares = () => {
   const squares = [];
@@ -37,7 +38,9 @@ const App = () => {
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
   const [isGameRunning, setIsGameRunning] = useState(true);
 
-  // const [clickedOn, setClickedOn] = useState(false);
+  // ****tried but said push and length not functions
+  const [squareClicked, setSquareClicked] = useState([]);
+
 
   // Wave 2
 
@@ -49,22 +52,36 @@ const App = () => {
     if (!isGameRunning){
       return;
     }
+
+    // adds cant click on same square feature successfully but makes all other tests not pass
+    // for (let i=0; i<clickedSquares.length; i++){
+    //   if (key === clickedSquares[i]){
+    //     return;
+    //   }
+    // }
+
+    // ****tried but said push and length not functions
+
+    for (let i=0; i<squareClicked.length; i++){
+      if (key === squareClicked[i]){
+        return;
+      }
+    }
+    
     const squaresCopy = [...squares];
     console.log(key);
-
-
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (squaresCopy[i][j].id == key) {
+          setSquareClicked(squareClicked.concat(key));
+          console.log(squareClicked);
           squaresCopy[i][j].value = currentPlayer;
           if (currentPlayer === PLAYER_1) {
             setCurrentPlayer(PLAYER_2);
-            // console.log(currentPlayer);
             setMessage(`Current player is: ${PLAYER_2}`);
           } else if (currentPlayer === PLAYER_2) {
             setCurrentPlayer(PLAYER_1);
-            // console.log(currentPlayer);
             setMessage(`Current player is: ${PLAYER_1}`);
           }
 
