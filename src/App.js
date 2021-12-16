@@ -26,9 +26,45 @@ const generateSquares = () => {
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
+  // This state starts off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const updateSquare = (id) => {
+    const newSquares = squares.map((row) => {
+      return row.map((square) => {
+        if (square.id === id) {
+          return {
+            id: square.id,
+            value: 'x',
+          };
+        }
+        return square;
+      });
+    });
+    setSquares(newSquares);
+  };
+
+  /*
+  squares = [ squares.map -> (row)
+    [x,x,x], // row 0  
+              row.map -> 
+              x, --> return wahts already there
+              x, ---> return whats already there
+              x ---> change this one
+    [x,x,x], // row 1
+            row.map
+            x
+            x
+            x
+
+    [x,x,x] // row 2
+          row.map
+          x
+          x
+          x
+  ]
+
+  */
 
   // Wave 2
   // You will need to create a method to change the square
