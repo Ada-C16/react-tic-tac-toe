@@ -4,7 +4,10 @@ import './App.css';
 import Board from './components/Board';
 
 const player1 = 'X';
+//change to PLAYER_1  etc bc global const
 const player2 = 'O';
+let winner = null;
+// let currentPlayer = player1;
 
 
 const generateSquares = () => {
@@ -25,32 +28,14 @@ const generateSquares = () => {
   return squares;
 };
 
-//squares[index].value = "" or "X" or "O"
+
 
 const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
-
-  //what is happening here
-  //i want state to re-render my board when a square changes
-  //squares is my array of squares by id
-  //need to access the square by id
-  //how can i tell which square is clicked on?
   const [squares, setSquares] = useState(generateSquares());
-  //change square to x if player 1
-  //change square to o if player 2
+  const [currentPlayer, setCurrentPlayer] = useState(player1);
   
-
-  let currentPlayer = player1;
-  
-
-  const updateBoard = () => {
-    
-  }
-
-
-
-
   const checkForWinner = () => {
     let i = 0;
 
@@ -95,16 +80,69 @@ const App = () => {
   // const resetGame = () => {
   //   // Complete in Wave 4
   // };
+  const onClickCallback = (id) => {
+    console.log('hi', squares);
+    setSquares((squares) => {
+      // let newBoard = [];
+      let newBoard = (squares.map((square) => {
+        for (const indivSquare of square) {
+          if (indivSquare.id === id) {
+            if (currentPlayer === player1) {
+              indivSquare.value = 'X';
+              
+            } else if (currentPlayer === player2) {
+              indivSquare.value = 'O';
+              
+            }
+          }
+        }
+        
+        
+        
+        
+
+      return square; //why do we need to return? bc of .map
+      //.map expects me to return it values that it then adds to a new array
+    }
+ 
+    ));
+    
+    
+    
+
+
+    // if (winner === null) {
+      return newBoard;
+    // } //else deactivate squares and update header
+    }
+    
+    
+    
+    );
+  
+    
+    
+    winner = checkForWinner();
+    if (currentPlayer === player1) {
+      setCurrentPlayer((player2));
+    } else {
+      setCurrentPlayer((player1));
+    }
+  };
+
+  
+  
 
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>The winner is {winner}</h2>
+        <h3>Current player is {currentPlayer}</h3>
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares}> hi </Board>
+        <Board squares={squares} onClickCallback={onClickCallback}> hi </Board>
       </main>
     </div>
   );
