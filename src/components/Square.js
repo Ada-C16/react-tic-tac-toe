@@ -11,17 +11,14 @@ const Square = (props) => {
 
   const onSquareClick = () => {
     const markedSquare = {
-      value: props.value.concat('c'),
+      value: 'x',
       id: props.id
     };
     props.onClickCallback(markedSquare);
-    console.log('Clicked', props.id);
-    console.log('Value', props.value);
+    console.log('Clicked: ', props.id);
+    console.log('Value:', props.value);
   };
 
-  // const handleClick = () => {
-    
-  // };
 
   return <button onClick={onSquareClick} className='square'>{props.value}</button>;
 };

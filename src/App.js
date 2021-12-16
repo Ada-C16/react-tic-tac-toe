@@ -38,6 +38,7 @@ const App = () => {
   const updateBoard = markedSquare => {
     const newBoard = squares.map(square => {
       if (square.id === markedSquare.id) {
+          console.log('found Mark Ed Square');
           return markedSquare;
       } else {
         return square;
