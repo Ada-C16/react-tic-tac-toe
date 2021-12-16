@@ -15,19 +15,17 @@ const Square = (props) => {
       id: props.id
     };
     props.onClickCallback(markedSquare);
-    console.log('player turn is', props.playerTurn);
-    console.log('Clicked: ', props.id);
-    console.log('Value:', props.value);
   };
 
-  return <button onClick={onSquareClick} className='square'>{props.value}</button>;
+  return <button onClick={onSquareClick} disabled={props.won} className='square'>{props.value}</button>;
 };
 
 Square.propTypes = {
   value: PropTypes.string.isRequired,
   onClickCallback: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
-  playerTurn: PropTypes.string.isRequired
+  playerTurn: PropTypes.string.isRequired,
+  won: PropTypes.string
 };
 
 export default Square;

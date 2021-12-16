@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'x';
-const PLAYER_2 = 'o';
+const PLAYER_1 = 'X';
+const PLAYER_2 = 'O';
 
 const generateSquares = () => {
   const squares = [];
@@ -30,6 +30,7 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
   const [playerTurn, setPlayerTurn] = useState(PLAYER_1);
+  const [won, setWon] = useState(null);
 
   const switchPlayers = () => {
     if (playerTurn === PLAYER_1) {
@@ -53,73 +54,84 @@ const App = () => {
       for (let square of row) {
         if (square.id === markedSquare.id) {
           square.value = markedSquare.value;
-          console.log('pushing new square', markedSquare);
+          // console.log('pushing new square', markedSquare);
         }
         else {
-          console.log('keeping old square!');
+          // console.log('keeping old square!');
         }
       }
     }
-    console.log(newBoard);
     setSquares(newBoard);
-    switchPlayers();
+    let winner = checkForWinner();
+    if (!winner) { 
+      switchPlayers();
+    } else if (winner) {
+      setWon(winner);
+    }
   };
 
 
-  // const checkForWinner = () => {
-  //   let i = 0;
+  const checkForWinner = () => {
+    let i = 0;
 
-  //   // Check all the rows and columns for a winner
-  //   while (i < 3) {
-  //     if (
-  //       squares[i][0].value === squares[i][1].value &&
-  //       squares[i][2].value === squares[i][1].value &&
-  //       squares[i][0].value !== ''
-  //     ) {
-  //       return squares[i][0].value;
-  //     } else if (
-  //       squares[0][i].value === squares[1][i].value &&
-  //       squares[2][i].value === squares[1][i].value &&
-  //       squares[0][i].value !== ''
-  //     ) {
-  //       return squares[0][i].value;
-  //     }
-  //     i += 1;
-  //   }
-  //   // Check Top-Left to bottom-right diagonal
-  //   if (
-  //     squares[0][0].value === squares[1][1].value &&
-  //     squares[2][2].value === squares[1][1].value &&
-  //     squares[1][1].value !== ''
-  //   ) {
-  //     return squares[0][0].value;
-  //   }
+    // Check all the rows and columns for a winner
+    while (i < 3) {
+      if (
+        squares[i][0].value === squares[i][1].value &&
+        squares[i][2].value === squares[i][1].value &&
+        squares[i][0].value !== ''
+      ) {
+        return squares[i][0].value;
+      } else if (
+        squares[0][i].value === squares[1][i].value &&
+        squares[2][i].value === squares[1][i].value &&
+        squares[0][i].value !== ''
+      ) {
+        return squares[0][i].value;
+      }
+      i += 1;
+    }
+    // Check Top-Left to bottom-right diagonal
+    if (
+      squares[0][0].value === squares[1][1].value &&
+      squares[2][2].value === squares[1][1].value &&
+      squares[1][1].value !== ''
+    ) {
+      return squares[0][0].value;
+    }
 
-  //   // Check Top-right to bottom-left diagonal
-  //   if (
-  //     squares[0][2].value === squares[1][1].value &&
-  //     squares[2][0].value === squares[1][1].value &&
-  //     squares[1][1].value !== ''
-  //   ) {
-  //     return squares[0][2].value;
-  //   }
+    // Check Top-right to bottom-left diagonal
+    if (
+      squares[0][2].value === squares[1][1].value &&
+      squares[2][0].value === squares[1][1].value &&
+      squares[1][1].value !== ''
+    ) {
+      return squares[0][2].value;
+    }
 
-  //   return null;
-  // };
+    return null;
+  };
 
-  // const resetGame = () => {
-  //   // Complete in Wave 4
-  // };
+  const resetGame = () => {
+    // Complete in Wave 4
+    setSquares(generateSquares);
+    setWon(null);
+    setPlayerTurn(PLAYER_1);
+  };
 
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>The winner is ... {won} </h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board onClickCallback={updateBoard} squares={squares} playerTurn={playerTurn}/>
+        <Board
+          onClickCallback={updateBoard}
+          squares={squares}
+          playerTurn={playerTurn}
+          won={won} />
       </main>
     </div>
   );
