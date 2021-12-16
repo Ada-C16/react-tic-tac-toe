@@ -1,3 +1,5 @@
+//QQ Mariah - what's the plan for this prettier check? LMK on slack.
+import { check } from 'prettier';
 import React, { useState } from 'react';
 import './App.css';
 
@@ -7,6 +9,7 @@ const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
 
 const generateSquares = () => {
+  console.log('in generateSquares');
   const squares = [];
 
   let currentId = 0;
@@ -16,7 +19,7 @@ const generateSquares = () => {
     for (let col = 0; col < 3; col += 1) {
       squares[row].push({
         id: currentId,
-        value: '',
+        value: '_',
       });
       currentId += 1;
     }
@@ -30,10 +33,48 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
+  //Setting up the player so we can update the player after a turn and add the right value
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+  // made this - Lety
+  const clickSquare = (mySquare) =>{
+    console.log('in clickSquare');
+    console.log('currentPlayer is:' + currentPlayer);
+    //I AM NOT GETTING THE SQUARE's ID or value by using mySquare.props.id, mySquare.id, this.props.id, etc.
+    //NEED TO FIND OUT WHY THE SQUARE appears bound, but cannot get the prop
+    console.log('the square\'s ID is:' + mySquare.props.id);
+    
+    //pseudo-code below to update it
+    //Find index of specific object using findIndex method.    
+    //objIndex = squares.findIndex((obj => obj.id == 1));
+    //squares[objIndex].value = currentPlayer;
+
+    //update the specific id of the square in the array to have a value of state's currentPlayer, then use setSquares to update the state
+    // 1.find the id of the object in the array and update the value
+    // 2.call setSquares
+      // setSquares();
+
+    //Now that we put the mark on the square, check and see if they won by calling checkForWinner()
+    let isWon = checkForWinner();
+    if (!isWon){
+      //Now that we put the mark on the square and there is no winner, let's move to the next player
+      console.log('currentPlayer is:' + currentPlayer);
+      if (currentPlayer == PLAYER_1){
+        setCurrentPlayer(PLAYER_2);
+      }else{
+        setCurrentPlayer(PLAYER_1);
+      }
+    }else{
+      //alert that the game is getting reset and call the reset
+      resetGame();
+    }
+
+
+  };
 
   const checkForWinner = () => {
     // Complete in Wave 3
@@ -51,6 +92,7 @@ const App = () => {
     // Complete in Wave 4
   };
 
+
   return (
     <div className="App">
       <header className="App-header">
@@ -59,7 +101,8 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        {/* passing the onClickCallback here; created the  clickSquare function to test it out */}
+        <Board squares={squares} onClickCallback={clickSquare} />
       </main>
     </div>
   );
