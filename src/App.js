@@ -31,6 +31,7 @@ const App = () => {
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
   const [winner, setWinner] = useState(null);
+  const [moves, setMoves] = useState(0);
 
   // Wave 2
   // You will need to create a method to change the square
@@ -47,6 +48,7 @@ const App = () => {
         ) {
           updatedSquares[i][j].value = currentPlayer;
           changeCurrentPlayer();
+          setMoves(moves + 1);
         }
       }
     }
@@ -99,7 +101,10 @@ const App = () => {
     ) {
       return squares[0][2].value;
     }
-    // ***check for tie if board is full
+    // check for tie --> if board is full
+    if (moves >= 8) {
+      return 'tie';
+    }
 
     return null;
   };
@@ -108,11 +113,20 @@ const App = () => {
     setSquares(generateSquares());
     setCurrentPlayer(PLAYER_1);
     setWinner(null);
+    setMoves(0);
   };
 
-  const gameStatus = winner
-    ? `Winner is ${winner}`
-    : `It's ${currentPlayer}'s turn`;
+  const determineGameStatus = () => {
+    if (winner === null) {
+      return `It's ${currentPlayer}'s turn`;
+    } else if (winner === 'tie') {
+      return 'It is a tie!';
+    } else {
+      return `Winner is ${winner}`;
+    }
+  };
+
+  const gameStatus = determineGameStatus();
 
   return (
     <div className="App">
