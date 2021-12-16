@@ -97,8 +97,12 @@ const App = () => {
       setMessage(`Winner is ${winner}`);
       // console.log(message);
       setIsGameRunning(false);
-    // if 
     }
+    if (squareClicked.length === 8){
+      setMessage('The game ended with no winner. Click the reset button to play again');
+      setIsGameRunning(false);
+    }
+    
 
 
 
