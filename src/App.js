@@ -40,6 +40,30 @@ const App = () => {
     }
   };
 
+  const updateBoard = (id) => {
+    const newBoard = [...squares];
+
+    for (const i in squares) {
+      for (const j in squares[i]) {
+        if (
+          squares[i][j].id === id &&
+          squares[i][j].value === '' &&
+          checkForWinner() === null
+        ) {
+          newBoard[i][j].value = currentPlayer;
+        }
+      }
+    }
+
+    setSquares(newBoard);
+
+    if (checkForWinner() !== null) {
+      setWonHeading(currentPlayer);
+    } else {
+      trackPlayer();
+    }
+  };
+
   const checkForWinner = () => {
     let i = 0;
 
@@ -79,30 +103,6 @@ const App = () => {
     }
 
     return null;
-  };
-
-  const updateBoard = (id) => {
-    const newBoard = [...squares];
-
-    for (const [idx1, nestedArr] of squares.entries()) {
-      for (const [idx2, currentSquare] of nestedArr.entries()) {
-        if (
-          currentSquare.id === id &&
-          currentSquare.value === '' &&
-          checkForWinner() === null
-        ) {
-          newBoard[idx1][idx2].value = currentPlayer;
-        }
-      }
-    }
-
-    setSquares(newBoard);
-
-    if (checkForWinner() !== null) {
-      setWonHeading(currentPlayer);
-    } else {
-      trackPlayer();
-    }
   };
 
   const resetGame = () => {
