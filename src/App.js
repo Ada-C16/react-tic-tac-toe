@@ -1,4 +1,4 @@
-import { PROPERTY_TYPES } from '@babel/types';
+// import { PROPERTY_TYPES } from '@babel/types';
 import React, { useState } from 'react';
 import './App.css';
 
@@ -45,7 +45,7 @@ const App = () => {
   // Wave 2
 
 
-
+  const squaresCopy = [...squares];
 
 
   const onClickCallback = (key) => {
@@ -68,7 +68,7 @@ const App = () => {
       }
     }
     
-    const squaresCopy = [...squares];
+    
     console.log(key);
 
     for (let i = 0; i < 3; i++) {
@@ -97,7 +97,7 @@ const App = () => {
       setMessage(`Winner is ${winner}`);
       // console.log(message);
       setIsGameRunning(false);
-      // 
+    // if 
     }
 
 
@@ -130,10 +130,10 @@ const App = () => {
   //   // console.log(clickedOn);
   // };
 
-  const printMessage = () => {
+  // const printMessage = () => {
 
-    console.log('Now, we\'re in printMessage!');
-  };
+  //   console.log('Now, we\'re in printMessage!');
+  // };
 
   // You will need to create a method to change the square
   //   When it is clicked on.
@@ -182,6 +182,16 @@ const App = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        squaresCopy[i][j].value = ''; 
+      }
+    }
+    setSquares(squaresCopy);
+    setCurrentPlayer(PLAYER_1);
+    setMessage(`Current player is: ${PLAYER_1}`);
+    setSquareClicked([]);
+    setIsGameRunning(true);
   };
 
   return (
@@ -189,7 +199,7 @@ const App = () => {
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
         <h2>{message}</h2>
-        <button onClick={resetGame} >Reset Game</button>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         <Board onClickCallback={onClickCallback} squares={squares} />
