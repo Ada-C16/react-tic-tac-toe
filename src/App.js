@@ -3,12 +3,9 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player1 = 'X';
-//change to PLAYER_1  etc bc global const
-const player2 = 'O';
-let winner = null;
-// let currentPlayer = player1;
-
+const player1 = 'x';
+const player2 = 'o';
+// let winner = null;
 
 const generateSquares = () => {
   const squares = [];
@@ -35,7 +32,10 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(player1);
+  const [winner, setWinner] = useState(null);
+
   
+
   const checkForWinner = () => {
     let i = 0;
 
@@ -77,72 +77,66 @@ const App = () => {
     return null;
   };
 
-  // const resetGame = () => {
-  //   // Complete in Wave 4
-  // };
+  const resetGame = () => {
+    setSquares(generateSquares);
+  };
+
+
   const onClickCallback = (id) => {
-    console.log('hi', squares);
     setSquares((squares) => {
-      // let newBoard = [];
       let newBoard = (squares.map((square) => {
         for (const indivSquare of square) {
-          if (indivSquare.id === id) {
+          if ((indivSquare.id === id) && (indivSquare.value === '')) {
             if (currentPlayer === player1) {
-              indivSquare.value = 'X';
-              
+              indivSquare.value = 'x';
             } else if (currentPlayer === player2) {
-              indivSquare.value = 'O';
-              
+              indivSquare.value = 'o';
+            }
+            
+            //we want to change the player only if that player has made a valid play
+            //aka if they have clicked on an empty square
+            if (currentPlayer === player1) {
+              setCurrentPlayer((player2));
+            } else {
+              setCurrentPlayer((player1));
             }
           }
         }
         
-        
-        
-        
-
       return square; //why do we need to return? bc of .map
       //.map expects me to return it values that it then adds to a new array
     }
  
     ));
-    
-    
-    
-
-
     // if (winner === null) {
+    //before we render a new board we need to check for winner
+    //bc when board is rendered we want to see if there's a winner
+    //so that we can display it!
+      setWinner(checkForWinner());
       return newBoard;
     // } //else deactivate squares and update header
     }
-    
-    
-    
     );
   
     
-    
-    winner = checkForWinner();
-    if (currentPlayer === player1) {
-      setCurrentPlayer((player2));
-    } else {
-      setCurrentPlayer((player1));
-    }
   };
 
-  
+  let headerVar = <h2>Current player is {currentPlayer}</h2>;
+
+  if (winner != null) {
+    headerVar = <h2>Winner is {winner}</h2>;
+  }
   
 
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is {winner}</h2>
-        <h3>Current player is {currentPlayer}</h3>
-        <button>Reset Game</button>
+        {headerVar}
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} onClickCallback={onClickCallback}> hi </Board>
+        <Board squares={squares} onClickCallback={onClickCallback}></Board>
       </main>
     </div>
   );
@@ -150,7 +144,10 @@ const App = () => {
 
 export default App;
 
+//we can create variables like header variables that can hold jsx!
+//so then we can assign/reassign the variable and change what is displayed!
 
-//the method we need to create in app
-//will update the GAME BOARD
-//the onClickCallBack function will update the value property of the square object
+
+//how to make squares unclickable when they are filled?
+
+
