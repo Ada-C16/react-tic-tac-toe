@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const Player1 = 'X';
+const Player2 = 'O';
 
 const generateSquares = () => {
   const squares = [];
@@ -35,6 +35,10 @@ const App = () => {
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
 
+  const changeASquare = () => {
+
+      console.log('click');
+  };
   const checkForWinner = () => {
     let i = 0;
 
@@ -88,7 +92,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={changeASquare} />
       </main>
     </div>
   );
