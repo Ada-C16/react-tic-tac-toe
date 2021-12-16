@@ -7,6 +7,7 @@ const PLAYER_1 = 'x';
 const PLAYER_2 = 'o';
 
 const generateSquares = () => {
+  // squares is list of 3 lists, each inner list has 3 items, 3x3 matrix
   const squares = [];
 
   let currentId = 1;
@@ -31,11 +32,21 @@ const App = () => {
   // squares is the variable that holds state and returns the current state whenever it's called
   // must reassign all squares to change one, call setSquares to reassign
   // useState starts with [], where 1st item is variable to be changed and the 2nd item is the
-  // function to change it
+  // function to change it. useState sets the initial state to whatever is within()
   const [squares, setSquares] = useState(generateSquares());
 
   const onClickCallback = (id) => {
     console.log(id);
+    // cannot change squares so setting newSquares as an object which can be changed
+    const newSquares = [...squares];
+    for (let row = 0; row < 3; row += 1) {
+      for (let col = 0; col < 3; col += 1) {
+        if (newSquares[row][col].id === id) {
+          newSquares[row][col].value = 'x';
+        }
+      }
+    }
+    setSquares(newSquares);
   };
 
   const checkForWinner = () => {
