@@ -21,6 +21,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
   // });
   for (let row of squares) {
     for (let square of row) {
+      console.log('hieeeee');
       squareComponents.push(
         <Square
           value={square.value}

@@ -29,11 +29,37 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [player, setPlayer] = useState(PLAYER_1);
 
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+
+  const onClickCallback = (id) => {
+    console.log(id);
+    const boardCopy = [squares];
+
+    boardCopy.id = {
+      for (let square of squares) {
+        if (id === square.id) {
+            if (player === PLAYER_1) {
+              square.value = PLAYER_1
+              return square
+            } else {
+              square.value = PLAYER_2
+              return square
+            }
+        } else {
+          return square
+        }
+      }
+    }
+
+    setSquares(boardCopy);
+    setPlayer(!player);
+
+  };
 
   const checkForWinner = () => {
     // Complete in Wave 3
@@ -49,10 +75,6 @@ const App = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
-  };
-
-  const onClickCallback = (id) => {
-    //console.log(id);
   };
 
   return (
