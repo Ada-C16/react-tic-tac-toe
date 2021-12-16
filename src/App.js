@@ -44,19 +44,25 @@ const App = () => {
   const clickSquare = (mySquare) =>{
     console.log('in clickSquare');
     console.log('currentPlayer is:' + currentPlayer);
-    //I AM NOT GETTING THE SQUARE's ID or value by using mySquare.props.id, mySquare.id, this.props.id, etc.
-    //NEED TO FIND OUT WHY THE SQUARE appears bound, but cannot get the prop
-    console.log('the square\'s ID is:' + mySquare.props.id);
+    console.log('the square\'s ID is:' + mySquare);
     
     //pseudo-code below to update it
     //Find index of specific object using findIndex method.    
-    //objIndex = squares.findIndex((obj => obj.id == 1));
-    //squares[objIndex].value = currentPlayer;
+    for (let i=0; i<3; i++){
+      for (let n=0; n<3; n++){
+        //console.log(squares[i][n].id);
+        if (squares[i][n].id == mySquare){
+          squares[i][n].value = currentPlayer;
+        }
+      }
+    }
+    
+
 
     //update the specific id of the square in the array to have a value of state's currentPlayer, then use setSquares to update the state
     // 1.find the id of the object in the array and update the value
     // 2.call setSquares
-      // setSquares();
+   // setSquares();
 
     //Now that we put the mark on the square, check and see if they won by calling checkForWinner()
     let isWon = checkForWinner();
