@@ -25,3 +25,5 @@ yarn-error.log*
 
 .vscode
 
+# so I can git pull
+yarn.lock

@@ -51,6 +51,10 @@ const App = () => {
     // Complete in Wave 4
   };
 
+  const onClickCallback = (id) => {
+    //console.log(id);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -59,7 +63,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onClickCallback} />
       </main>
     </div>
   );
