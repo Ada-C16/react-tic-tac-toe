@@ -30,6 +30,7 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+  const [winner, setWinner] = useState(null);
 
   // Wave 2
   // You will need to create a method to change the square
@@ -41,7 +42,8 @@ const App = () => {
       for (let j = 0; j < 3; j++) {
         if (
           updatedSquares[i][j].id === id &&
-          updatedSquares[i][j].value === ''
+          updatedSquares[i][j].value === '' &&
+          winner === null
         ) {
           updatedSquares[i][j].value = currentPlayer;
           changeCurrentPlayer();
@@ -49,6 +51,7 @@ const App = () => {
       }
     }
     setSquares(updatedSquares);
+    setWinner(checkForWinner);
   };
 
   const changeCurrentPlayer = () => {
@@ -105,11 +108,13 @@ const App = () => {
     // Complete in Wave 4
   };
 
+  const winnerStatus = winner ? winner : '...';
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>Winner is {winnerStatus}</h2>
         <button>Reset Game</button>
       </header>
       <main>
