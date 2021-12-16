@@ -19,7 +19,6 @@ const Square = (props) => {
     console.log('Value:', props.value);
   };
 
-
   return <button onClick={onSquareClick} className='square'>{props.value}</button>;
 };
 

@@ -36,15 +36,21 @@ const App = () => {
   //   Then pass it into the squares as a callback
 
   const updateBoard = markedSquare => {
-    const newBoard = squares.map(square => {
-      if (square.id === markedSquare.id) {
-          console.log('found Mark Ed Square');
-          return markedSquare;
-      } else {
-        return square;
-      }
-    });
-    setSquares(newBoard);
+    console.log('this square is marked:', markedSquare.id);
+    console.log('this is the marked square val:', markedSquare.value);
+    // const newBoard = squares.map(row => {
+    //   console.log('another row!');
+    //   for (let square of row) {
+    //     if (square.id === markedSquare.id) {
+    //         console.log('found Mark Ed Square');
+    //         return markedSquare;
+    //       }}
+    //       } else {
+      // console.log('This is just the same ole square');
+      // console.log(square);
+      // return square;
+    // });
+    // setSquares(newBoard);
     console.log('We are in the callback function!');
   };
 
