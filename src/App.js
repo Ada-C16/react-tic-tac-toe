@@ -25,9 +25,11 @@ const generateSquares = () => {
   return squares;
 };
 
+const onClickCallback = () => {
+  alert('I am doing right');
+};
+
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
   // Wave 2
@@ -59,7 +61,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onClickCallback} />
       </main>
     </div>
   );
