@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const player1 = 'X';
+const player2 = 'O';
 
 const generateSquares = () => {
   const squares = [];
@@ -80,15 +80,29 @@ const App = () => {
     // Complete in Wave 4
   };
 
+  const onClickCallback = (id) => {
+    setSquares((previous) => {
+      return previous.map((row) =>
+        row.map((square) => {
+          if (square.id === id) {
+            square.value = player1;
+            return square;
+          }
+          return square;
+        })
+      );
+    });
+  };
+
   return (
-    <div className='App'>
-      <header className='App-header'>
+    <div className="App">
+      <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is ... -- Fill in for wave 3 </h2>
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onClickCallback} />
       </main>
     </div>
   );
