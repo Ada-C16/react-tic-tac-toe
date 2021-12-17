@@ -34,12 +34,9 @@ const App = () => {
     }
   }
 
-  console.log(flatArray);
-
   const onClickCallback = (id) => {
     const newSquares = flatArray.map((square) => {
       if (square.id === id) {
-        console.log(square);
         return { id: square.id, value: PLAYER_1 };
       }
       return square;

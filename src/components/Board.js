@@ -10,6 +10,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
     for (let square of squareArray) {
       oneArray.push(
         <Square
+          key={square.id}
           id={square.id}
           value={square.value}
           onClickCallback={onClickCallback}
