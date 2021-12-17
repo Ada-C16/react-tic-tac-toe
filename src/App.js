@@ -49,7 +49,14 @@ const App = () => {
         return square;
       });
       // Check for the winner
+      return newBoard;
     });
+    // Change the player
+    if (currentPlayer === PLAYER_1) {
+      setCurrentPlayer(PLAYER_2);
+    } else {
+      setCurrentPlayer(PLAYER_1);
+    }
   };
   // alternates btwn x and o plays
   // must do everything that needs to happen when button is clicked
