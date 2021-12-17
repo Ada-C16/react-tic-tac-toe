@@ -12,7 +12,7 @@ const Square = (props) => {
   };
 
   return (
-    <button className="square" onClick={props.onClickCallback}>
+    <button className="square" onClick={handleClick}>
       {props.value}
     </button>
   );
