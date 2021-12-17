@@ -27,7 +27,7 @@ const generateSquares = () => {
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
   const [winner, setWinner] = useState(null);
-  const [turn, setTurn] = useState({ playerTurn: false });
+  const [turn] = useState({ playerTurn: false });
 
   const getCurrentPlayer = () => {
     turn.playerTurn = !turn.playerTurn;
