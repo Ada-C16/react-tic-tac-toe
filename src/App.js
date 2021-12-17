@@ -27,21 +27,37 @@ const generateSquares = () => {
 
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
-  const flatArray = [];
-  for (let appArray of squares) {
-    for (let innerArray of appArray) {
-      flatArray.push(innerArray);
-    }
-  }
 
+  // create state function for players
+  const [currentPlayer, setNextPlayer] = useState(PLAYER_1);
+
+  // const flatArray = [];
+  // for (let appArray of squares) {
+  //   for (let innerArray of appArray) {
+  //     flatArray.push(innerArray);
+  //   }
+  // }
+
+  // keeps track of the winner, who clicks what, etc.
   const onClickCallback = (id) => {
-    const newSquares = flatArray.map((square) => {
-      if (square.id === id) {
-        return { id: square.id, value: PLAYER_1 };
-      }
-      return square;
+    // copy the squares array to newBoard
+    const newBoard = [...squares];
+
+    newBoard.map((squareArray) => {
+      // looping through the square array, get each square object..
+      return squareArray.map((square) => {
+        if (square.id === id) {
+          // check if current player is X or O
+          if (currentPlayer === PLAYER_1) {
+            square.value = PLAYER_1;
+            setNextPlayer(PLAYER_2);
+          } else {
+            square.value = PLAYER_2;
+            setNextPlayer(PLAYER_1);
+          }
+        }
+      });
     });
-    setSquares(newSquares);
   };
 
   const checkForWinner = () => {
