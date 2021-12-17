@@ -7,8 +7,6 @@ const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
 const PLAYERS = [PLAYER_1, PLAYER_2];
 
-const GAMESTATES = ['undetermined', 'player 1 won', 'player 2 won', 'tie'];
-
 const generateSquares = () => {
   const squares = [];
 
@@ -33,13 +31,19 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
-  const [gameState, setGameState] = useState(0);
   const [currentPlayer, setCurrentPlayer] = useState(1);
 
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+  const onClickCallBack = () => {
+    //check if event is a valid move, aka on a blank square
+    //if event is a valid move
+    //set square value to PLAYERS[currentPlayer]
+    //check for Winner
+  };
+
   
   const checkForWinner = () => {
     // Complete in Wave 3
@@ -50,9 +54,11 @@ const App = () => {
     
     // 2. Go down each column to see if
     //    3 squares in each column match
-    
+
     // 3. Go across each diagonal to see if
     //    all three squares have the same value.
+
+    //4. check if there's no more blank square
   };
 
   const resetGame = () => {
@@ -65,6 +71,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
+        {/* only visible if gameState != 0 */}
         <h2>The winner is ... -- Fill in for wave 3 </h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
