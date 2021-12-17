@@ -105,15 +105,30 @@ const App = () => {
     }
   };
 
+  let header;
+  let boardCallback;
+  let finalWinner;
+  if (winner != null) {
+    if (winner === PLAYER_1) {
+      finalWinner = 'Player 1';
+    } else {
+      finalWinner = 'Player 2';
+    }
+    header = <h2>Winner is {finalWinner}</h2>;
+  } else {
+    header = <h2>The Current Player is {currentPlayer}</h2>;
+    boardCallback = onClickCallback;
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is {winner}</h2>
+        {header}
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board onClickCallback={onClickCallback} squares={squares} />
+        <Board onClickCallback={boardCallback} squares={squares} />
       </main>
     </div>
   );
