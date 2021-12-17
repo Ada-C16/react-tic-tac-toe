@@ -95,9 +95,6 @@ const App = () => {
             } else if (currentPlayer === player2) {
               indivSquare.value = 'o';
             }
-            
-            //we want to change the player only if that player has made a valid play
-            //aka if they have clicked on an empty square
             if (currentPlayer === player1) {
               setCurrentPlayer((player2));
             } else {
@@ -106,40 +103,30 @@ const App = () => {
           }
         }
         
-      return square; //why do we need to return? bc of .map
-      //.map expects me to return it values that it then adds to a new array
+      return square;
     }
- 
     ));
-    // if (winner === null) {
-    //before we render a new board we need to check for winner
-    //bc when board is rendered we want to see if there's a winner
-    //so that we can display it!
+
       setWinner(checkForWinner());
       return newBoard;
-    // } //else deactivate squares and update header
     }
     );
-  
-    
   };
+    //if every square.value is x or o, and
+    //if winner is null,
+    //winner is tie
 
-  // let headerVar = <h2>Current player is {currentPlayer}</h2>;
-
-  // if (winner != null) {
-  //   headerVar = <h2>Winner is {winner}</h2>;
-  // }
-
-  //conditional rendering
-  
+    // for (const squareRow of squares) {
+    //   for (const oneSquare of squareRow) {
+        
+    //   }
+    // }
 
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        {
-          winner? <h2>Winner is {winner}</h2> : <h2>Current player is {currentPlayer}</h2>
-        }
+        {winner? <h2>Winner is {winner}</h2> : <h2>Current player is {currentPlayer}</h2>}
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>

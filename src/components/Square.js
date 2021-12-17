@@ -6,15 +6,8 @@ import './Square.css';
 
 const Square = (props) => {
 
-  //in order to update teh square content i need to HAVE the square content
-  //the function needs capture the square data
   const captureSquareData = () => {
-    //app, in order to mark the square, needs to konw the id of the clicked square
-    
-    //the way the test is written, even if square is filled in, onClickCallBack needs to be called 
-    // if (props.value === '') {
-      props.onClickCallback(props.id);
-    // } 
+    props.onClickCallback(props.id);
     
   };
 
