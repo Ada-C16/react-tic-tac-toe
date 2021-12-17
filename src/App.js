@@ -56,9 +56,9 @@ const App = () => {
         }
       }
     }
+    //  updating state here with a copy of the squares list with new value
+    setSquares([...squares]);
     
-
-
     //update the specific id of the square in the array to have a value of state's currentPlayer, then use setSquares to update the state
     // 1.find the id of the object in the array and update the value
     // 2.call setSquares
@@ -74,12 +74,7 @@ const App = () => {
       }else{
         setCurrentPlayer(PLAYER_1);
       }
-    }else{
-      //alert that the game is getting reset and call the reset
-      resetGame();
     }
-
-
   };
 
   const checkForWinner = () => {
@@ -92,7 +87,20 @@ const App = () => {
     //    3 squares in each column match
     // 3. Go across each diagonal to see if
     //    all three squares have the same value.
-  };
+
+    // checking for winner in rows and setting return value to current player
+    // the current player is being populated in <h2> below 
+    for (let i=0; i<3; i++){
+      if (squares[i][0].value == PLAYER_1 & squares[i][1].value == PLAYER_1 & 
+        squares[i][2].value == PLAYER_1) {
+        return currentPlayer;
+      } else if (squares[i][0].value == PLAYER_2 & squares[i][1].value == PLAYER_2 & 
+      squares[i][2].value == PLAYER_2){
+        return currentPlayer;
+      }
+    }
+    return '';
+};
 
   const resetGame = () => {
     // Complete in Wave 4
@@ -103,7 +111,8 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        {/* return value == current player calculated in checkForWinner */}
+        <h2>The winner is ... {checkForWinner()}</h2> 
         <button>Reset Game</button>
       </header>
       <main>
