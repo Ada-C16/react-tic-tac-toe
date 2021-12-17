@@ -27,15 +27,22 @@ const generateSquares = () => {
 
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
+  const flatArray = []
+  for (let appArray of squares) {
+    for (let innerArray of appArray) {
+      flatArray.push(innerArray);
+
+  console.log(flatArray)
 
   const onClickCallback = (id) => {
-    const squares = squares.map((square) => {
+    const newSquares = flatArray.map((square) => {
       if (square.id === id) {
+        console.log(square);
         return { id: square.id, value: PLAYER_1 };
       }
       return square;
     });
-    setSquares(squares);
+    setSquares(newSquares);
   };
 
   const checkForWinner = () => {
