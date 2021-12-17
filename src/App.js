@@ -44,28 +44,6 @@ const App = () => {
     setSquares(newSquares);
   };
 
-  /*
-  squares = [ squares.map -> (row)
-    [x,x,x], // row 0  
-              row.map -> 
-              x, --> return wahts already there
-              x, ---> return whats already there
-              x ---> change this one
-    [x,x,x], // row 1
-            row.map
-            x
-            x
-            x
-
-    [x,x,x] // row 2
-          row.map
-          x
-          x
-          x
-  ]
-
-  */
-
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
@@ -95,7 +73,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board onClickCallback={updateSquare} squares={squares} />
       </main>
     </div>
   );
