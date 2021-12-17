@@ -4,7 +4,7 @@ import Square from './Square';
 import PropTypes from 'prop-types';
 
 // This turns the 2D array into a 1D array
-const generateSquareComponents = (squares, onClickCallback) => {
+const generateSquareComponents = (squares, onClickCallback, playerTurn, won) => {
   const singleArraySquares = [].concat(...squares);
   return singleArraySquares.map((square) => {
     return (
@@ -13,14 +13,16 @@ const generateSquareComponents = (squares, onClickCallback) => {
         id={square.id}
         onClickCallback={onClickCallback}
         key={square.id}
+        playerTurn={playerTurn}
+        won={won}
       />
     );
   });
 };
 
-const Board = ({ squares, onClickCallback }) => {
-  const squareList = generateSquareComponents(squares, onClickCallback);
-  console.log(squareList);
+const Board = ({ squares, onClickCallback, playerTurn, won }) => {
+  const squareList = generateSquareComponents(squares, onClickCallback, playerTurn, won);
+  // console.log(squareList);
   return <div className='grid'>{squareList}</div>;
 };
 
@@ -29,11 +31,13 @@ Board.propTypes = {
     PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        value: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired
       })
     )
   ),
   onClickCallback: PropTypes.func.isRequired,
+  playerTurn: PropTypes.string,
+  won: PropTypes.string
 };
 
 export default Board;
