@@ -28,20 +28,23 @@ const generateSquares = () => {
 const App = () => {
   // This state starts off as a 2D array of JS objects with
   // empty value and unique ids.
-  const [squares, setSquares] = useState(generateSquares());
+  const [squares, updateSquares] = useState(generateSquares());
+  const [currentPlayer, updateCurrentPlayer] = useState(PLAYER_1);
+
   const updateSquare = (id) => {
     const newSquares = squares.map((row) => {
       return row.map((square) => {
         if (square.id === id) {
           return {
             id: square.id,
-            value: 'x',
+            value: currentPlayer,
           };
         }
         return square;
       });
     });
-    setSquares(newSquares);
+    updateSquares(newSquares);
+    updateCurrentPlayer(currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1);
   };
 
   // Wave 2
