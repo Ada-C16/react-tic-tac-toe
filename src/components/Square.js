@@ -10,11 +10,13 @@ const Square = (props) => {
   //  component when it's clicked on.
 
   const onSquareClick = () => {
+    if (props.value === '') {
     const markedSquare = {
       value: props.playerTurn,
       id: props.id
     };
     props.onClickCallback(markedSquare);
+    }
   };
 
   return <button onClick={onSquareClick} disabled={props.won} className='square'>{props.value}</button>;
