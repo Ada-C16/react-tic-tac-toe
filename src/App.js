@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const player1 = 'x';
+const player2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -17,6 +17,7 @@ const generateSquares = () => {
       squares[row].push({
         id: currentId,
         value: '',
+        key: currentId,
       });
       currentId += 1;
     }
@@ -29,6 +30,46 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [player1, togglePlayer1] = useState(true);
+  const [gameover, checkGame] = useState(false);
+
+  const togglePlayers = () => {
+    if (player1 === true) {
+      togglePlayer1(false);
+    } else {
+      togglePlayer1(true);
+    }
+  };
+  const onClickCallback = (squareToMark) => {
+    // console.log(squareToMark);
+    const newboard = squares;
+    // console.log(newboard);
+    newboard.map((row) => {
+      row.map((square) => {
+        if (square.id === squareToMark) {
+          // console.log(squareToMark);
+          if (player1 === true) {
+            square.value = 'x';
+            togglePlayers();
+            return {
+              id: square.id,
+              value: 'x',
+              key: square.id,
+            };
+          } else {
+            square.value = 'o';
+            togglePlayers();
+            console.log(square);
+            return square;
+          }
+        }
+        return square;
+      });
+    });
+    // console.log(newboard);
+    setSquares(newboard);
+    let threeConsec = checkForWinner();
+  };
 
   // Wave 2
   // You will need to create a method to change the square
@@ -81,14 +122,14 @@ const App = () => {
   };
 
   return (
-    <div className='App'>
-      <header className='App-header'>
+    <div className="App">
+      <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is ... -- Fill in for wave 3 </h2>
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onClickCallback} />
       </main>
     </div>
   );
