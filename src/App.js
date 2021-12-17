@@ -74,7 +74,7 @@ const App = () => {
     setSquares((squares) => {
       let newBoard = squares.map((square)=>{
         for (let property of square){
-          if (property.id === id){
+          if (property.id === id && property.value === ''){
             if (currentPlayer === PLAYER_1){
               property.value = PLAYER_1;
             
@@ -100,19 +100,39 @@ const App = () => {
     
   };
 
+  
+
   const resetGame = () => {
-    // Complete in Wave 4
+    setSquares(generateSquares());
+    setWinner(null);
+    setCurrentPlayer(PLAYER_1);
   };
 
+  
+  let header;
+  let boardCallback;
+  // let finalWinner;
+  if (winner != null) {
+    // if (winner === PLAYER_1) {
+    //   finalWinner = 'Player 1';
+    // } else {
+    //   finalWinner = 'Player 2';
+    // }
+    header = <h2>Winner is {winner}</h2>;
+  } else {
+    header = <h2>The Current Player is {currentPlayer}</h2>;
+    boardCallback = onClickCallback;
+  }
+  
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... {winner}</h2>
-        <button>Reset Game</button>
+        {header}
+        <button onClick = {resetGame} >Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} onClickCallback={onClickCallback}/>
+        <Board squares={squares} onClickCallback={boardCallback}/>
       </main>
     </div>
   );
