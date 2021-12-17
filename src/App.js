@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const player1 = 'x';
+const player2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -29,6 +29,8 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setCurrentPlayer] = useState(player1);
+  const [winningPlayer, setWinningPlayer] = useState('...');
 
   // Wave 2
   // You will need to create a method to change the square
@@ -78,17 +80,45 @@ const App = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
+    setSquares(generateSquares());
+    setCurrentPlayer(player1);
+    setWinningPlayer('...');
   };
 
+  const onClickCallback = (id) => {
+    if (winningPlayer !== '...') {
+      return;
+    }
+    setSquares((previous) => {
+      return previous.map((row) =>
+        row.map((square) => {
+          if (square.id === id && square.value === '') {
+            square.value = currentPlayer;
+            setCurrentPlayer(currentPlayer === player1 ? player2 : player1);
+            return square;
+          }
+          return square;
+        })
+      );
+    });
+  };
+
+  useEffect(() => {
+    const winner = checkForWinner();
+    if (winner !== null) {
+      setWinningPlayer(winner);
+    }
+  }, [currentPlayer]);
+
   return (
-    <div className='App'>
-      <header className='App-header'>
+    <div className="App">
+      <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>Winner is {winningPlayer}</h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onClickCallback} />
       </main>
     </div>
   );
