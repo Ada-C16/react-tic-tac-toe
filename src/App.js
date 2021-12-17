@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const playerOne = 'X';
-const playerTwo = 'O';
+const playerOne = 'x';
+const playerTwo = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -120,7 +120,7 @@ const onClickCallback = (id) => {
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is {winner}</h2>
+        <h2>Winner is {winner}</h2>
         <button>Reset Game</button>
       </header>
       <main>
