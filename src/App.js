@@ -32,6 +32,27 @@ const App = () => {
   const [playerTurn, setPlayerTurn] = useState(PLAYER_1);
   const [won, setWon] = useState(null);
 
+  // Wave 2
+  // You will need to create a method to change the square
+  //   When it is clicked on.
+  //   Then pass it into the squares as a callback
+
+  const updateBoard = markedSquare => {
+    
+    const newBoard = [...squares];
+    for (let row of newBoard) {
+      for (let square of row) {
+        if (square.id === markedSquare.id) {
+          square.value = markedSquare.value;
+        }
+      }
+    }
+    setSquares(newBoard);
+    let result = checkForWinner();
+
+    decideContinue(result);
+  };
+
   const switchPlayers = () => {
     if (playerTurn === PLAYER_1) {
       setPlayerTurn(PLAYER_2);
@@ -40,36 +61,13 @@ const App = () => {
     }
   };
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
-
-  const updateBoard = markedSquare => {
-    // console.log('this square is marked:', markedSquare.id);
-    // console.log('this is the marked square val:', markedSquare.value);
-    
-    const newBoard = [...squares];
-    for (let row of newBoard) {
-      for (let square of row) {
-        if (square.id === markedSquare.id) {
-          square.value = markedSquare.value;
-          // console.log('pushing new square', markedSquare);
-        }
-        else {
-          // console.log('keeping old square!');
-        }
-      }
-    }
-    setSquares(newBoard);
-    let winner = checkForWinner();
+  const decideContinue = (winner) => {
     if (!winner) { 
       switchPlayers();
     } else if (winner) {
       setWon(winner);
     }
   };
-
 
   const checkForWinner = () => {
     let i = 0;

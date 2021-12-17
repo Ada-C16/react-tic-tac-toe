@@ -36,7 +36,7 @@ Board.propTypes = {
     )
   ),
   onClickCallback: PropTypes.func.isRequired,
-  playerTurn: PropTypes.string.isRequired,
+  playerTurn: PropTypes.string,
   won: PropTypes.string
 };
 

@@ -11,11 +11,11 @@ const Square = (props) => {
 
   const onSquareClick = () => {
     if (props.value === '') {
-    const markedSquare = {
-      value: props.playerTurn,
-      id: props.id
-    };
-    props.onClickCallback(markedSquare);
+      const markedSquare = {
+        value: props.playerTurn,
+        id: props.id
+      };
+      props.onClickCallback(markedSquare);
     }
   };
 
@@ -26,7 +26,7 @@ Square.propTypes = {
   value: PropTypes.string.isRequired,
   onClickCallback: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
-  playerTurn: PropTypes.string.isRequired,
+  playerTurn: PropTypes.string,
   won: PropTypes.string
 };
 
