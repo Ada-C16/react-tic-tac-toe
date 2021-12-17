@@ -46,8 +46,7 @@ const App = () => {
     console.log('currentPlayer is:' + currentPlayer);
     console.log('the square\'s ID is:' + mySquare);
     
-    //pseudo-code below to update it
-    //Find index of specific object using findIndex method.    
+    //pseudo-code below to update it  
     for (let i=0; i<3; i++){
       for (let n=0; n<3; n++){
         //console.log(squares[i][n].id);
@@ -59,13 +58,9 @@ const App = () => {
     //  updating state here with a copy of the squares list with new value
     setSquares([...squares]);
     
-    //update the specific id of the square in the array to have a value of state's currentPlayer, then use setSquares to update the state
-    // 1.find the id of the object in the array and update the value
-    // 2.call setSquares
-   // setSquares();
 
     //Now that we put the mark on the square, check and see if they won by calling checkForWinner()
-    let isWon = checkForWinner();
+    let isWon = checkForWinnerChickenDinner();
     if (!isWon){
       //Now that we put the mark on the square and there is no winner, let's move to the next player
       console.log('currentPlayer is:' + currentPlayer);
@@ -74,6 +69,10 @@ const App = () => {
       }else{
         setCurrentPlayer(PLAYER_1);
       }
+    }else{
+      alert('You won!')
+      //now call reset function
+      document.location.reload();
     }
   };
 
@@ -100,6 +99,43 @@ const App = () => {
       }
     }
     return '';
+};
+
+const checkForWinnerChickenDinner = () => {
+  //Only so many ways to win this game...
+  let winningIDCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  //recreate the 1dimArray to make life easier
+  let oneDimensionalArray = [];
+  for (let i = 0; i < squares.length; i++) {
+    for (let element of squares[i]) {
+      oneDimensionalArray.push(element);
+    }
+  }  
+  //Loop through the winning combinations and see if all 3 have the same value
+  //if they do, return true.  We know the winner is the currentPlayer
+  for (let i = 0; i < winningIDCombos.length; i++) {
+    let firstOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][0]);
+    let secondOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][1]);
+    let thirdOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][2]);
+
+    if (((firstOne.value == secondOne.value) && (secondOne.value == thirdOne.value))&&(firstOne.value !== '_')){
+      console.log('WE HAVE A WINNER');
+      return true
+    } 
+
+  }
+  return false
+
 };
 
   const resetGame = () => {
