@@ -13,7 +13,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
         value={square.value} 
         id={square.id} 
         key={square.id} 
-        onClick={onClickCallback}>
+        onClickCallback={onClickCallback}>
         </Square>);
     }
   }
@@ -22,8 +22,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
 
 const Board = ({ squares, onClickCallback }) => {
   const squareList = generateSquareComponents(squares, onClickCallback);
-  console.log(squareList);
-  return <div className="grid" >
+  return <div className="grid">
     {squareList}
   </div>;
 };
