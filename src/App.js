@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -107,14 +107,15 @@ const App = () => {
 
   let header;
   let boardCallback;
-  let finalWinner;
+  // let finalWinner;
   if (winner != null) {
-    if (winner === PLAYER_1) {
-      finalWinner = 'Player 1';
-    } else {
-      finalWinner = 'Player 2';
-    }
-    header = <h2>Winner is {finalWinner}</h2>;
+    // if (winner === PLAYER_1) {
+    //   finalWinner = 'Player 1';
+    // } else {
+    //   finalWinner = 'Player 2';
+    // }
+    // header = <h2>Winner is... {finalWinner}</h2>;
+    header = <h2>Winner is... {winner}</h2>;
   } else {
     header = <h2>The Current Player is {currentPlayer}</h2>;
     boardCallback = onClickCallback;
