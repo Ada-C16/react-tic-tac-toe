@@ -28,6 +28,8 @@ const generateSquares = () => {
 const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
+  // Should have a board with 9 squares
+  // App -> Board -> [Square, Square, Square, Square, Square, Square, Square, Square, Square]
   const [squares, setSquares] = useState(generateSquares());
 
   // Wave 2
