@@ -3,14 +3,35 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #02383C;
   min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(15px + 2vmin);
   color: white;
   margin-bottom: 2em;
 }
 
+button {
+  margin-bottom: 15px;
+  font-size: 15px;
+  font-weight: bold;
+  padding-bottom: 3px;
+}
+
+button:hover {
+  color: #960303;
+}
+
+#win {
+  border: dotted 6px #960303;
+  border-radius: 10px;
+  
+  border-width: auto;
+  padding: 20px;
+  font-size: 40px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
