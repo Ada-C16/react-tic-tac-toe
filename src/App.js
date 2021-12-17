@@ -8,6 +8,8 @@ import Board from './components/Board';
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
 
+
+
 const generateSquares = () => {
   console.log('in generateSquares');
   const squares = [];
@@ -35,6 +37,9 @@ const App = () => {
 
   //Setting up the player so we can update the player after a turn and add the right value
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+
+  //Set the label for the winner
+  const [winnerLabel, setWinnerLabel] = useState('')
 
   // Wave 2
   // You will need to create a method to change the square
@@ -70,9 +75,13 @@ const App = () => {
         setCurrentPlayer(PLAYER_1);
       }
     }else{
-      alert('You won!')
+      
+      setWinnerLabel('The winner is ' + currentPlayer );
       //now call reset function
-      document.location.reload();
+      let playAgainAnswer = confirm('Play again?')
+      if (playAgainAnswer){
+        document.location.reload();
+      }
     }
   };
 
@@ -103,6 +112,7 @@ const App = () => {
 
 const checkForWinnerChickenDinner = () => {
   //Only so many ways to win this game...
+  
   let winningIDCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -148,7 +158,7 @@ const checkForWinnerChickenDinner = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         {/* return value == current player calculated in checkForWinner */}
-        <h2>The winner is ... {checkForWinner()}</h2> 
+        <h2>{winnerLabel}</h2> 
         <button>Reset Game</button>
       </header>
       <main>
