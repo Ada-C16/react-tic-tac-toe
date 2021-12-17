@@ -5,7 +5,12 @@ import './Square.css';
 
 const Square = ({ id, value, onClickCallback }) => {
   return (
-    <button onClick={onClickCallback(id)} className="square">
+    <button
+      className="square"
+      onClick={() => {
+        onClickCallback(id);
+      }}
+    >
       {value}
     </button>
   );

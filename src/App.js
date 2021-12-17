@@ -27,12 +27,14 @@ const generateSquares = () => {
 
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
-  const flatArray = []
+  const flatArray = [];
   for (let appArray of squares) {
     for (let innerArray of appArray) {
       flatArray.push(innerArray);
+    }
+  }
 
-  console.log(flatArray)
+  console.log(flatArray);
 
   const onClickCallback = (id) => {
     const newSquares = flatArray.map((square) => {
