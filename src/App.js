@@ -30,37 +30,6 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
-  const onClickCallback = (id) => {
-    setSquares((squares) => {
-      let newBoard = squares.map((square) => {
-        for (let property of square) {
-          if (property.id === id) {
-            if (currentPlayer === PLAYER_1) {
-              property.value = PLAYER_1;
-            } else if (currentPlayer === PLAYER_2) {
-              property.value = PLAYER_2;
-            }
-          }
-        }
-        return square;
-      });
-      // Check for the winner
-      return newBoard;
-    });
-    // Change the player
-    if (currentPlayer === PLAYER_1) {
-      setCurrentPlayer(PLAYER_2);
-    } else {
-      setCurrentPlayer(PLAYER_1);
-    }
-  };
-  // alternates btwn x and o plays
-  // must do everything that needs to happen when button is clicked
-
   const checkForWinner = () => {
     let i = 0;
 
@@ -101,6 +70,37 @@ const App = () => {
 
     return null;
   };
+
+  // Wave 2
+  // You will need to create a method to change the square
+  //   When it is clicked on.
+  //   Then pass it into the squares as a callback
+  const onClickCallback = (id) => {
+    setSquares((squares) => {
+      let newBoard = squares.map((square) => {
+        for (let property of square) {
+          if (property.id === id) {
+            if (currentPlayer === PLAYER_1) {
+              property.value = PLAYER_1;
+            } else if (currentPlayer === PLAYER_2) {
+              property.value = PLAYER_2;
+            }
+          }
+        }
+        return square;
+      });
+      // Check for the winner
+      return newBoard;
+    });
+    // Change the player
+    if (currentPlayer === PLAYER_1) {
+      setCurrentPlayer(PLAYER_2);
+    } else {
+      setCurrentPlayer(PLAYER_1);
+    }
+  };
+  // alternates btwn x and o plays
+  // must do everything that needs to happen when button is clicked
 
   const resetGame = () => {
     // Complete in Wave 4
