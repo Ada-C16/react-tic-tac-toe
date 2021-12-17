@@ -46,7 +46,7 @@ const App = () => {
     newBoard.map((squareArray) => {
       // looping through the square array, get each square object..
       return squareArray.map((square) => {
-        if (square.id === id) {
+        if (square.id === id && square.value === '') {
           // check if current player is X or O
           if (currentPlayer === PLAYER_1) {
             square.value = PLAYER_1;
