@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Square.css'
+import './Square.css';
 
 const Square = (props) => {
   // For Wave 1 enable this 
@@ -9,11 +9,10 @@ const Square = (props) => {
   //  component when it's clicked on.
 
   return <button
-    className="square"
-  >
+    className="square">
     {props.value}
-  </button>
-}
+  </button>;
+};
 
 Square.propTypes = {
   value: PropTypes.string.isRequired,

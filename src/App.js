@@ -5,6 +5,9 @@ import Board from './components/Board';
 
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
+const PLAYERS = [PLAYER_1, PLAYER_2];
+
+const GAMESTATES = ['undetermined', 'player 1 won', 'player 2 won', 'tie'];
 
 const generateSquares = () => {
   const squares = [];
@@ -30,25 +33,32 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
+  const [gameState, setGameState] = useState(0);
+  const [currentPlayer, setCurrentPlayer] = useState(1);
+
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
-
+  
   const checkForWinner = () => {
     // Complete in Wave 3
     // You will need to:
     // 1. Go accross each row to see if
     //    3 squares in the same row match
     //    i.e. same value
+    
     // 2. Go down each column to see if
     //    3 squares in each column match
+    
     // 3. Go across each diagonal to see if
     //    all three squares have the same value.
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    setSquares(generateSquares());
+    setCurrentPlayer(1);
+    setGameState(0);
   };
 
   return (
@@ -56,7 +66,7 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         <Board squares={squares} />
