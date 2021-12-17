@@ -29,6 +29,7 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [winner, setWinner] = useState(null);
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
   const checkForWinner = () => {
     let i = 0;
@@ -90,6 +91,8 @@ const App = () => {
         return square;
       });
       // Check for the winner
+      setWinner(checkForWinner());
+
       return newBoard;
     });
     // Change the player
@@ -110,7 +113,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>The winner is ... {winner}</h2>
         <button>Reset Game</button>
       </header>
       <main>
