@@ -38,23 +38,23 @@ const App = () => {
 
   const onClickCallback = (id) => {
     console.log(id);
-    const boardCopy = [squares];
+    const boardCopy = [];
 
-    boardCopy.id = {
-      for (let square of squares) {
-        if (id === square.id) {
-            if (player === PLAYER_1) {
-              square.value = PLAYER_1
-              return square
-            } else {
-              square.value = PLAYER_2
-              return square
-            }
-        } else {
-          return square
-        }
+    
+    for (let square of squares) {
+      if (id === square.id) {
+          if (player === PLAYER_1) {
+            square.value = PLAYER_1;
+            boardCopy.push(square);
+          } else {
+            square.value = PLAYER_2;
+            boardCopy.push(square);
+          }
+      } else {
+        boardCopy.push(square);
       }
     }
+    
 
     setSquares(boardCopy);
     setPlayer(!player);
