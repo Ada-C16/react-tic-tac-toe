@@ -49,7 +49,6 @@ const App = () => {
     }
     setSquares(newBoard);
     let result = checkForWinner();
-
     decideContinue(result);
   };
 
