@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
-
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 // generates a 2-dimensional array of squares containing an object with id and value keys
 // see output below
 
@@ -32,6 +31,39 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+
+  const [playerOnesTurn, setTurn] = useState(false);
+
+  // togglesSquares
+  const onClickCallback = (id) => {
+    console.log('You clicked on a square with ID', id);
+
+    let player;
+
+    if (playerOnesTurn) {
+      player = PLAYER_1;
+    } else {
+      player = PLAYER_2;
+    }
+
+    const newSquares = [...squares];
+
+    for (let row of newSquares) {
+      for (let square of row) {
+        if (square.id == id) {
+          if (square.value == '') {
+            square.value = player;
+            setSquares(newSquares);
+          }
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    setTurn(!playerOnesTurn);
+  }, [squares]);
+
   // starting value of setSquares:
   // [
   //   [ { id: 0, value: '' }, { id: 1, value: '' }, { id: 2, value: '' } ],
@@ -73,12 +105,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board
-          squares={squares}
-          onClickCallback={() =>
-            console.log('This will need to be updated later')
-          }
-        />
+        <Board squares={squares} onClickCallback={onClickCallback} />
       </main>
     </div>
   );
