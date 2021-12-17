@@ -30,36 +30,6 @@ const App = () => {
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
   const [winner, setWinner] = useState(null);
 
-  const onClickCallback = (id) => {
-    console.log('onclick', id);
-    setSquares((squares) => {
-      let newBoard = squares.map((square) => {
-        for (let property of square) {
-          if (property.id === id && property.value === '') {
-            if (currentPlayer === PLAYER_1) {
-              property.value = PLAYER_1;
-            } else if (currentPlayer === PLAYER_2) {
-              property.value = PLAYER_2;
-            }
-          }
-        }
-        return square;
-      });
-      // check for winner //
-      setWinner(checkForWinner());
-      return newBoard;
-    });
-    // change player //
-    if (currentPlayer === PLAYER_1) {
-      setCurrentPlayer(PLAYER_2);
-    } else {
-      setCurrentPlayer(PLAYER_1);
-    }
-  };
-
-  // Wave 3
-  // checkForWinner function completed by Ada
-
   const checkForWinner = () => {
     let i = 0;
 
@@ -102,7 +72,37 @@ const App = () => {
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    let resetBoard = generateSquares();
+    setCurrentPlayer(PLAYER_1);
+    setWinner(null);
+    setSquares(resetBoard);
+  };
+
+  const onClickCallback = (id) => {
+    console.log('onclick', id);
+    setSquares((squares) => {
+      let newBoard = squares.map((square) => {
+        for (let property of square) {
+          if (property.id === id && property.value === '') {
+            if (currentPlayer === PLAYER_1) {
+              property.value = PLAYER_1;
+            } else if (currentPlayer === PLAYER_2) {
+              property.value = PLAYER_2;
+            }
+          }
+        }
+        return square;
+      });
+      // check for winner //
+      setWinner(checkForWinner());
+      return newBoard;
+    });
+    // change player //
+    if (currentPlayer === PLAYER_1) {
+      setCurrentPlayer(PLAYER_2);
+    } else {
+      setCurrentPlayer(PLAYER_1);
+    }
   };
 
   return (
@@ -110,10 +110,10 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is {winner}</h2>
-        <button>Reset Game</button>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board onClickCallback={onClickCallback} squares={squares} />
       </main>
     </div>
   );
