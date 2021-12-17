@@ -25,17 +25,18 @@ const generateSquares = () => {
   return squares;
 };
 
-const onClickCallback = () => {
-  alert('I am doing right');
-};
-
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+  const onClickCallback = (id) => {
+    const squares = squares.map((square) => {
+      if (square.id === id) {
+        return { id: square.id, value: PLAYER_1 };
+      }
+      return square;
+    });
+    setSquares(squares);
+  };
 
   const checkForWinner = () => {
     // Complete in Wave 3

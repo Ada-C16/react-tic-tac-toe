@@ -4,12 +4,8 @@ import PropTypes from 'prop-types';
 import './Square.css';
 
 const Square = ({ id, value, onClickCallback }) => {
-  const message = () => {
-    alert('I am doing right');
-  };
-
   return (
-    <button onClick={onClickCallback} className="square">
+    <button onClick={onClickCallback(id)} className="square">
       {value}
     </button>
   );
