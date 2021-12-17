@@ -17,8 +17,8 @@
 .Reset-button {
   padding: 10px;
   margin: 0px 0px 20px 0px;
-  width: 100px;
-  font-size: calc(5px + 2vmin);
+  width: 200px;
+  font-size: 18pt;
   background-color: transparent;
   color: white;
   border-style: solid;

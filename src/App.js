@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -119,12 +119,14 @@ const App = () => {
     setPlayerTurn(PLAYER_1);
   };
 
+  const winnerText = !won ? '. . .' : won ; 
+
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... {won} </h2>
-        <button className='Reset-button' onClick={resetGame}>Reset</button>
+        <h2>Winner is {winnerText} </h2>
+        <button className='Reset-button' onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         <Board
