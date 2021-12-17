@@ -32,9 +32,10 @@ const App = () => {
   // squares is the variable that holds state and returns the current state whenever it's called
   // must reassign all squares to change one, call setSquares to reassign
   // useState starts with [], where 1st item is variable to be changed and the 2nd item is the
-  // function to change it. useState sets the initial state to whatever is within()
+  // function to change it. useState is actually creating the variable and the function
+  // useState sets the initial state to whatever is within()
   const [squares, setSquares] = useState(generateSquares());
-
+  const [currentPlayer, setPlayer] = useState('x');
   const onClickCallback = (id) => {
     console.log(id);
     // cannot change squares so setting newSquares as an object which can be changed
@@ -42,10 +43,16 @@ const App = () => {
     for (let row = 0; row < 3; row += 1) {
       for (let col = 0; col < 3; col += 1) {
         if (newSquares[row][col].id === id) {
-          newSquares[row][col].value = 'x';
+          newSquares[row][col].value = currentPlayer;
+          if (currentPlayer === PLAYER_1) {
+            setPlayer(PLAYER_2);
+          } else if (currentPlayer === PLAYER_2) {
+            setPlayer(PLAYER_1);
+          }
         }
       }
     }
+    // this allows newSquares to overwrite setSquares
     setSquares(newSquares);
   };
 
@@ -98,7 +105,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>Current Player {currentPlayer} </h2>
         <button>Reset Game</button>
       </header>
       <main>
