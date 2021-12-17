@@ -48,7 +48,6 @@ const App = () => {
       while (gameEnd === false) {
         for (let subSquare of square) {
           if (subSquare.id === id && subSquare.value === '') {
-            console.log('turn:' + turn);
             subSquare.value = currentPlayer(turn);
             if (turn < 9) {
               setTurn(turn + 1);
