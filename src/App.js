@@ -22,7 +22,6 @@ const generateSquares = () => {
       currentId += 1;
     }
   }
-
   return squares;
 };
 
@@ -31,8 +30,8 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
-  const player_1 = 'X';
-  const player_2 = 'O';
+  const player_1 = 'x';
+  const player_2 = 'o';
 
   const [currentPlayer, setNextPlayer] = useState(player_1);
   // Wave 2
@@ -41,24 +40,28 @@ const App = () => {
   //   Then pass it into the squares as a callback
 
 
-  const requiredFunction = (id) => {
-    const newBoard = [...squares];
-    //square [array, array, array] => [{id, value}]
-    newBoard.map(function (array) {
-      return array.map(function (square) {
-        console.log('find', square.id === id);
-        //inside the square object
+  const updateGameState = (id) => {
+    // if checkForWinner returns a value, exit out of the function
+    if (checkForWinner()) {
+      return;
+    }
 
+    // spread makes a copy of the squares/board
+    const newBoard = [...squares];
+    newBoard.map((array) => {
+      return array.map((square) => {
         if (
           id === square.id &&
-          (!square.value === player_1 ||
-            !square.value === player_2 ||
-            square.value === '')
+          //check if sqaure value is not x
+          //!square.value === player_1 || x
+          //
+          //!square.value === player_2 ||// O
+          square.value === '' // VALUE= ""
         ) {
           //check if the cuurent player is X
           if (currentPlayer === player_1) {
-            square.value = player_1; //turn
             // if player is X then after the turn make the player O
+            square.value = player_1; //turn
             setNextPlayer(player_2);
           } else {
             square.value = player_2;
@@ -67,8 +70,11 @@ const App = () => {
         }
       });
     });
+    //update the squares array with latest values and show in UI
+    setSquares(newBoard);
   };
-
+  // checkForWinner looks for 3 squares that have the same value
+  // if a player has 3 in a row, then the function returns the winner (value = 'x' or 'o')
   const checkForWinner = () => {
     let i = 0;
 
@@ -110,26 +116,40 @@ const App = () => {
     return null;
   };
 
-  console.log('squares asd', checkForWinner());
 
   const resetGame = () => {
     // Complete in Wave 4
     return setSquares(generateSquares());
   };
 
+  let displayNameAndWInner = 'Draw';
+
+  if (checkForWinner()) {
+    //x or o
+    displayNameAndWInner = `Winner is ${checkForWinner()}`;
+  } else if (!checkForWinner()) {
+    displayNameAndWInner = `Current player is ${currentPlayer}`;
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
 
-        <h2>The winner is wave3</h2>
+        <h2>{displayNameAndWInner}</h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} onClickCallback={requiredFunction} />
+        <Board squares={squares} onClickCallback={updateGameState} />
       </main>
     </div>
   );
 };
 
 export default App;
+
+// ternary opeartors
+// template literals
+// destructuring in detail
+// rest operator
+// spread operator
