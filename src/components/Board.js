@@ -18,7 +18,14 @@ const generateSquareComponents = (squares, onClickCallback) => {
     }
   }
   const boardArray = squareArray1D.map((square) => {
-    return <Square key={square.id} id={square.id} />;
+    return (
+      <Square
+        key={square.id}
+        value={square.value}
+        id={square.id}
+        onClickCallback={onClickCallback}
+      />
+    );
   });
   return boardArray;
 };
