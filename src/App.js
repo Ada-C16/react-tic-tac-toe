@@ -62,6 +62,43 @@ const App = () => {
     //    3 squares in each column match
     // 3. Go across each diagonal to see if
     //    all three squares have the same value.
+    for (let row of squares) {
+      const firstSquare = row[0].value;
+      const secondSquare = row[1].value;
+      const thirdSquare = row[2].value;
+      if (firstSquare && firstSquare === secondSquare && thirdSquare === firstSquare){
+        return firstSquare;
+      }
+    }
+    for (let i = 0; i < 3; i++) {
+      // for i in range(3)
+      // i = 0
+      // while i < 3
+      // do stuff
+      // i+= 1
+      const firstRow = squares[0];
+      const secondRow = squares[1];
+      const thirdRow = squares[2];
+
+      const firstSquare = firstRow[i];
+      const secondSquare = secondRow[i];
+      const thirdSquare = thirdRow[i];
+      // const firstSquare = squares[0][i]
+      // const secondSquare = squares[1][i]
+
+    } 
+
+
+    /*
+    [
+      0 [0, 1, 2],
+      1 [0, 1, 2],
+      2 [0, 1, 2]
+    ]
+
+
+    */
+
   };
 
   const resetGame = () => {
