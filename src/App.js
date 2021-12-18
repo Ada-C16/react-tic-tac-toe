@@ -61,7 +61,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    setTurn(!playerOnesTurn);
+    setTurn(playerOnesTurn => !playerOnesTurn);
   }, [squares]);
 
   // starting value of setSquares:
@@ -91,19 +91,21 @@ const App = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
+    setSquares(generateSquares());
+    setTurn(false);
   };
-
+    
   // I'm calling these functions right here
   // Just bc the warnings drive me crazy
   checkForWinner();
-  resetGame();
+  // resetGame();
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is {winner} </h2>
-        <button>Reset Game</button>
+        <button onClick={ resetGame }>Reset Game</button>
       </header>
       <main>
         <Board squares={squares} onClickCallback={onClickCallback} />
