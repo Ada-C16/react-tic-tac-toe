@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -26,14 +26,38 @@ const generateSquares = () => {
 };
 
 const App = () => {
+  console.log(generateSquares());
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  // const [gameWinner, setGameWinner] = useState(null);
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
 
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+  const clickedSquare = (clickedPositon) => {
+    const currentSquares = [...squares];
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (checkForWinner() === null) {
+          if (currentSquares[i][j].id === clickedPositon.id) {
+            if (currentSquares[i][j].value === '') {
+              currentSquares[i][j].value = currentPlayer;
+              if (currentPlayer === PLAYER_1) {
+                setCurrentPlayer(PLAYER_2);
+              } else {
+                setCurrentPlayer(PLAYER_1);
+              }
+            }
+          }
+        }
+      }
+    }
+    setSquares(currentSquares);
+    checkForWinner();
+  };
 
   const checkForWinner = () => {
     let i = 0;
@@ -78,17 +102,21 @@ const App = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
+    console.log('resetGame is clicked');
+    setSquares(generateSquares());
+    setCurrentPlayer(PLAYER_1);
+    // setGameWinner(null);
   };
 
   return (
-    <div className='App'>
-      <header className='App-header'>
+    <div className="App">
+      <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>The winner is ... {checkForWinner()} </h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={clickedSquare} />
       </main>
     </div>
   );
