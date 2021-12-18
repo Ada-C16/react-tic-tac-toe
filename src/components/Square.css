@@ -10,3 +10,7 @@
   align-items: center;
   margin: 2px;
 }
+
+:disabled {
+  background-color: rgb(242, 241, 241);
+}
