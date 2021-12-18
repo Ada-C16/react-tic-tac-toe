@@ -36,6 +36,7 @@ const App = () => {
   // useState sets the initial state to whatever is within()
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setPlayer] = useState('x');
+  const [isWinner, setWinner] = useState(null);
   const onClickCallback = (id) => {
     console.log(id);
     // cannot change squares so setting newSquares as an object which can be changed
@@ -54,6 +55,7 @@ const App = () => {
     }
     // this allows newSquares to overwrite setSquares
     setSquares(newSquares);
+    setWinner(checkForWinner);
   };
 
   const checkForWinner = () => {
@@ -98,15 +100,23 @@ const App = () => {
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    // using the 3 useStates to overwrite the existing conditions to revert the board to og state
+    setSquares(generateSquares);
+    setPlayer('x');
+    setWinner(null);
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>Current Player {currentPlayer} </h2>
-        <button>Reset Game</button>
+        <h2>
+          {/* this is a ternary operation, ? is "if" and : is "else" */}
+          {isWinner === null
+            ? `Current Player ${currentPlayer}`
+            : `Winner is ${isWinner}`}{' '}
+        </h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         {/* assigning the props values to send to Board */}
