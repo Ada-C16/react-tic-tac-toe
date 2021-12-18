@@ -9,8 +9,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
   //  you need to return a 1D array
   //  of square components
   let flattenArray = squares.flat();
-  const squareComp = flattenArray.map((square) => {
-    console.log(square.value, 'value');
+  return flattenArray.map((square) => {
     return (
       <Square
         key={square.id}
