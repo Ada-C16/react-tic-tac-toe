@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const Player1 = 'X';
-const Player2 = 'O';
+const Player1 = 'x';
+const Player2 = 'o';
 const generateSquares = () => {
   const squares = [];
 
@@ -30,10 +30,9 @@ const generateSquares = () => {
 const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
-  const [squares, setSquares] = useState(generateSquares());
-  // const [turn] = useState({ playerTurn: false});
+  const [squares, setSquares] = useState(generateSquares()); //blank board
   const [currentplayer,setplayer] = useState(Player1);
-  const [winner, setWinner] = useState("");
+  // const [winner, setWinner] = useState("");
   
 
 
@@ -43,33 +42,27 @@ const App = () => {
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
 
-  const onClickCallback = (id) =>{
-    const newSquares =[...squares];
-      // const changeASquare = squares.map(() => {
-        for (let row of newSquares ) {
-
-          for (let column of row ) {
-              console.log(row ,"data")
-              if (column.id === id && column.value === '' && !winner){
-                column.value = currentplayer; 
-              }
-    
-          }  
-
+  const onClickCallback = (id) => {
+    const newSquares = [...squares];
+    // const changeASquare = squares.map(() => {
+    for (let row of newSquares) {
+      for (let column of row) {
+        console.log(row, 'data');
+        if (column.id === id && column.value === '' && !checkForWinner()) {
+          column.value = currentplayer;
         }
-  setSquares(newSquares);
-  // setplayer(player == Player1 ? Player2 : Player1);
-        if (currentplayer === Player1) {
-            setplayer(Player2);
-
-        }else setplayer(Player1);
-
-  
+      }
+    }
+    setSquares(newSquares);
+    if (currentplayer === Player1) {
+      setplayer(Player2);
+    } else setplayer(Player1);
   };     
     
 
       
   const checkForWinner = () => {
+
     let i = 0;
 
     // Check all the rows and columns for a winner
@@ -106,19 +99,35 @@ const App = () => {
     ) {
       return squares[0][2].value;
     }
-
+    
     return null;
   };
+  checkForWinner();
+  console.log(checkForWinner());
 
   const resetGame = () => {
     // Complete in Wave 4
   };
+    const displaytheWinner = () => {
+        if (checkForWinner() === Player1){
+
+          return `Winner is ${Player1}`; 
+        } else if (checkForWinner() === null){
+
+          return `b ${currentplayer}`; 
+
+        } else {
+          return `Winner is ${Player2}`;
+        }
+
+    };
+  
 
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>{displaytheWinner()} </h2>
         <button>Reset Game</button>
       </header>
       <main>

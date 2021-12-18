@@ -38,7 +38,6 @@ describe('App', () => {
     // Assert
     expect(header).toBeInTheDocument();
   });
-
   test('Clicking on a grid button changes the text on it to an "x"', () => {
     // Arrange
     const { container } = render(<App />);
