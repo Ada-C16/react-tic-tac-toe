@@ -5,6 +5,7 @@ import Board from './components/Board';
 
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
+let TURN = true;
 
 const generateSquares = () => {
   const squares = [];
@@ -25,11 +26,47 @@ const generateSquares = () => {
   return squares;
 };
 
+
 const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [turn, setTurn] = useState(TURN);
+  
+  const updateSquares = (id) => {
+    console.log('Hey we are in update squares');
+    let newSquares = [];
+    // let newRow = [];
+    let strVal = '';
+    strVal = turn==true? 'X':'O';
+    for (let row of squares){
+      let newRow = row.map((square)=>{
+        if (square.id==id) {
+          square.value = strVal;
+          return square;
+          } 
+        return square;
+        })
+        
+      // for (let square of row) {
+      //   if (square.id==id) {
+      //       square.value = strVal;
+      //       newRow.push(square);
+      //       console.log(`Square ${id} was clicked`);
+      //   }
+      //   else {
+      //     newRow.push(square);
+      //   }
+      // }
 
+      // newSquares.push(newRow);
+    // };
+    newSquares.push(newRow);
+  }
+    let newTurn = !turn;
+    setTurn(newTurn);
+    setSquares(newSquares);
+  };
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
@@ -48,7 +85,7 @@ const App = () => {
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    setSquares(generateSquares());
   };
 
   return (
@@ -56,10 +93,10 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <button onClick={()=>{resetGame();}}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={updateSquares}/>
       </main>
     </div>
   );
