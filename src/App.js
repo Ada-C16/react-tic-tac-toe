@@ -29,17 +29,17 @@ const App = () => {
   const [player, setPlayer] = useState(PLAYER_1);
 
   const onClickCallback = (id) => {
-    const boardCopy = squares.map((square) => {
-      for (let properties of square) {
-        if (properties.id === id) {
+    const boardCopy = squares.map((row) => {
+      row.forEach((column) => {
+        if (column.id === id) {
           if (player === PLAYER_1) {
-            properties.value = PLAYER_1;
+            column.value = PLAYER_1;
           } else {
-            properties.value = PLAYER_2;
+            column.value = PLAYER_2;
           }
         }
-        return square;
-      }
+      });
+      return row;
     });
     setSquares(boardCopy);
     if (player === PLAYER_1) {
@@ -48,22 +48,6 @@ const App = () => {
       setPlayer(PLAYER_1);
     }
   };
-
-  // const boardCopy = [];
-
-  // for (let square of squares) {
-  //   if (id === square.id) {
-  //     if (player === PLAYER_1) {
-  //       square.value = PLAYER_1;
-  //       boardCopy.push(square);
-  //     } else {
-  //       square.value = PLAYER_2;
-  //       boardCopy.push(square);
-  //     }
-  //   } else {
-  //     boardCopy.push(square);
-  //   }
-  // }
 
   const checkForWinner = () => {
     // Complete in Wave 3
