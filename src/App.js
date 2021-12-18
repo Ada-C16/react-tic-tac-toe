@@ -9,7 +9,6 @@ const PLAYER_2 = 'O';
 // this creates our 2-d array of objects
 const generateSquares = () => {
   const squares = [];
-
   let currentId = 0;
 
   for (let row = 0; row < 3; row += 1) {
@@ -40,14 +39,28 @@ const App = () => {
   const setSquareValue = (id) => {
     //const PLAYER_1 = 'X';
     // const PLAYER_2 = 'O';
-    const newSquares = squares.map((square) => {
-      if (square.id === id) {
-        square.value = PLAYER_1;
-      }
-      square.value = PLAYER_2;
-    });
+    // counters for row & column
+    let row = 0;
+    let col = 0;
+    // has square been clicked?
+    let clicked = false;
+
+    // make copy of squares state
+    const newSquares = [...squares];
+
+    // finding if square has been clicked 
+    while (row < 3 && !clicked) {
+      while (col < 3 && !clicked) {
+        let presentSquares = newSquares[row][col]; 
+        if (presentSquare.id === id) {
+          if (presentSqaure.value !== '') {
+            // how to render the x and o
+          square.value = PLAYER_1;
+        }
+        square.value = PLAYER_2;
+      )}}}
     setSquares(newSquares);
-  };
+  }
 
   const checkForWinner = () => {
     // Complete in Wave 3
