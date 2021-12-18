@@ -96,6 +96,32 @@ const App = () => {
     }
   };
 
+  const onClickCallback = (id) => {
+    setSquares((squares) => {
+      let newBoard = squares.map((square)=>{
+        for (let property of square){
+          if (property.id === id && property.value === ''){
+            if (currentPlayer === PLAYER_1){
+              property.value = PLAYER_1;
+            } else if (currentPlayer === PLAYER_2){
+              property.value = PLAYER_2;
+            }
+          }
+        }
+        return square;
+      });
+      // Check for winner
+      return newBoard;
+    });
+    if (currentPlayer === PLAYER_1){
+      setCurrentPlayer(PLAYER_2);
+    } else {
+      setCurrentPlayer(PLAYER_1);
+    }
+  };
+
+
+
   const resetGame = () => {
     // Complete in Wave 4
     setSquares(generateSquares());
