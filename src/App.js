@@ -6,6 +6,7 @@ import Board from './components/Board';
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
 
+// this creates our 2-d array of objects
 const generateSquares = () => {
   const squares = [];
 
@@ -36,6 +37,18 @@ const App = () => {
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
 
+  const setSquareValue = (id) => {
+    //const PLAYER_1 = 'X';
+    // const PLAYER_2 = 'O';
+    const newSquares = squares.map((square) => {
+      if (square.id === id) {
+        square.value = PLAYER_1;
+      }
+      square.value = PLAYER_2;
+    });
+    setSquares(newSquares);
+  };
+
   const checkForWinner = () => {
     // Complete in Wave 3
     // You will need to:
@@ -60,7 +73,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={setSquareValue} />
       </main>
     </div>
   );
