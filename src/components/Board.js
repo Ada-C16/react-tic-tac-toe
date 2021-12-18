@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 
 const generateSquares = (squares, onClickCallback) => {
-  // by console logging an object shows the variable with variable name as the key
+  //   by console logging an object shows the variable with variable name as the key
   console.log({squares});
   // need to unpack the squares prop that is coming in from app.js
   const arrayToLoopThru = [];
