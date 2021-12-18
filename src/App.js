@@ -76,6 +76,7 @@ const App = () => {
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
 
+  let winner = '';
   const checkForWinner = () => {
     // Complete in Wave 3
     // You will need to:
@@ -103,7 +104,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>The winner is {winner} </h2>
         <button onClick={ resetGame }>Reset Game</button>
       </header>
       <main>
