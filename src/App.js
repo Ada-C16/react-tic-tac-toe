@@ -60,8 +60,15 @@ const App = () => {
     }
   };
 
+  const [winner, setWinner ] = useState('')
+
   useEffect(() => {
     setTurn(playerOnesTurn => !playerOnesTurn);
+    const newWinner = checkForWinner(squares);
+    if (newWinner != winner) {
+      setWinner(newWinner)
+    }
+
   }, [squares]);
 
   // starting value of setSquares:
@@ -76,8 +83,58 @@ const App = () => {
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
 
-  let winner = '';
-  const checkForWinner = () => {
+
+  const checkForWinner = (board) => {
+    const isDiagonalWinner1 = coordSet => {
+
+      return (([0,0] in coordSet) && ([1, 1] in coordSet) && ([2, 2] in coordSet))
+    }
+    
+    const isDiagonalWinner2 = coordSet => {
+      return (([2,0] in coordSet) && ([1, 1] in coordSet) && ([0, 2] in coordSet))
+    }
+        let xPlacements = new Set();
+        // let xPlacements = Set();
+        let oPlacements = new Set();
+        // let oPlacements = Set();
+    
+        let blanks = 0;
+        let winner = null;
+    
+    for (const [x, row] of board.entries()) {
+        if (row[0].value === row[1].value && row[0].value === row[2].value) {
+            winner = row[0].value;
+            return winner
+          }
+          for (const [y, square] in row.entries()) {
+              if (board[0][y].value === board[1][y].value && board[0][y].value === board[2][y].value) {
+                  winner = board[0][y].value;
+                  return winner
+                }  
+              
+              if (square.value === "x") {
+                xPlacements.add([x, y])
+                  if (isDiagonalWinner1(xPlacements) || isDiagonalWinner2(xPlacements)) {
+                    winner = square.value
+                    return winner
+                  }
+                } else if (square.value === "o") {
+                  oPlacements.add([x, y])
+
+                  if (isDiagonalWinner1(oPlacements) || isDiagonalWinner2(oPlacements) ) {
+                    winner = square.value
+                    return winner
+                  }
+                } else {
+                  blanks++
+                }
+          }
+        }
+        if (!winner && blanks === 0) {
+          return 'Tie'
+        }
+    return winner
+    };
     // Complete in Wave 3
     // You will need to:
     // 1. Go accross each row to see if
@@ -87,18 +144,14 @@ const App = () => {
     //    3 squares in each column match
     // 3. Go across each diagonal to see if
     //    all three squares have the same value.
-  };
+  // };
 
   const resetGame = () => {
     // Complete in Wave 4
     setSquares(generateSquares());
     setTurn(false);
   };
-    
-  // I'm calling these functions right here
-  // Just bc the warnings drive me crazy
-  checkForWinner();
-  // resetGame();
+  
 
   return (
     <div className="App">
