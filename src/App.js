@@ -5,7 +5,6 @@ import Board from './components/Board';
 
 const Player1 = 'X';
 const Player2 = 'O';
-
 const generateSquares = () => {
   const squares = [];
 
@@ -13,12 +12,15 @@ const generateSquares = () => {
 
   for (let row = 0; row < 3; row += 1) {
     squares.push([]);
+    
     for (let col = 0; col < 3; col += 1) {
       squares[row].push({
         id: currentId,
         value: '',
       });
+      console.log(squares, 'squ');
       currentId += 1;
+      
     }
   }
 
@@ -29,16 +31,44 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  // const [turn] = useState({ playerTurn: false});
+  const [currentplayer,setplayer] = useState(Player1);
+  const [winner, setWinner] = useState("");
+  
+
+
 
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
 
-  const changeASquare = () => {
+  const onClickCallback = (id) =>{
+    const newSquares =[...squares];
+      // const changeASquare = squares.map(() => {
+        for (let row of newSquares ) {
 
-      console.log('click');
-  };
+          for (let column of row ) {
+              console.log(row ,"data")
+              if (column.id === id && column.value === '' && !winner){
+                column.value = currentplayer; 
+              }
+    
+          }  
+
+        }
+  setSquares(newSquares);
+  // setplayer(player == Player1 ? Player2 : Player1);
+        if (currentplayer === Player1) {
+            setplayer(Player2);
+
+        }else setplayer(Player1);
+
+  
+  };     
+    
+
+      
   const checkForWinner = () => {
     let i = 0;
 
@@ -92,7 +122,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} onClickCallback={changeASquare} />
+        <Board squares={squares} onClickCallback={onClickCallback} />
       </main>
     </div>
   );
