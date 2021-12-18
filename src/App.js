@@ -3,8 +3,9 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const player1 = 'x';
+const player2 = 'o';
+// let winner = null;
 
 const generateSquares = () => {
   const squares = [];
@@ -21,19 +22,19 @@ const generateSquares = () => {
       currentId += 1;
     }
   }
-
   return squares;
 };
+
+
 
 const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setCurrentPlayer] = useState(player1);
+  const [winner, setWinner] = useState(null);
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+  
 
   const checkForWinner = () => {
     let i = 0;
@@ -77,21 +78,70 @@ const App = () => {
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    //trying to reset the header here, too:
+    // headerVar = <h2>Current player is {currentPlayer}</h2>;
+    setWinner(null);
+    setSquares(generateSquares);
   };
+
+
+  const onClickCallback = (id) => {
+    setSquares((squares) => {
+      let newBoard = (squares.map((square) => {
+        for (const indivSquare of square) {
+          if ((indivSquare.id === id) && (indivSquare.value === '')) {
+            if (currentPlayer === player1) {
+              indivSquare.value = 'x';
+            } else if (currentPlayer === player2) {
+              indivSquare.value = 'o';
+            }
+            if (currentPlayer === player1) {
+              setCurrentPlayer((player2));
+            } else {
+              setCurrentPlayer((player1));
+            }
+          }
+        }
+        
+      return square;
+    }
+    ));
+
+      setWinner(checkForWinner());
+      return newBoard;
+    }
+    );
+  };
+    //if every square.value is x or o, and
+    //if winner is null,
+    //winner is tie
+
+    // for (const squareRow of squares) {
+    //   for (const oneSquare of squareRow) {
+        
+    //   }
+    // }
 
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        {winner? <h2>Winner is {winner}</h2> : <h2>Current player is {currentPlayer}</h2>}
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onClickCallback}></Board>
       </main>
     </div>
   );
 };
 
 export default App;
+
+//we can create variables like header variables that can hold jsx!
+//so then we can assign/reassign the variable and change what is displayed!
+
+
+//how to make squares unclickable when they are filled?
+
+
