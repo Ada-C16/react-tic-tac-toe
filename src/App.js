@@ -26,32 +26,27 @@ const generateSquares = () => {
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
-  const [squaresState, setSquares] = useState(generateSquares());
-  console.log(squaresState);
-
-  const clickSquare = (id) => {
-    const newSquares = squaresState.map((square) => {
-      console.log(square.id, id);
-      if (square.id === id) {
-        return {
-          id: square.id,
-          value: 'x',
-        };
-      }
-      return square;
-    });
-
-    setSquares(newSquares);
-  };
+  const [squares, setSquares] = useState(generateSquares());
+  // create state for player, toggle between
 
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
 
-  // const setSquares = () => {};
+  const updateSquare = (id) => {
+    const updatedSquareData = squares.map((row) => {
+      return row.map((square) => {
+        if (square.id === id) {
+          square.value = 'x';
+          console.log(square.value);
+        }
+        return square;
+      });
+    });
+
+    setSquares(updatedSquareData);
+  };
 
   const checkForWinner = () => {
     // Complete in Wave 3
@@ -77,7 +72,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squaresState} onClickCallback={clickSquare} />
+        <Board squares={squares} updateSquare={updateSquare} />
       </main>
     </div>
   );
