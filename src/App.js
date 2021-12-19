@@ -81,7 +81,7 @@ const App = () => {
     const oSet= new Set();
       for(let row of squares){
         for (let element of row){
-          console.log('element=', element);
+          // console.log('element=', element);
           if (element.value === 'X'){
             xSet.add(count);
           } else if (element.value === 'O') {
@@ -94,6 +94,8 @@ const App = () => {
 
     console.log('xSet', xSet);
     console.log('oSet', oSet);
+
+    // Roslyn is done
 
     for (let combo of winning){
       if (isSuperset(xSet,combo)){
