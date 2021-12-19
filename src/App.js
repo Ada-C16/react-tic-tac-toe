@@ -11,8 +11,11 @@ const generateSquares = () => {
 
   let currentId = 0;
 
+// outer loop adds each row of squares
   for (let row = 0; row < 3; row += 1) {
     squares.push([]);
+
+// inner loop adds individual squares within each row
     for (let col = 0; col < 3; col += 1) {
       squares[row].push({
         id: currentId,
@@ -59,7 +62,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} /> 
       </main>
     </div>
   );
