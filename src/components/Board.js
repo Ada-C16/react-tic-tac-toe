@@ -9,7 +9,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
   // squares is a 2D Array, but 
   //  you need to return a 1D array
   //  of square components
-  console.log("We are about to iterate through squares")
+  console.log('We are about to iterate through squares');
   let oneD =[];
   for (let row of squares){
     for (let square of row) {
