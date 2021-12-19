@@ -4,14 +4,14 @@ import Square from './Square';
 import PropTypes from 'prop-types';
 
 const generateSquares = (squares, onClickCallback) => {
-  //   by console logging an object shows the variable with variable name as the key
+  // by console logging an object shows the variable with variable name as the key
   console.log({squares});
   // need to unpack the squares prop that is coming in from app.js
   const arrayToLoopThru = [].concat(...squares);
-  const unpackedSquares = arrayToLoopThru.map((square, i) => {
+  const unpackedSquares = arrayToLoopThru.map((square) => { // map iterates through and sets value of id, value, and onClickCallback to props
     return (
       <Square
-        key={i}
+        key={square.id}
         onClickCallback={onClickCallback}
         value={square.value}
         id={square.id}
