@@ -10,7 +10,7 @@ const Square = (props) => {
 
 const squareButtonClick = () =>{
     props.onClickCallback(props.id);
-  }
+  };
 
   return (
           <button

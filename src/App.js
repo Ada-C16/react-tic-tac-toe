@@ -8,8 +8,6 @@ import Board from './components/Board';
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
 
-
-
 const generateSquares = () => {
   console.log('in generateSquares');
   const squares = [];
@@ -39,7 +37,7 @@ const App = () => {
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
 
   //Set the label for the winner
-  const [winnerLabel, setWinnerLabel] = useState('')
+  const [winnerLabel, setWinnerLabel] = useState('');
 
   // Wave 2
   // You will need to create a method to change the square
@@ -78,75 +76,50 @@ const App = () => {
       
       setWinnerLabel('The winner is ' + currentPlayer );
       //now call reset function
-      let playAgainAnswer = confirm('Play again?')
+      let playAgainAnswer = confirm('Play again?');
       if (playAgainAnswer){
         document.location.reload();
       }
     }
   };
 
-  const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+  const checkForWinnerChickenDinner = () => {
+    //Only so many ways to win this game...
+    
+    let winningIDCombos = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
 
-    // checking for winner in rows and setting return value to current player
-    // the current player is being populated in <h2> below 
-    for (let i=0; i<3; i++){
-      if (squares[i][0].value == PLAYER_1 & squares[i][1].value == PLAYER_1 & 
-        squares[i][2].value == PLAYER_1) {
-        return currentPlayer;
-      } else if (squares[i][0].value == PLAYER_2 & squares[i][1].value == PLAYER_2 & 
-      squares[i][2].value == PLAYER_2){
-        return currentPlayer;
+    //recreate the 1dimArray to make life easier
+    let oneDimensionalArray = [];
+    for (let i = 0; i < squares.length; i++) {
+      for (let element of squares[i]) {
+        oneDimensionalArray.push(element);
       }
+    }  
+    //Loop through the winning combinations and see if all 3 have the same value
+    //if they do, return true.  We know the winner is the currentPlayer
+    for (let i = 0; i < winningIDCombos.length; i++) {
+      let firstOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][0]);
+      let secondOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][1]);
+      let thirdOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][2]);
+
+      if (((firstOne.value == secondOne.value) && (secondOne.value == thirdOne.value))&&(firstOne.value !== '_')){
+        console.log('WE HAVE A WINNER');
+        return true;
+      } 
+
     }
-    return '';
-};
+    return false;
 
-const checkForWinnerChickenDinner = () => {
-  //Only so many ways to win this game...
-  
-  let winningIDCombos = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-
-  //recreate the 1dimArray to make life easier
-  let oneDimensionalArray = [];
-  for (let i = 0; i < squares.length; i++) {
-    for (let element of squares[i]) {
-      oneDimensionalArray.push(element);
-    }
-  }  
-  //Loop through the winning combinations and see if all 3 have the same value
-  //if they do, return true.  We know the winner is the currentPlayer
-  for (let i = 0; i < winningIDCombos.length; i++) {
-    let firstOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][0]);
-    let secondOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][1]);
-    let thirdOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][2]);
-
-    if (((firstOne.value == secondOne.value) && (secondOne.value == thirdOne.value))&&(firstOne.value !== '_')){
-      console.log('WE HAVE A WINNER');
-      return true
-    } 
-
-  }
-  return false
-
-};
+  };
 
   const resetGame = () => {
     // Complete in Wave 4
