@@ -28,7 +28,7 @@ const generateSquares = () => {
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
 
-  // create state function for players
+  // create state var for players
   const [currentPlayer, setNextPlayer] = useState(PLAYER_1);
 
   // const flatArray = [];
@@ -74,14 +74,16 @@ const App = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
+    const newBoard = generateSquares();
+    setSquares(newBoard);
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>The winner is ... </h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         <Board squares={squares} onClickCallback={onClickCallback} />
