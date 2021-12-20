@@ -3,7 +3,7 @@ import './Board.css';
 import Square from './Square';
 import PropTypes from 'prop-types';
 
-const generateSquareComponents = (squares, updateSquare) => {
+const generateSquareComponents = (squares, updateSquares) => {
   const singleArray = [];
 
   for (let subArray = 0; subArray < squares.length; subArray++) {
@@ -18,15 +18,15 @@ const generateSquareComponents = (squares, updateSquare) => {
         key={square.id}
         id={square.id}
         value={square.value}
-        updateSquare={updateSquare}
+        updateSquares={updateSquares}
       ></Square>
     );
   });
   return squaresArray;
 };
 
-const Board = ({ squares, updateSquare }) => {
-  const squareList = generateSquareComponents(squares, updateSquare);
+const Board = ({ squares, updateSquares }) => {
+  const squareList = generateSquareComponents(squares, updateSquares);
   console.log(squareList);
   return <div className="grid">{squareList}</div>;
 };
@@ -40,7 +40,7 @@ Board.propTypes = {
       })
     )
   ),
-  updateSquare: PropTypes.func.isRequired,
+  updateSquares: PropTypes.func.isRequired,
 };
 
 export default Board;
