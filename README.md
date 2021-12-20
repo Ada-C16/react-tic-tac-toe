@@ -136,8 +136,8 @@ The included files are the following:
 The three waves can be summarized as follows:
 
 1. Render a board. The board should render a 3x3 grid of squares. The squares should display their value.
-1. Handle click functionality in squares. When a user clicks on a square, the game state must update.
-1. Implement logic that checks the game state if there is a winner, and their name shows up.
+2. Handle click functionality in squares. When a user clicks on a square, the game state must update.
+3. Implement logic that checks the game state if there is a winner, and their name shows up.
 
 ## Wave 1: Rendering `Board` and `Squares`
 
