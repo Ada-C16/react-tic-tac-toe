@@ -1,8 +1,9 @@
 //QQ Mariah - what's the plan for this prettier check? LMK on slack.
+
+// Lety, I'm not sure where this came from! lol
 import { check } from 'prettier';
 import React, { useState } from 'react';
 import './App.css';
-
 import Board from './components/Board';
 
 const PLAYER_1 = 'X';
@@ -39,6 +40,7 @@ const App = () => {
   //Set the label for the winner
   const [winnerLabel, setWinnerLabel] = useState('');
 
+
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
@@ -73,14 +75,12 @@ const App = () => {
         setCurrentPlayer(PLAYER_1);
       }
     }else{
-      
       setWinnerLabel('The winner is ' + currentPlayer );
-      //now call reset function
-      let playAgainAnswer = confirm('Play again?');
-      if (playAgainAnswer){
-        document.location.reload();
-      }
-    }
+    //now call reset function
+    let playAgainAnswer = confirm('Play again?');
+    if (playAgainAnswer){
+      resetGame();
+    }}
   };
 
   const checkForWinnerChickenDinner = () => {
@@ -114,15 +114,15 @@ const App = () => {
       if (((firstOne.value == secondOne.value) && (secondOne.value == thirdOne.value))&&(firstOne.value !== '_')){
         console.log('WE HAVE A WINNER');
         return true;
-      } 
-
+      }
     }
     return false;
-
   };
 
+  // resetGame function generates anew board that's empy and updates the state of the squares.
   const resetGame = () => {
-    // Complete in Wave 4
+    const newGame = generateSquares();
+    setSquares(newGame);
   };
 
 
@@ -132,7 +132,7 @@ const App = () => {
         <h1>React Tic Tac Toe</h1>
         {/* return value == current player calculated in checkForWinner */}
         <h2>{winnerLabel}</h2> 
-        <button>Reset Game</button>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         {/* passing the onClickCallback here; created the  clickSquare function to test it out */}
