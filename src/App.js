@@ -42,33 +42,37 @@ const App = () => {
   };
   const onClickCallback = (squareToMark) => {
     // console.log(squareToMark);
-    const newboard = squares;
+    const newboard = [...squares];
     // console.log(newboard);
-    newboard.map((row) => {
-      row.map((square) => {
-        if (square.id === squareToMark) {
-          // console.log(squareToMark);
-          if (player1 === true) {
-            square.value = 'x';
-            togglePlayers();
-            return {
-              id: square.id,
-              value: 'x',
-              key: square.id,
-            };
-          } else {
-            square.value = 'o';
-            togglePlayers();
-            console.log(square);
-            return square;
+    if (!gameover) {
+      newboard.map((row) => {
+        row.map((square) => {
+          if (square.id === squareToMark) {
+            // console.log(squareToMark);
+            if (player1 === true) {
+              square.value = 'X';
+              togglePlayers();
+              return {
+                id: square.id,
+                value: 'X',
+                key: square.id,
+              };
+            } else {
+              square.value = 'O';
+              togglePlayers();
+              console.log(square);
+              return square;
+            }
           }
-        }
-        return square;
+          return square;
+        });
       });
-    });
+    }
     // console.log(newboard);
     setSquares(newboard);
-    let threeConsec = checkForWinner();
+    if (checkForWinner()) {
+      checkGame(`The winner is ${checkForWinner()}`);
+    }
   };
 
   // Wave 2
@@ -117,7 +121,10 @@ const App = () => {
     return null;
   };
 
-  const resetGame = () => {
+  // const resetGame = () => {
+  //   setSquares(generateSquares());
+  //   togglePlayer1(true);
+  //   checkGame(false);
     // Complete in Wave 4
   };
 
@@ -125,7 +132,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>{gameover} </h2>
         <button>Reset Game</button>
       </header>
       <main>
