@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const PLAYER_1 = 'X';
+const PLAYER_2 = 'O';
 
 const generateSquares = () => {
   const squares = [];
@@ -30,10 +30,24 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
+  // setting
+  const [player, setPlayer] = useState(PLAYER_1);
+
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+
+  const updateSquare = (updatedSquare) => {
+    const squarePlayed = squares.map((square) => {
+      if (square.id === updatedSquare.id) {
+        square.value = player;
+        return updatedSquare;
+      } else {
+        return square;
+      }
+    });
+  };
 
   const checkForWinner = () => {
     let i = 0;
@@ -81,17 +95,16 @@ const App = () => {
   };
 
   return (
-    <div className='App'>
-      <header className='App-header'>
+    <div className="App">
+      <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is ... -- Fill in for wave 3 </h2>
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board onClickCallback={updateSquare} squares={squares} />
       </main>
     </div>
   );
 };
-
 export default App;
