@@ -30,21 +30,20 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
-  // const [gameWinner, setGameWinner] = useState(null);
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
 
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
-  const clickedSquare = (clickedPositon) => {
-    const currentSquares = [...squares];
+  const onClickCallback = (clickedSquare) => {
+    const newSquares = [...squares];
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (checkForWinner() === null) {
-          if (currentSquares[i][j].id === clickedPositon.id) {
-            if (currentSquares[i][j].value === '') {
-              currentSquares[i][j].value = currentPlayer;
+          if (newSquares[i][j].id === clickedSquare.id) {
+            if (newSquares[i][j].value === '') {
+              newSquares[i][j].value = currentPlayer;
               if (currentPlayer === PLAYER_1) {
                 setCurrentPlayer(PLAYER_2);
               } else {
@@ -55,7 +54,7 @@ const App = () => {
         }
       }
     }
-    setSquares(currentSquares);
+    setSquares(newSquares);
     checkForWinner();
   };
 
@@ -102,21 +101,27 @@ const App = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
-    console.log('resetGame is clicked');
     setSquares(generateSquares());
     setCurrentPlayer(PLAYER_1);
-    // setGameWinner(null);
+  };
+
+  const changeAppHeader = () => {
+    if (checkForWinner() === null) {
+      return `Current Player ${currentPlayer}`;
+    } else {
+      return `The winner is ... ${checkForWinner()}`;
+    }
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... {checkForWinner()} </h2>
-        <button onClick={resetGame}>Reset Game</button>
+        <h2>{changeAppHeader()}</h2>
+        <button onClick={() => resetGame()}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} onClickCallback={clickedSquare} />
+        <Board squares={squares} onClickCallback={onClickCallback} />
       </main>
     </div>
   );
