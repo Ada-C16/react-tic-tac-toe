@@ -70,6 +70,22 @@ const App = () => {
     //    3 squares in each column match
     // 3. Go across each diagonal to see if
     //    all three squares have the same value.
+    //   for i in range(3):
+    //   if "" in board[0] or "" in board[1] or "" in board[2]:
+    //       return None
+    //   # check row, column, diagonal
+    //     elif board[i][0] == board[i][1] == board[i][2] == 'X' or \
+    //         board[0][i] == board[1][i] == board[2][i] == 'X' or \
+    //         board[0][0] == board[1][1] == board[2][2] == 'X' or \
+    //         board[0][2] == board[1][1] == board[2][0] == 'X':
+    //         return 'X'
+    //     elif board[i][0] == board[i][1] == board[i][2] == 'O' or \
+    //         board[0][i] == board[1][i] == board[2][i] == 'O' or \
+    //         board[0][0] == board[1][1] == board[2][2] == 'O' or \
+    //         board[0][2] == board[1][1] == board[2][0] == 'O':
+    //         return 'O'
+    //     i += 1
+    // return 'Tie'
   };
 
   const resetGame = () => {
