@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './Square.css';
 
-const Square = ({ value, onClickCallback, id }) => {
+const Square = ({ id, value, onClickCallback }) => {
   return (
     <button className="square" onClick={() => onClickCallback(id)}>
       {value}

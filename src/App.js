@@ -24,9 +24,10 @@ const generateSquares = () => {
 };
 
 const App = () => {
+  // make sure to put all your hooks at the top of your component!!!
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
-  const [winnerHeading, setWinnerHeading] = useState('no one yet');
+  const [winner, setWinner] = useState(null);
 
   const changeCurrentPlayer = () => {
     if (currentPlayer === PLAYER_1) {
@@ -80,14 +81,14 @@ const App = () => {
   const updateBoard = (id) => {
     const updatedSquares = [...squares];
 
-    for (const [idx1, nestedArr] of squares.entries()) {
-      for (const [idx2, currentSquare] of nestedArr.entries()) {
+    for (const nestedArr of squares) {
+      for (const currentSquare of nestedArr) {
         if (
           currentSquare.id === id &&
           currentSquare.value === '' &&
           checkForWinner() === null
         ) {
-          updatedSquares[idx1][idx2].value = currentPlayer;
+          currentSquare.value = currentPlayer;
         }
       }
     }
@@ -95,28 +96,33 @@ const App = () => {
     // update the board
     setSquares(updatedSquares);
 
-    // either declare winner or change the current player
-    if (checkForWinner() !== null) {
-      setWinnerHeading(currentPlayer);
-    } else {
-      changeCurrentPlayer();
-    }
+    // either declare the winner or change the current player
+    checkForWinner() ? setWinner(currentPlayer) : changeCurrentPlayer();
   };
 
   const resetGame = () => {
     setSquares(generateSquares());
-    setWinnerHeading('no one yet');
+    setWinner(null);
     setCurrentPlayer(PLAYER_1);
   };
 
+  // this returns a bunch of HTML-looking JavaScript (JSX),
+  // including the board as well as other pieces
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>Winner is {winnerHeading}</h2>
+        {/* if there's a winner, show winner is... msg; else show player is... msg  */}
+        {winner ? (
+          <h2>Winner is {winner}</h2>
+        ) : (
+          <h2>Player is {currentPlayer}</h2>
+        )}
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
+        {/* // to board, provide a squares prop and an onClickCallBack prop 
+        so the app parent knows what to do if the board child updates */}
         <Board squares={squares} onClickCallback={updateBoard} />
       </main>
     </div>
