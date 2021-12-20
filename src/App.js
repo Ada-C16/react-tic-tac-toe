@@ -50,15 +50,15 @@ const App = () => {
           if (square.id === squareToMark) {
             // console.log(squareToMark);
             if (player1 === true) {
-              square.value = 'X';
+              square.value = 'x';
               togglePlayers();
               return {
                 id: square.id,
-                value: 'X',
+                value: 'x',
                 key: square.id,
               };
             } else {
-              square.value = 'O';
+              square.value = 'o';
               togglePlayers();
               console.log(square);
               return square;
@@ -71,7 +71,7 @@ const App = () => {
     // console.log(newboard);
     setSquares(newboard);
     if (checkForWinner()) {
-      checkGame(`The winner is ${checkForWinner()}`);
+      checkGame(`Winner is ${checkForWinner()}`);
     }
   };
 
