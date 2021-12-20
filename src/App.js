@@ -32,10 +32,6 @@ const App = () => {
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState('');
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
   const updateSquare = (id) => {
     const squarePos = [
       [0, 0],
