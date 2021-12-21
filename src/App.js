@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const player1 = 'x';
+const player2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -34,6 +34,19 @@ const App = () => {
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+  const onClickCallback = (id) => {
+    setSquares((squares) => {
+      let newBoard = squares.map((square) => {
+        for (let property of square) {
+          if (property.id === id) {
+            if (currentPlayer === PLAYER_1) {
+              property.value = PLAYER_1;
+            } else if (currentPlayer === PLAYER_2) {
+              property.value = PLAYER_2;
+            }
+          }
+        }
+        return square;
 
   const checkForWinner = () => {
     let i = 0;
