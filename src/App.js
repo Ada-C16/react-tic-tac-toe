@@ -2,9 +2,31 @@ import React, { useState } from 'react';
 import './App.css';
 
 import Board from './components/Board';
+import Announcement from './components/Announcement';
+import { check } from 'prettier';
 
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
+const PLAYERS = [PLAYER_1, PLAYER_2];
+const WINNING_THRESHOLD = 3;
+
+const ROWS = [
+  [[0, 0], [0, 1], [0, 2]],
+  [[1, 0], [1, 1], [1, 2]],
+  [[2, 0], [2, 1], [2, 2]]
+];
+const COLUMNS = [
+  [[0, 0], [1, 0], [2, 0]],
+  [[0, 1], [1, 1], [2, 1]],
+  [[0, 2], [1, 2], [2, 2]]
+];
+const DIAGONALS = [
+  [[0, 0], [1, 1], [2, 2]],
+  [[0, 2], [1, 1], [2, 0]]
+];
+const BOARDSIZE = 9;
+
+const DIRECTIONS = [ROWS, COLUMNS, DIAGONALS];
 
 const generateSquares = () => {
   const squares = [];
@@ -26,40 +48,111 @@ const generateSquares = () => {
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setCurrentPlayer] = useState(0);
+  const [gameState, setGameState] = useState('Ongoing');
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
-
-  const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+  const updateCurrentPlayer = () => {
+    const playerNums = PLAYERS.length;
+    nextPlayer = (currentPlayer + 1) % playerNums;
+    setCurrentPlayer(nextPlayer)
   };
 
-  const resetGame = () => {
-    // Complete in Wave 4
+  const checkOneDirection = (direction, squares) => {
+    direction.forEach(
+      squareSet => {
+        xCount = 0;
+        oCount = 0;
+        squareSet.forEach(
+          position => {
+            let i = position[0];
+            let j = position[1];
+            let square = squares[i][j];
+            if (square.value === PLAYER_1) {
+              xCount++;
+            } else if (square.value === PLAYER_2) {
+              oCount++;
+            }
+          }
+        )
+        if (xCount === WINNING_THRESHOLD) {
+          return PLAYER_1;
+        } else if (oCount === WINNING_THRESHOLD) {
+          return PLAYER_2;
+        }
+      }
+    )
+    return null;
+  };
+  
+  const countMoves = (squares) => {
+    let movesCount = 0;
+    squares.forEach(square => {
+      if (square.value === PLAYER_1 || square.value === PLAYER_2) {
+        movesCount++;
+      }
+    })
+    return movesCount;
+  }
+
+  const checkForWinner = () => {
+    DIRECTIONS.forEach(
+      direction => {
+        let winner = checkOneDirection(direction, squares)
+        if (winner === PLAYER_1) {
+          return PLAYER_1;
+        } else if (winner === PLAYER_2) {
+          return PLAYER_2;
+        }
+      }
+    );
+
+    const movesCount = countMoves(squares);
+    if (movesCount < BOARDSIZE) {
+      return 'Ongoing';
+    }
+    return 'Tied';
+  };
+
+  
+
+  const onClickCallback = (id) => {
+    const updatedSquares = [...squares];
+    squares.forEach(row => {
+      row.forEach(square => {
+        if (square.id === id && square.value === '' && gameState === 'Ongoing') {
+          square.value = currentPlayer;
+        }
+      })
+    })
+
+    setSquares(updatedSquares);
+
+    const newGameState = checkForWinner()
+    if (newGameState === 'Ongoing') {
+      updateCurrentPlayer();
+    } else {
+      setGameState(newGameState)
+    }
+  };
+
+  const resetGame = (event) => {
+    event.preventDefault();
+    setSquares(generateSquares());
+    setCurrentPlayer(1);
+    setGameState('Ongoing');
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        {/* only visible if gameState != 'Ongoing' */}
+        <Announcement gameState={gameState} />
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onClickCallback}/>
       </main>
     </div>
   );
