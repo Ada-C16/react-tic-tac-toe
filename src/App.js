@@ -29,11 +29,6 @@ const App = () => {
   const [squares, setSquares] = useState(generateSquares());
   const [player, setPlayer] = useState(true);
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
-
   const updateSquares = (id) => {
     const updatedSquareData = squares.map((row) => {
       return row.map((square) => {
@@ -58,42 +53,54 @@ const App = () => {
   const checkForWinner = (boardArrays) => {
     let tieValue = 0;
     for (let i = 0; i < 3; i++) {
-      if (boardArrays[i][0].value == boardArrays[i][1].value && 
+      if (
+        boardArrays[i][0].value == boardArrays[i][1].value &&
         boardArrays[i][1].value == boardArrays[i][2].value &&
-        boardArrays[i][0].value != '') {
+        boardArrays[i][0].value != ''
+      ) {
         return boardArrays[i][0].value;
       }
     }
     for (let i = 0; i < 3; i++) {
-      if (boardArrays[0][i].value == boardArrays[1][i].value &&
+      if (
+        boardArrays[0][i].value == boardArrays[1][i].value &&
         boardArrays[1][i].value == boardArrays[2][i].value &&
-        boardArrays[0][i].value != '') {
+        boardArrays[0][i].value != ''
+      ) {
         return boardArrays[0][i].value;
-        }
-      if (boardArrays[i][0].value != '' &&
+      }
+      if (
+        boardArrays[i][0].value != '' &&
         boardArrays[i][1].value != '' &&
-        boardArrays[i][2].value != '') {
-          tieValue +=1;
+        boardArrays[i][2].value != ''
+      ) {
+        tieValue += 1;
       }
     }
-    if (boardArrays[0][0].value == boardArrays[1][1].value &&
+    if (
+      boardArrays[0][0].value == boardArrays[1][1].value &&
       boardArrays[1][1].value == boardArrays[2][2].value &&
-      boardArrays[0][0].value != '') {
-        return boardArrays[0][0].value;
-      }
-    if (boardArrays[0][2].value == boardArrays[1][1].value &&
+      boardArrays[0][0].value != ''
+    ) {
+      return boardArrays[0][0].value;
+    }
+    if (
+      boardArrays[0][2].value == boardArrays[1][1].value &&
       boardArrays[1][1].value == boardArrays[2][0].value &&
-      boardArrays[0][2].value != '') {
-        return boardArrays[0][2].value;
-      }
-  if (tieValue == 3) {
-    return 'Tie';
-  }
-  return '';
+      boardArrays[0][2].value != ''
+    ) {
+      return boardArrays[0][2].value;
+    }
+    if (tieValue == 3) {
+      return 'Tie';
+    }
+    return '';
   };
 
   const resetGame = () => {
     // Complete in Wave 4
+    setSquares(generateSquares());
+    setPlayer(true);
   };
 
   return (
@@ -101,7 +108,7 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         <Board squares={squares} updateSquares={updateSquares} />
