@@ -10,7 +10,7 @@ const Announcement = ({ gameState }) => {
     }
 };
 
-Square.propTypes = {
+Announcement.propTypes = {
     gameState: PropTypes.string.isRequired,
 };
 
