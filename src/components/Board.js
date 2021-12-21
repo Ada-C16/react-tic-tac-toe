@@ -25,6 +25,8 @@ const generateSquareComponents = (squares, onClickCallback) => {
   return squareComponents;
 };
 
+
+
 const Board = ({ squares, onClickCallback }) => {
   const squareList = generateSquareComponents(squares, onClickCallback);
   console.log(squareList);

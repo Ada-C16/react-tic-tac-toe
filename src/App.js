@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 import Board from './components/Board';
+import Square from './components/Square';
 
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
@@ -29,6 +30,25 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+
+  const checkSquare = (squareId) => {
+    //Check whose turn it is to X or O
+    //find square with ID and update
+    for (let row of squares) {
+      for (let square of row) {
+        // console.log({square});
+        if (square.id === squareId) {
+          console.log({squareId});
+        } 
+      }
+    }
+  };
+
+    //console.log(square.id)
+    //console.log(squareId);
+    //console.log(value);
+    //from lesson--> () => deleteTask(task.id)
+
 
   // Wave 2
   // You will need to create a method to change the square
@@ -59,7 +79,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback = {checkSquare}/>
       </main>
     </div>
   );
