@@ -12,14 +12,18 @@ const generateSquareComponents = (squares, onClickCallback) => {
   //remember to create a new array, then assign it to squares
   // map
   const squaresArray = [].concat(...squares)  
-  newSquares = 
-
-  squares = newSquares;
-  const squareList = squares.map(square => {
+  const newSquares = squaresArray.map(square => {
     return (
-      <li key={square.id}><Square id={square.id} value={square.value} onClickCallback={}/></li>
+      <Square 
+        key={square.id} 
+        id={square.id} 
+        value={square.value} 
+        onClickCallback={onClickCallback}
+      />
     );
   });
+
+  return newSquares;
 
 };
 
