@@ -31,18 +31,24 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
-  const [currentPlayer, setCurrentPlayer] = useState(1);
+  const [currentPlayer, setCurrentPlayer] = useState(0);
+
+  const updateCurrentPlayer = () => {
+    const playerNums = PLAYERS.length;
+    nextPlayer = (currentPlayer + 1) % playerNums;
+    setCurrentPlayer(nextPlayer)
+  }
 
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
-  const onClickCallBack = () => {
+  // const onClickCallBack = () => {
     //check if event is a valid move, aka on a blank square
     //if event is a valid move
     //set square value to PLAYERS[currentPlayer]
     //check for Winner
-  };
+  // };
 
   
   const checkForWinner = () => {
