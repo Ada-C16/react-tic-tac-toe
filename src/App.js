@@ -30,6 +30,7 @@ const App = () => {
   // empty value and unique ids.
   const [squares, updateSquares] = useState(generateSquares());
   const [currentPlayer, updateCurrentPlayer] = useState(PLAYER_1);
+  const [winner, updateWinner] = useState(null);
 
   const updateSquare = (id) => {
     const newSquares = squares.map((row) => {
@@ -44,7 +45,13 @@ const App = () => {
       });
     });
     updateSquares(newSquares);
-    updateCurrentPlayer(currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1);
+    updateWinner(checkForWinner());
+
+    // console.log(winner);
+
+    if (winner === null) {
+      updateCurrentPlayer(currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1);
+    }
   };
 
   // Wave 2
@@ -62,43 +69,64 @@ const App = () => {
     //    3 squares in each column match
     // 3. Go across each diagonal to see if
     //    all three squares have the same value.
+
+    // TODO: NEST these into functions themselves
+    // TODO: figure out why winner isn't being set!
+
     for (let row of squares) {
       const firstSquare = row[0].value;
       const secondSquare = row[1].value;
       const thirdSquare = row[2].value;
-      if (firstSquare && firstSquare === secondSquare && thirdSquare === firstSquare){
+      if (
+        firstSquare &&
+        firstSquare === secondSquare &&
+        thirdSquare === firstSquare
+      ) {
         return firstSquare;
       }
     }
+
     for (let i = 0; i < 3; i++) {
-      // for i in range(3)
-      // i = 0
-      // while i < 3
-      // do stuff
-      // i+= 1
       const firstRow = squares[0];
       const secondRow = squares[1];
       const thirdRow = squares[2];
 
-      const firstSquare = firstRow[i];
-      const secondSquare = secondRow[i];
-      const thirdSquare = thirdRow[i];
-      // const firstSquare = squares[0][i]
-      // const secondSquare = squares[1][i]
+      const firstSquare = firstRow[i].value;
+      const secondSquare = secondRow[i].value;
+      const thirdSquare = thirdRow[i].value;
 
-    } 
+      if (
+        firstSquare &&
+        firstSquare === secondSquare &&
+        thirdSquare === firstSquare
+      ) {
+        return firstSquare;
+      }
+    }
 
+    const topLeftSquare = squares[0][0].value;
+    const middleSquare = squares[1][1].value;
+    const bottomRightSquare = squares[2][2].value;
+    const topRightSquare = squares[0][2].value;
+    const bottomLeftSquare = squares[2][0].value;
 
-    /*
-    [
-      0 [0, 1, 2],
-      1 [0, 1, 2],
-      2 [0, 1, 2]
-    ]
+    if (
+      topLeftSquare &&
+      topLeftSquare === middleSquare &&
+      bottomRightSquare === topLeftSquare
+    ) {
+      return topLeftSquare;
+    }
 
+    if (
+      topRightSquare &&
+      topRightSquare === middleSquare &&
+      bottomLeftSquare === topRightSquare
+    ) {
+      return topRightSquare;
+    }
 
-    */
-
+    return null;
   };
 
   const resetGame = () => {
