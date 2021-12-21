@@ -26,23 +26,14 @@ const generateSquares = () => {
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
-
   const [playerTurn, setPlayerTurn] = useState(PLAYER_1);
+  
   const toggleTurn = () => {
-    // counter = 0;
     setPlayerTurn(playerTurn === PLAYER_1 ? PLAYER_2 : PLAYER_1);
   }
-    // if value:
-    //   pass
-
 
   const [squares, setSquares] = useState(generateSquares());
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+
   const changeSquareValue = (id) => {
     let newSquares = [];
     for (let row of squares) {
@@ -59,31 +50,7 @@ const App = () => {
     setSquares(newSquares);
   }
 
-  // useEffect(checkForWinner, [squares])
-
-  // if (!checkForWinner()) {
-  //   ...
-  // }
-
   const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
-
-    // If there is no winner, display nothing
-    // If there is a winner, display the winner
-    // If there is a tie, y'all both lose!!!!!!!!
-
-    // This function will return x, o, tie, or none
-  
-    // [[{}, {}, {}], [{}, {}, {}], [{}, {}, {}]]
-
     let squaresArray = [];
 
     for (let rowIndex in squares) {
