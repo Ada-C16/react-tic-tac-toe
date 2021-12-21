@@ -73,7 +73,7 @@ const App = () => {
         setCurrentPlayer(PLAYER_1);
       }
     }else{
-      setWinnerLabel('The winner is ' + currentPlayer.toLowerCase() );
+      setWinnerLabel('Winner is ' + currentPlayer.toLowerCase() );
       //now call reset function
 
     }
