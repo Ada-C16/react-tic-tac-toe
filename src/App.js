@@ -23,7 +23,7 @@ const generateSquares = () => {
       
     }
   }
-
+  console.log(squares);
   return squares;
 };
 
@@ -32,7 +32,7 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares()); //blank board
   const [currentplayer,setplayer] = useState(Player1);
-  // const [winner, setWinner] = useState("");
+  
   
 
 
@@ -44,7 +44,6 @@ const App = () => {
 
   const onClickCallback = (id) => {
     const newSquares = [...squares];
-    // const changeASquare = squares.map(() => {
     for (let row of newSquares) {
       for (let column of row) {
         console.log(row, 'data');
@@ -102,13 +101,15 @@ const App = () => {
     
     return null;
   };
-  checkForWinner();
-  console.log(checkForWinner());
+  // checkForWinner();
+  // console.log(checkForWinner());
 
+  //Wave 4 
   const resetGame = () => {
     setSquares(generateSquares());
     setplayer(Player1);
   };
+  
   const displaytheWinner = () => {
         if (checkForWinner() === Player1){
 

@@ -98,7 +98,7 @@ describe('App', () => {
         clickButtonAndVerifyResult(container, 1, 'x');
 
         // Assert
-        const winnerScreen = screen.queryByText('Winner is x')
+        const winnerScreen = screen.queryByText('Winner is x');
         expect(winnerScreen).not.toBeNull();
         expect(winnerScreen).toBeInTheDocument();
       });
