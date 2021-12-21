@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 import Board from './components/Board';
+import { check } from 'prettier';
 
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
@@ -46,11 +47,9 @@ const generateSquares = () => {
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
-
   const [currentPlayer, setCurrentPlayer] = useState(0);
+  const [gameState, setGameState] = useState('Ongoing');
 
   const updateCurrentPlayer = () => {
     const playerNums = PLAYERS.length;
@@ -109,27 +108,52 @@ const App = () => {
 
     const movesCount = countMoves(squares);
     if (movesCount < BOARDSIZE) {
-      return null;
+      return 'Ongoing';
     }
-    return 'TIE';
+    return 'Tied';
+  };
+
+  const onClickCallback = (id) => {
+    const updatedSquares = [...squares];
+    squares.forEach(row => {
+      row.forEach(square => {
+        if (square.id === id && square.value === '' && gameState === 'Ongoing') {
+          square.value = currentPlayer;
+        }
+      })
+    })
+
+    setSquares(updatedSquares);
+
+    const newGameState = checkForWinner()
+    if (newGameState === 'Ongoing') {
+      updateCurrentPlayer();
+    } else {
+      setGameState(newGameState)
+    }
   };
 
   const resetGame = (event) => {
     event.preventDefault();
     setSquares(generateSquares());
     setCurrentPlayer(1);
+    setGameState('Ongoing');
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        {/* only visible if gameState != 0 */}
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        {/* only visible if gameState != 'Ongoing' */}
+        <h2>
+          
+        </h2>
+
+
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onClickCallback}/>
       </main>
     </div>
   );
