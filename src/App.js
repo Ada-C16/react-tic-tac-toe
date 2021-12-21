@@ -21,6 +21,7 @@ const generateSquares = () => {
       currentId += 1;
     }
   }
+  console.log(squares);
 
   return squares;
 };
