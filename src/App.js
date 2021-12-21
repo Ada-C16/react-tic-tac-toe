@@ -61,7 +61,8 @@ const App = () => {
     //4. check if there's no more blank square
   };
 
-  const resetGame = () => {
+  const resetGame = (event) => {
+    event.preventDefault();
     setSquares(generateSquares());
     setCurrentPlayer(1);
     setGameState(0);
