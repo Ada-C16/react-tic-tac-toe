@@ -28,7 +28,7 @@ const App = () => {
   const [squares, setSquares] = useState(generateSquares());
   const [player, setPlayer] = useState(PLAYER_1);
 
-  const onClickCallback = (id) => {
+  const onSquareClickCallback = (id) => {
     const boardCopy = squares.map((row) => {
       row.forEach((column) => {
         if (column.id === id) {
@@ -62,7 +62,13 @@ const App = () => {
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    const boardCopy = squares.map((row) => {
+      row.forEach((column) => {
+        column.value = '';
+      });
+      return row;
+    });
+    setSquares(boardCopy);
   };
 
   return (
@@ -70,10 +76,10 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} onClickCallback={onClickCallback} />
+        <Board squares={squares} onClickCallback={onSquareClickCallback} />
       </main>
     </div>
   );
