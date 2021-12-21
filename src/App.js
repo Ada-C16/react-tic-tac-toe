@@ -26,8 +26,6 @@ const generateSquares = () => {
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState('');
@@ -127,7 +125,6 @@ const App = () => {
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
     setSquares(generateSquares());
     setWinner('');
   };
