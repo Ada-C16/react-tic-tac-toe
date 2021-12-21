@@ -12,7 +12,7 @@ const Square = (props) => {
     <button
       className="square"
       onClick={() => {
-        props.onClickCallback(props.id);
+        props.onClickCallback(props.id); // when a Square component is clicked, it passes its id to the onClickCallback function defined in App.js
       }}
     >
       {props.value}
