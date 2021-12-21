@@ -109,7 +109,7 @@ const App = () => {
     if (checkForWinner() === null) {
       return `Current Player ${currentPlayer}`;
     } else {
-      return `The winner is ... ${checkForWinner()}`;
+      return `Winner is ${checkForWinner()}`;
     }
   };
 
