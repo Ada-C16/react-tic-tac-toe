@@ -55,9 +55,9 @@ const App = () => {
       return square;
     });
 
-    setWinner(checkForWinner);
     setNextPlayer(!nextPlayer);
     setSquares(reshapSquare(changedSquares));
+    setWinner(checkForWinner);
   };
   // Wave 2
   // You will need to create a method to change the square
@@ -116,6 +116,8 @@ const App = () => {
     setSquares(generateSquares());
     setNextPlayer(PLAYER_1);
     // setSquares(reshapSquare(changedSquares));
+    setWinner(null);
+    console.log('reset');
   };
 
   return (
@@ -123,6 +125,8 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>The winner is {gameWinner} </h2>
+        <input type="text" placeholder="player1 name"></input>
+        <input type="text" placeholder="player2 name"></input>
         <h3> Current Player is {currentPlayer}</h3>
         <button onClick={resetGame}>Reset Game</button>
       </header>
