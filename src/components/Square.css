@@ -1,5 +1,4 @@
-.square
-{
+.square {
   border: 4px solid #2c3e50;
   border-radius: 2px;
   font-family: Helvetica;
@@ -9,4 +8,14 @@
   justify-content: center;
   align-items: center;
   margin: 2px;
+  transition: all .5s;
+}
+
+.square:disabled {
+  background-color: #2c3e50;
+}
+
+.square:hover:enabled {
+  /* background-color: rgb(255, 206, 81);*/
+  background-color: cornflowerblue;
 }
