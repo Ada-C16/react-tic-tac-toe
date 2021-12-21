@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -21,45 +21,159 @@ const generateSquares = () => {
       currentId += 1;
     }
   }
-
   return squares;
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  console.log(`${squares[0][1].value}`);
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+  // create state var for players
+  const [currentPlayer, setNextPlayer] = useState(PLAYER_1);
 
-  const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+  // keeps track of the winner, who clicks what, etc.
+  const onClickCallback = (id) => {
+    // copy the squares array to newBoard
+    const newBoard = [...squares];
+
+    newBoard.map((squareArray) => {
+      // looping through the square array, get each square object..
+      return squareArray.map((square) => {
+        if (square.id === id && square.value === '') {
+          // check if current player is X or O
+          if (currentPlayer === PLAYER_1) {
+            square.value = PLAYER_1;
+            setNextPlayer(PLAYER_2);
+          } else {
+            square.value = PLAYER_2;
+            setNextPlayer(PLAYER_1);
+          }
+        }
+      });
+    });
+    setSquares(newBoard);
+  };
+
+  const helperHorizontal = (squares) => {
+    for (let row of squares) {
+      let counter = 0;
+      let getFirstElement = row[0].value;
+      for (let col = 1; col < row.length; col++) {
+        if (row[col].value === getFirstElement && getFirstElement != '') {
+          counter += 1;
+        }
+      }
+      if (counter === row.length - 1) {
+        return getFirstElement;
+      }
+    }
+    return 'Tie';
+  };
+  const helperVertical = (squares) => {
+    let firsts = squares[0][0].value;
+    let row = 0;
+    let col = 0;
+    let counter = 0;
+
+    while (row < squares.length && col < squares.length) {
+      if (squares[row][col].value === firsts && firsts != '') {
+        counter += 1;
+        row += 1;
+        if (squares.length === counter) {
+          return firsts;
+        }
+      } else {
+        row = 0;
+        counter = 0;
+        col += 1;
+        if (col <= 2) {
+          firsts = squares[row][col].value;
+        }
+      }
+    }
+    return 'Tie';
+  };
+
+  const helperDiagonal = (squares) => {
+    const rightLeft = squares[0][0].value;
+    let counter1 = 0;
+    const leftRight = squares[0][2].value;
+    let counter2 = 0;
+    let col = squares.length - 1;
+
+    for (let index in squares) {
+      if (squares[index][index].value === rightLeft && rightLeft != '') {
+        counter1 += 1;
+        if (counter1 === squares.length) {
+          return rightLeft;
+        }
+      }
+      if (squares[index][col].value === leftRight && leftRight != '') {
+        counter2 += 1;
+        col -= 1;
+        if (squares.length === counter2) {
+          return leftRight;
+        }
+      }
+    }
+    return 'Tie';
+  };
+
+  const checkForWinner = (squares) => {
+    if (
+      helperHorizontal(squares) === 'x' ||
+      helperVertical(squares) === 'x' ||
+      helperDiagonal(squares) === 'x'
+    ) {
+      return 'x';
+    }
+    if (
+      helperHorizontal(squares) === 'o' ||
+      helperVertical(squares) === 'o' ||
+      helperDiagonal(squares) === 'o'
+    ) {
+      return 'o';
+    }
+    for (let row of squares) {
+      if ('' in row) {
+        return 'None';
+      }
+    }
+    if (
+      helperHorizontal(squares) === 'Tie' ||
+      helperVertical(squares) === 'Tie' ||
+      helperDiagonal(squares) === 'Tie'
+    ) {
+      return 'Tie';
+    }
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    const newBoard = generateSquares();
+    setSquares(newBoard);
   };
 
+  const checkAllSquares = (squares) => {
+    for (let row of squares) {
+      for (let col of row) {
+        if (col.value === '') {
+          return;
+        }
+      }
+    }
+    checkForWinner(squares);
+  };
+
+  checkAllSquares(squares);
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>Winner is {checkForWinner(squares)} </h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onClickCallback} />
       </main>
     </div>
   );
