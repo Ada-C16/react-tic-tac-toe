@@ -12,7 +12,7 @@ describe('App', () => {
     
     buttons = container.querySelectorAll('.grid button');
     expect(buttons[buttonIndex].innerHTML).toEqual(expectedResult);
-  }
+  };
 
   describe('Wave 2: clicking on squares and rendering App', () => {
 
