@@ -57,7 +57,7 @@ const App = () => {
   const checkForWinner = () => {
     let r = 0;
     let c = 0;
-    let winner = '';
+    let winner = '...';
 
     // checking for descending diaganol winner
     if (
@@ -117,7 +117,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is {winner} </h2>
+        <h2>Winner is {winner} </h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
