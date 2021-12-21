@@ -25,21 +25,14 @@ const generateSquares = () => {
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
+  // This starts state off as a 2D array of JS objects with empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
-  // squares - 2D array
 
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
-  // [
-  //   ['X', "O", "X"],
-  //   ['X', "O", "X"],
-  //   ['X', "O", "X"]
-  // ]
 
   const setSquareValue = (id) => {
     console.log(id);
@@ -50,9 +43,7 @@ const App = () => {
     // // has square been clicked?
     // let clicked = false;
 
-    // make copy of squares state
     const newSquares = [...squares];
-    // const newSquares = JSON.parse(JSON.stringify(squares));
     console.log(squares);
     // finding if square has been clicked
     // while (row < 3 && !clicked) {
@@ -64,17 +55,13 @@ const App = () => {
         if (square.id === id) {
           console.log(square);
           if (square.value === '') {
-            // how to render the x and o
             square.value = currentPlayer;
-            //clicked = true;
-
             if (currentPlayer === PLAYER_1) {
               setCurrentPlayer(PLAYER_2);
             } else {
               setCurrentPlayer(PLAYER_1);
             }
           }
-          // square.value = PLAYER_2;
         }
       }
       setSquares(newSquares);
