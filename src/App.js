@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 import Board from './components/Board';
@@ -27,7 +27,7 @@ const generateSquares = () => {
 
 const App = () => {
   const [playerTurn, setPlayerTurn] = useState(PLAYER_1);
-  
+
   const toggleTurn = () => {
     setPlayerTurn(playerTurn === PLAYER_1 ? PLAYER_2 : PLAYER_1);
   }
