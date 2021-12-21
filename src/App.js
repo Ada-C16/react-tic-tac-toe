@@ -35,8 +35,13 @@ const App = () => {
   const [player, playerTurn] = useState(PLAYER_1);
   let [winner, checkWinner] = useState('');
 
-  // method to update state to board
+  // function to update state to board
   const onClickCallback = (id) => {
+    
+  if (winner) {
+    return;
+  }
+
     const square = squares.map((oneSquare) => {
       for (const insideSquare of oneSquare) {
         if (insideSquare.id === id) {
