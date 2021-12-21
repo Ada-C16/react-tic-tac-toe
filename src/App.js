@@ -41,13 +41,12 @@ const App = () => {
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
   const updateSquares = (id) => {
-    console.log('Hey we are in update squares');
     let newSquares = [];
     let strVal = '';
-    strVal = turn==true? 'X':'O';
+    strVal = turn==true? 'x':'o';
     for (let row of squares){
       let newRow = row.map((square)=>{
-        if (square.id===id) {
+        if ((square.id===id) && (!square.value)) {
           square.value = strVal;
           return square;
           } 
@@ -82,9 +81,9 @@ const App = () => {
       for(let row of squares){
         for (let element of row){
           // console.log('element=', element);
-          if (element.value === 'X'){
+          if (element.value === 'x'){
             xSet.add(count);
-          } else if (element.value === 'O') {
+          } else if (element.value === 'o') {
             oSet.add(count);
           }
           count ++;
@@ -116,9 +115,9 @@ const App = () => {
     console.log('myO', myO);
 
     if (myX.length > myO.length) {
-      string = 'X';
+      string = 'x';
     } else if (myO.length > myX.length){
-      string = 'O';
+      string = 'o';
     } else if ((oSet.size + xSet.size) === 9){
       string = 'Tie';
     } else {
@@ -145,7 +144,7 @@ const resetGame = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner ... {winner} </h2>
+        <h2>Winner is {winner}</h2>
         <button onClick={()=>{resetGame();}}>Reset Game</button>
       </header>
       <main>
