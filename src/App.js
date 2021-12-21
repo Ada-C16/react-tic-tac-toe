@@ -59,19 +59,21 @@ const App = () => {
     let c = 0;
     let winner = '...';
 
-    // checking for descending diaganol winner
+    // checking for descending diagnol winner
     if (
       squares[r][c].value === squares[r + 1][c + 1].value &&
-      squares[r + 1][c + 1].value === squares[r + 2][c + 2].value
+      squares[r + 1][c + 1].value === squares[r + 2][c + 2].value &&
+      squares[r][c].value != ''
     ) {
       winner = squares[r][c].value;
       setWinner(winner);
     }
 
-    // checking for ascending diaganol winner
+    // checking for ascending diagnol winner
     if (
       squares[r][c + 2].value === squares[r + 1][c + 1].value &&
-      squares[r + 1][c + 1].value === squares[r + 2][c].value
+      squares[r + 1][c + 1].value === squares[r + 2][c].value &&
+      squares[r][c].value != ''
     ) {
       winner = squares[r][c + 2].value;
       setWinner(winner);
@@ -81,10 +83,12 @@ const App = () => {
     while (r < 3) {
       if (
         squares[r][c].value === squares[r][c + 1].value &&
-        squares[r][c + 1].value === squares[r][c + 2].value
+        squares[r][c + 1].value === squares[r][c + 2].value &&
+        squares[r][c].value != ''
       ) {
         winner = squares[r][c].value;
         setWinner(winner);
+        return winner;
       }
       r += 1;
     }
@@ -93,10 +97,12 @@ const App = () => {
       r = 0;
       if (
         squares[r][c].value === squares[r + 1][c].value &&
-        squares[r + 1][c].value === squares[r + 2][c].value
+        squares[r + 1][c].value === squares[r + 2][c].value &&
+        squares[r][c].value != ''
       ) {
         winner = squares[r][c].value;
         setWinner(winner);
+        return winner;
       }
       c += 1;
     }
