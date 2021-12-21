@@ -13,6 +13,7 @@ const Square = (props) => {
       id={props.id}
       className="square"
       onClick={() => props.onClickCallback(props.id)}
+      disabled={props.isDisabled}
     >
       {props.value}
     </button>
@@ -23,6 +24,7 @@ Square.propTypes = {
   value: PropTypes.string.isRequired,
   onClickCallback: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
 };
 
 export default Square;

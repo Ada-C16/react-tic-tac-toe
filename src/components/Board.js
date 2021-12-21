@@ -3,7 +3,7 @@ import './Board.css';
 import Square from './Square';
 import PropTypes from 'prop-types';
 
-const generateSquareComponents = (squares, onClickCallback) => {
+const generateSquareComponents = (squares, onClickCallback, isDisabled) => {
   /*
     squares = [
       [x,x,x], // row 0
@@ -20,6 +20,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
             key={square.id}
             onClickCallback={onClickCallback}
             id={square.id}
+            isDisabled={isDisabled}
           />
         );
       })
@@ -27,8 +28,12 @@ const generateSquareComponents = (squares, onClickCallback) => {
   }, []);
 };
 
-const Board = ({ squares, onClickCallback }) => {
-  const squareList = generateSquareComponents(squares, onClickCallback);
+const Board = ({ squares, onClickCallback, isDisabled }) => {
+  const squareList = generateSquareComponents(
+    squares,
+    onClickCallback,
+    isDisabled
+  );
   // console.log(squareList);
   return <div className="grid">{squareList}</div>;
 };
@@ -43,6 +48,7 @@ Board.propTypes = {
     )
   ),
   onClickCallback: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
 };
 
 export default Board;
