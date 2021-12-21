@@ -4,7 +4,7 @@ import './App.css';
 import Board from './components/Board';
 
 const PLAYER_1 = 'x';
-const PLAYER_2 = '0';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -112,7 +112,7 @@ const App = () => {
   if (winner != null) {
     header = <h2>Winner is {winner}</h2>;
   } else {
-    header = <h2>The Current Player is  {currentPlayer}</h2>;
+    header = <h2>The Current Player is ... {currentPlayer}</h2>;
     boardCallBack = onClickCallback;
     
   }

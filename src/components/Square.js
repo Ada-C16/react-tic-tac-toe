@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Square.css'
+import './Square.css';
 
 const Square = (props) => {
   const clickSquareButton = ()=>{
@@ -14,8 +14,8 @@ const Square = (props) => {
     className="square" onClick={clickSquareButton}
   >
     {props.value}
-  </button>
-}
+  </button>;
+};
 
 Square.propTypes = {
   value: PropTypes.string.isRequired,
