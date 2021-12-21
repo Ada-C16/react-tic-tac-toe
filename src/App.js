@@ -7,6 +7,25 @@ const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
 const PLAYERS = [PLAYER_1, PLAYER_2];
 
+const ROWS = [
+  [[0, 0], [0, 1], [0, 2]],
+  [[1, 0], [1, 1], [1, 2]],
+  [[2, 0], [2, 1], [2, 2]]
+];
+
+const COLUMNS = [
+  [[0, 0], [1, 0], [2, 0]],
+  [[0, 1], [1, 1], [2, 1]],
+  [[0, 2], [1, 2], [2, 2]]
+];
+
+const DIAGONALS = [
+  [[0, 0], [1, 1], [2, 2]],
+  [[0, 2], [1, 1], [2, 0]]
+];
+
+const DIRECTIONS = [ROWS, COLUMNS, DIAGONALS];
+
 const generateSquares = () => {
   const squares = [];
 
@@ -53,10 +72,12 @@ const App = () => {
   
   const checkForWinner = () => {
     // Complete in Wave 3
+    
     // You will need to:
     // 1. Go accross each row to see if
     //    3 squares in the same row match
     //    i.e. same value
+
     
     // 2. Go down each column to see if
     //    3 squares in each column match
