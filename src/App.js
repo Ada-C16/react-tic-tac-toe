@@ -4,7 +4,7 @@ import './App.css';
 import Board from './components/Board';
 
 const PLAYER_1 = 'x';
-const PLAYER_2 = 'o'; 
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -33,7 +33,7 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
   const [player, playerTurn] = useState(PLAYER_1);
-  console.log(squares);
+  let [winner, checkWinner] = useState('');
 
   // method to update state to board
   const onClickCallback = (id) => {
@@ -52,20 +52,59 @@ const App = () => {
       playerTurn(PLAYER_1);
     }
     setSquares(square);
+    checkWinner(checkForWinner());
   };
 
 
   const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+    let row = 0;
+    let col = 0;
+    // check for winning combo in rows
+    while (row < 3) {
+      if (
+        squares[row][0].value === squares[row][1].value &&
+        squares[row][2].value === squares[row][1].value &&
+        squares[row][0].value != ''
+      ) {
+        return squares[row][0].value;
+      } else row += 1;
+    }
+    // check for winning combo in columns
+    while (col < 3) {
+      if (
+        squares[0][col].value === squares[1][col].value &&
+        squares[2][col].value === squares[1][col].value &&
+        squares[0][col].value != ''
+      ) {
+        return squares[0][col].value;
+      } else col += 1;
+    }
+    // check for winning combo diagonally
+    if (
+      squares[0][0].value === squares[1][1].value &&
+      squares[2][2].value === squares[1][1].value &&
+      squares[0][0] != ''
+    ) {
+      return squares[0][0].value;
+    } else if (
+      squares[0][2].value === squares[1][1].value &&
+      squares[2][0].value === squares[1][1].value &&
+      squares[0][2] != ''
+    ) {
+      return squares[0][2].value;
+    } else {
+      for (let array of squares) {
+        for (let element of array) {
+          if (element.value == '') {
+            return '';
+          }
+          continue;
+        }
+      }
+      return 'Tie';
+    }
   };
+
 
   const resetGame = () => {
     // Complete in Wave 4
@@ -75,7 +114,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>The winner is ... {winner} </h2>
         <button>Reset Game</button>
       </header>
       <main>
