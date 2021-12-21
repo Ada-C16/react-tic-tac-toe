@@ -5,6 +5,8 @@ import Board from './components/Board';
 
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
+let TURN = true;
+
 
 const generateSquares = () => {
   const squares = [];
@@ -25,15 +27,38 @@ const generateSquares = () => {
   return squares;
 };
 
+
 const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
-
+  const [turn, setTurn] = useState(TURN);
+  const [winner, setWinner] = useState('');
+  let string = null;
+  
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+  const updateSquares = (id) => {
+    let newSquares = [];
+    let strVal = '';
+    strVal = turn==true? 'x':'o';
+    for (let row of squares){
+      let newRow = row.map((square)=>{
+        if ((square.id===id) && (!square.value)) {
+          square.value = strVal;
+          return square;
+          } 
+        return square;
+        });
+    newSquares.push(newRow);
+  }
+    let newTurn = !turn;
+    setTurn(newTurn);
+    setSquares(newSquares);
+    checkForWinner();
+  };
 
   const checkForWinner = () => {
     // Complete in Wave 3
@@ -45,21 +70,85 @@ const App = () => {
     //    3 squares in each column match
     // 3. Go across each diagonal to see if
     //    all three squares have the same value.
+
+    const winning = [ new Set([0,3,6]), new Set([1,4,7]), new Set([2,5,8]), new Set ([0,1,2]),
+    new Set([3,4,5]), new Set([6,7,8]),new Set([0,8,4]),new Set([2,4,6])];
+    
+    let count = 0;
+
+    const xSet=new Set();
+    const oSet= new Set();
+      for(let row of squares){
+        for (let element of row){
+          // console.log('element=', element);
+          if (element.value === 'x'){
+            xSet.add(count);
+          } else if (element.value === 'o') {
+            oSet.add(count);
+          }
+          count ++;
+        }
+      }
+    const myX = [];
+
+    console.log('xSet', xSet);
+    console.log('oSet', oSet);
+
+    // Roslyn is done
+
+    for (let combo of winning){
+      if (isSuperset(xSet,combo)){
+        myX.push(combo);
+      }
+    }
+      // const myO=winning.filter((val)=>{
+      //   isSuperset(oSet,val);
+      // });
+    const myO = [];
+    for (let combo of winning){
+      if (isSuperset(oSet,combo)){
+        myO.push(combo);
+      }
+    }
+    
+    console.log('myX', myX);
+    console.log('myO', myO);
+
+    if (myX.length > myO.length) {
+      string = 'x';
+    } else if (myO.length > myX.length){
+      string = 'o';
+    } else if ((oSet.size + xSet.size) === 9){
+      string = 'Tie';
+    } else {
+      string = '';
+    }
+    setWinner(string);
+    return string;
   };
 
-  const resetGame = () => {
-    // Complete in Wave 4
+  const isSuperset = (set, subset) => {
+    for (let elem of subset) {
+        if (!set.has(elem)) {
+            return false;
+        }
+    }
+    return true;
+};
+  
+const resetGame = () => {
+    setSquares(generateSquares());
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>Winner is {winner}</h2>
+        <button onClick={()=>{resetGame();}}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={updateSquares}/>
       </main>
     </div>
   );
