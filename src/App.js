@@ -6,23 +6,23 @@ import Board from './components/Board';
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
 const PLAYERS = [PLAYER_1, PLAYER_2];
+const WINNING_THRESHOLD = 3;
 
 const ROWS = [
   [[0, 0], [0, 1], [0, 2]],
   [[1, 0], [1, 1], [1, 2]],
   [[2, 0], [2, 1], [2, 2]]
 ];
-
 const COLUMNS = [
   [[0, 0], [1, 0], [2, 0]],
   [[0, 1], [1, 1], [2, 1]],
   [[0, 2], [1, 2], [2, 2]]
 ];
-
 const DIAGONALS = [
   [[0, 0], [1, 1], [2, 2]],
   [[0, 2], [1, 1], [2, 0]]
 ];
+const BOARDSIZE = 9;
 
 const DIRECTIONS = [ROWS, COLUMNS, DIAGONALS];
 
@@ -56,43 +56,68 @@ const App = () => {
     const playerNums = PLAYERS.length;
     nextPlayer = (currentPlayer + 1) % playerNums;
     setCurrentPlayer(nextPlayer)
+  };
+
+  const checkOneDirection = (direction, squares) => {
+    direction.forEach(
+      squareSet => {
+        xCount = 0;
+        oCount = 0;
+        squareSet.forEach(
+          position => {
+            let i = position[0];
+            let j = position[1];
+            let square = squares[i][j];
+            if (square.value === PLAYER_1) {
+              xCount++;
+            } else if (square.value === PLAYER_2) {
+              oCount++;
+            }
+          }
+        )
+        if (xCount === WINNING_THRESHOLD) {
+          return PLAYER_1;
+        } else if (oCount === WINNING_THRESHOLD) {
+          return PLAYER_2;
+        }
+      }
+    )
+    return null;
+  };
+  
+  const countMoves = (squares) => {
+    let movesCount = 0;
+    squares.forEach(square => {
+      if (square.value === PLAYER_1 || square.value === PLAYER_2) {
+        movesCount++;
+      }
+    })
+    return movesCount;
   }
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
-  // const onClickCallBack = () => {
-    //check if event is a valid move, aka on a blank square
-    //if event is a valid move
-    //set square value to PLAYERS[currentPlayer]
-    //check for Winner
-  // };
-
-  
   const checkForWinner = () => {
-    // Complete in Wave 3
-    
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
+    DIRECTIONS.forEach(
+      direction => {
+        let winner = checkOneDirection(direction, squares)
+        if (winner === PLAYER_1) {
+          return PLAYER_1;
+        } else if (winner === PLAYER_2) {
+          return PLAYER_2;
+        }
+      }
+    );
 
-    
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
-
-    //4. check if there's no more blank square
+    const movesCount = countMoves(squares);
+    if (movesCount < BOARDSIZE) {
+      return null;
+    }
+    return 'TIE';
   };
 
   const resetGame = (event) => {
     event.preventDefault();
     setSquares(generateSquares());
     setCurrentPlayer(1);
-    setGameState(0);
   };
 
   return (
