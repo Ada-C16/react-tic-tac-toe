@@ -21,7 +21,6 @@ const generateSquares = () => {
       currentId += 1;
     }
   }
-
   return squares;
 };
 
@@ -35,33 +34,45 @@ const App = () => {
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+  // [
+  //   ['X', "O", "X"],
+  //   ['X', "O", "X"],
+  //   ['X', "O", "X"]
+  // ]
 
   const setSquareValue = (id) => {
-    //const PLAYER_1 = 'X';
-    // const PLAYER_2 = 'O';
+    console.log(id);
+
     // counters for row & column
-    let row = 0;
-    let col = 0;
-    // has square been clicked?
-    let clicked = false;
+    // let row = 0;
+    // let col = 0;
+    // // has square been clicked?
+    // let clicked = false;
 
     // make copy of squares state
     const newSquares = [...squares];
-
-    // finding if square has been clicked 
-    while (row < 3 && !clicked) {
-      while (col < 3 && !clicked) {
-        let presentSquares = newSquares[row][col]; 
-        if (presentSquare.id === id) {
-          if (presentSqaure.value !== '') {
+    // const newSquares = JSON.parse(JSON.stringify(squares));
+    console.log(squares);
+    // finding if square has been clicked
+    // while (row < 3 && !clicked) {
+    //   while (col < 3 && !clicked) {
+    // let presentSquares = newSquares[row][col];
+    for (let row of newSquares) {
+      for (let square of row) {
+        if (square.id === id) {
+          console.log(square);
+          if (square.value === '') {
+            console.log('Inside If');
             // how to render the x and o
-          square.value = PLAYER_1;
+            square.value = PLAYER_1;
+            //clicked = true;
+          }
+          // square.value = PLAYER_2;
         }
-        square.value = PLAYER_2;
-      )}}}
-    setSquares(newSquares);
-  }
-
+      }
+      setSquares(newSquares);
+    }
+  };
   const checkForWinner = () => {
     // Complete in Wave 3
     // You will need to:
