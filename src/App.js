@@ -31,13 +31,6 @@ const App = () => {
   // create state var for players
   const [currentPlayer, setNextPlayer] = useState(PLAYER_1);
 
-  // const flatArray = [];
-  // for (let appArray of squares) {
-  //   for (let innerArray of appArray) {
-  //     flatArray.push(innerArray);
-  //   }
-  // }
-
   // keeps track of the winner, who clicks what, etc.
   const onClickCallback = (id) => {
     // copy the squares array to newBoard
@@ -60,7 +53,6 @@ const App = () => {
     });
     setSquares(newBoard);
   };
-  // console.log(`Hello ${squares}`);
 
   const helperHorizontal = (squares) => {
     for (let row of squares) {
@@ -171,13 +163,7 @@ const App = () => {
     }
     checkForWinner(squares);
   };
-  // const [winner, changeWinner] = useState('...');
 
-  // console.log(winner);
-  // if (checkAllSquares(squares) === 'completed') {
-  //   winner = checkForWinner(squares);
-  // }
-  // console.log(`this will be ${winner}`);
   checkAllSquares(squares);
   return (
     <div className="App">
@@ -188,14 +174,6 @@ const App = () => {
       </header>
       <main>
         <Board squares={squares} onClickCallback={onClickCallback} />
-        {/* <button
-          onClick={() => {
-            changeWinner(checkForWinner(squares));
-          }}
-        >
-          Find out the winner
-        </button>
-        <h3> Here is the {winner} </h3> */}
       </main>
     </div>
   );
