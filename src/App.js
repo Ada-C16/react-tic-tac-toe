@@ -4,8 +4,8 @@ import Board from './components/Board';
 import matthew from './img/matthewface.png';
 import junior from './img/juniorface.jpg';
 
-const PLAYER_1 = <img src={matthew} alt='X' />;
-const PLAYER_2 = <img src={junior} alt='O' />;
+const PLAYER_1 = <img src={matthew} alt="X" />;
+const PLAYER_2 = <img src={junior} alt="O" />;
 
 const generateSquares = () => {
   const squares = [];
