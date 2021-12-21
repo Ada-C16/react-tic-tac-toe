@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -33,10 +33,12 @@ const App = () => {
     const boardCopy = squares.map((row) => {
       row.forEach((column) => {
         if (column.id === id) {
-          if (player === PLAYER_1) {
-            column.value = PLAYER_1;
-          } else {
-            column.value = PLAYER_2;
+          if (column.value === '') {
+            if (player === PLAYER_1) {
+              column.value = PLAYER_1;
+            } else {
+              column.value = PLAYER_2;
+            }
           }
         }
       });
