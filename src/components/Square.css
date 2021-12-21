@@ -9,8 +9,9 @@
   justify-content: center;
   align-items: center;
   margin: 2px;
+  color: black;
 }
 
 :disabled {
-  background-color: rgb(242, 241, 241);
+  background-color: rgb(241, 241, 241);
 }

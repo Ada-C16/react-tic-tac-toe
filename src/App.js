@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -46,6 +46,9 @@ const App = () => {
   };
 
   const changeTheSquare = (id) => {
+    if (winner != null) {
+      return;
+    }
     const updateSquare = squares.map((square) => {
       for (const innerSquare of square) {
         if (innerSquare.id === id) {
@@ -58,27 +61,10 @@ const App = () => {
     });
     setSquares(updateSquare);
     setWinner(checkForWinner(squares));
-    // if (!winner) {
-    //   disableSquares();
-    // }
   };
 
-  // const disableSquares = () => {
-  //   const updateSquare = squares.map((square) => {
-  //     for (const innerSquare of square) {
-  //       innerSquare.disabled = true;
-  //     }
-  //   });
-  //   setSquares(updateSquare);
-  // };
-
-  // useEffect(() => {
-  //   console.log('working');
-  //   disableSquares();
-  // }, [winner]);
-
   const boardToSets = (board) => {
-    let nestedList = [
+    const nestedList = [
       ['', '', ''],
       ['', '', ''],
       ['', '', ''],
@@ -122,8 +108,7 @@ const App = () => {
       if (line.size === 1) {
         let w = line.values().next().value;
         if (w) {
-          return `${w} wins!`;
-          // need to disable the board too
+          return `Winner is ${w}`;
         }
       }
     }
@@ -150,7 +135,6 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        {/* Need to change this to say who'se turn it is*/}
         <h2>{winner ? winner : `${currentPlayer}'s turn`}</h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
