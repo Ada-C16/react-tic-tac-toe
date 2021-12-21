@@ -29,31 +29,33 @@ const generateSquares = () => {
 const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
-  const [squares, setSquares] = useState(generateSquares());
+  const [squares, updateSquares] = useState(generateSquares());
+  // keeping track of players
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
 
-  const checkSquare = (squareId) => {
-    //Check whose turn it is to X or O
-    //find square with ID and update
+
+  const checkSquare = (id) => {
     for (let row of squares) {
       for (let square of row) {
-        // console.log({square});
-        if (square.id === squareId) {
-          console.log({squareId});
-        } 
+        if (square.id === id && square.value === '') {
+          if (currentPlayer === PLAYER_1) {
+            square.value = PLAYER_1;
+          } else if (currentPlayer === PLAYER_2) {
+            square.value = PLAYER_2;
+          }
+          if (currentPlayer === PLAYER_1) {
+            setCurrentPlayer(PLAYER_2);
+          } else {
+            setCurrentPlayer(PLAYER_1);
+          }
+          console.log({ squareId: id });
+        }    
       }
     }
+    const squareCopy = [...squares];
+    updateSquares(squareCopy);
+    return id;
   };
-
-    //console.log(square.id)
-    //console.log(squareId);
-    //console.log(value);
-    //from lesson--> () => deleteTask(task.id)
-
-
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
 
   const checkForWinner = () => {
     // Complete in Wave 3
@@ -79,7 +81,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} onClickCallback = {checkSquare}/>
+        <Board squares={squares} onClickCallback={checkSquare} />
       </main>
     </div>
   );
