@@ -49,7 +49,7 @@ const App = () => {
 
     if (winner || clickedSquare.value) return;
 
-    clickedSquare.value = xIsNext ? 'X' : 'O';
+    clickedSquare.value = xIsNext ? 'x' : 'o';
     calculateWinner(newBoard);
     setXIsNext(!xIsNext);
     setSquares(newBoard);
@@ -133,7 +133,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... {winner} </h2>
+        <h2>Winner is {winner} </h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
