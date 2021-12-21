@@ -51,18 +51,45 @@ const App = () => {
 
     setSquares(updatedSquareData);
     setPlayer(!player);
+    const winner = checkForWinner(updatedSquareData);
+    console.log(winner);
   };
 
-  const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+  const checkForWinner = (boardArrays) => {
+    let tieValue = 0;
+    for (let i = 0; i < 3; i++) {
+      if (boardArrays[i][0].value == boardArrays[i][1].value && 
+        boardArrays[i][1].value == boardArrays[i][2].value &&
+        boardArrays[i][0].value != '') {
+        return boardArrays[i][0].value;
+      }
+    }
+    for (let i = 0; i < 3; i++) {
+      if (boardArrays[0][i].value == boardArrays[1][i].value &&
+        boardArrays[1][i].value == boardArrays[2][i].value &&
+        boardArrays[0][i].value != '') {
+        return boardArrays[0][i].value;
+        }
+      if (boardArrays[i][0].value != '' &&
+        boardArrays[i][1].value != '' &&
+        boardArrays[i][2].value != '') {
+          tieValue +=1;
+      }
+    }
+    if (boardArrays[0][0].value == boardArrays[1][1].value &&
+      boardArrays[1][1].value == boardArrays[2][2].value &&
+      boardArrays[0][0].value != '') {
+        return boardArrays[0][0].value;
+      }
+    if (boardArrays[0][2].value == boardArrays[1][1].value &&
+      boardArrays[1][1].value == boardArrays[2][0].value &&
+      boardArrays[0][2].value != '') {
+        return boardArrays[0][2].value;
+      }
+  if (tieValue == 3) {
+    return 'Tie';
+  }
+  return '';
   };
 
   const resetGame = () => {
