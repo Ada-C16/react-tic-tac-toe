@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 
 const generateSquareComponents = (squares, onClickCallback) => {
+<<<<<<< HEAD
   // // // Complete this for Wave 1
   // // // squares is a 2D Array, but 
   // // //  you need to return a 1D array
@@ -24,14 +25,29 @@ const generateSquareComponents = (squares, onClickCallback) => {
   return squareJSX(squaresOneD)
 };
 
+=======
+>>>>>>> 8ec51d9b2bc0372abaa32fb67da4eac989bec83d
 
+  const singleSquares = [].concat(...squares); 
+  return (
+    singleSquares.map((square) => {
+      return (
+        <Square value={square.value}
+        id={square.id}
+        onClickCallback={onClickCallback}
+        key={square.id}
+        />
+      );
+    }));
+  };
+  
 const Board = ({ squares, onClickCallback }) => {
   const squareList = generateSquareComponents(squares, onClickCallback);
   console.log(squareList);
   return <div className="grid" >
     {squareList}
-  </div>
-}
+  </div>;
+};
 
 Board.propTypes = {
   squares: PropTypes.arrayOf(
