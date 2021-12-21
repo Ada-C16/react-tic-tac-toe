@@ -1,5 +1,3 @@
-//QQ Mariah - what's the plan for this prettier check? LMK on slack.
-import { check } from 'prettier';
 import React, { useState } from 'react';
 import './App.css';
 
@@ -75,13 +73,9 @@ const App = () => {
         setCurrentPlayer(PLAYER_1);
       }
     }else{
-      
-      setWinnerLabel('The winner is ' + currentPlayer );
+      setWinnerLabel('The winner is ' + currentPlayer.toLowerCase() );
       //now call reset function
-      let playAgainAnswer = confirm('Play again?')
-      if (playAgainAnswer){
-        document.location.reload();
-      }
+
     }
   };
 
@@ -110,9 +104,52 @@ const App = () => {
     return '';
 };
 
+// const makeWinningCombos = (n) =>{
+  // // This creates the array based on position, not the IDs like we want
+  // // Giving up because we can just keep it simple for now.
+//   // #this will create an array of arrays of winning combos
+//   let winningArray = []
+
+//   // #make the row winners
+//   for (let row=0; row<n; row++){
+//     let tmpArray = []  
+//     for (let col=0; col<n; col++){ 
+//       tmpArray.push(row + col)
+//     }
+//     winningArray.push(tmpArray)
+//   }
+
+//   //Make the column winners
+//   for (let col=0; col<n; col++){
+//     let tmpArray2 = []  
+//     for (let row=0; row<n; row++){ 
+//       tmpArray2.push([row + col])
+//     }
+//     winningArray.push(tmpArray2)
+//   }
+
+//   //now for the daigs
+//   let tmpArray3 = []  
+//   for (let diag=0; diag<n; diag++){
+//       tmpArray3.push([diag + diag])
+//   }
+//   winningArray.push(tmpArray3)
+
+//   //now for the diag the other way
+//   let tmpArray4 = []  
+//   for (let diag=0; diag<n; diag++){
+//       tmpArray4.push([diag + (diag-1-n)])
+//   }
+//   winningArray.push(tmpArray4)
+
+//   return winningArray
+
+// }
+
 const checkForWinnerChickenDinner = () => {
   //Only so many ways to win this game...
   
+  //let winningIDCombos = makeWinningCombos(3);
   let winningIDCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -123,6 +160,8 @@ const checkForWinnerChickenDinner = () => {
     [0, 4, 8],
     [2, 4, 6],
   ];
+  console.log('winningIDCombos:' +JSON.stringify(winningIDCombos));
+  console.log('length of winningIDCombos:' + winningIDCombos.length)
 
   //recreate the 1dimArray to make life easier
   let oneDimensionalArray = [];
@@ -150,6 +189,10 @@ const checkForWinnerChickenDinner = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
+    let playAgainAnswer = confirm('Play again?')
+    if (playAgainAnswer){
+      document.location.reload();
+    }
   };
 
 
@@ -159,7 +202,7 @@ const checkForWinnerChickenDinner = () => {
         <h1>React Tic Tac Toe</h1>
         {/* return value == current player calculated in checkForWinner */}
         <h2>{winnerLabel}</h2> 
-        <button>Reset Game</button>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         {/* passing the onClickCallback here; created the  clickSquare function to test it out */}
