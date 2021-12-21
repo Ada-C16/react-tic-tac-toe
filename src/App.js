@@ -27,6 +27,7 @@ const generateSquares = () => {
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
   const [player, setPlayer] = useState(PLAYER_1);
+  const [winner, setWinner] = useState('...');
 
   const onSquareClickCallback = (id) => {
     const boardCopy = squares.map((row) => {
@@ -47,18 +48,56 @@ const App = () => {
     } else {
       setPlayer(PLAYER_1);
     }
+
+    checkForWinner();
   };
 
   const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same  value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+    let r = 0;
+    let c = 0;
+    let winner = '';
+
+    // checking for descending diaganol winner
+    if (
+      squares[r][c].value === squares[r + 1][c + 1].value &&
+      squares[r + 1][c + 1].value === squares[r + 2][c + 2].value
+    ) {
+      winner = squares[r][c].value;
+      setWinner(winner);
+    }
+
+    // checking for ascending diaganol winner
+    if (
+      squares[r][c + 2].value === squares[r + 1][c + 1].value &&
+      squares[r + 1][c + 1].value === squares[r + 2][c].value
+    ) {
+      winner = squares[r][c + 2].value;
+      setWinner(winner);
+    }
+
+    // checking for horizontal winner
+    while (r < 3) {
+      if (
+        squares[r][c].value === squares[r][c + 1].value &&
+        squares[r][c + 1].value === squares[r][c + 2].value
+      ) {
+        winner = squares[r][c].value;
+        setWinner(winner);
+      }
+      r += 1;
+    }
+    // checking for vertical winner
+    while (c < 3) {
+      r = 0;
+      if (
+        squares[r][c].value === squares[r + 1][c].value &&
+        squares[r + 1][c].value === squares[r + 2][c].value
+      ) {
+        winner = squares[r][c].value;
+        setWinner(winner);
+      }
+      c += 1;
+    }
   };
 
   const resetGame = () => {
@@ -69,13 +108,14 @@ const App = () => {
       return row;
     });
     setSquares(boardCopy);
+    setWinner('...');
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h2>The winner is {winner} </h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
