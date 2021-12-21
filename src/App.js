@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 import Board from './components/Board';
+import Announcement from './components/Announcement';
 import { check } from 'prettier';
 
 const PLAYER_1 = 'X';
@@ -113,15 +114,7 @@ const App = () => {
     return 'Tied';
   };
 
-  const makeAnnouncement = (gameState) => {
-    if (gameState === 'Ongoing') {
-      return <h2>The game is ongoing.</h2>;
-    } else if (gameState === 'Tied') {
-      return <h2>The game is a tie.</h2>
-    } else {
-      return <h2>The winner is {gameState}.</h2>
-    }
-  };
+  
 
   const onClickCallback = (id) => {
     const updatedSquares = [...squares];
@@ -155,11 +148,7 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         {/* only visible if gameState != 'Ongoing' */}
-        <h2>
-          
-        </h2>
-
-
+        <Announcement gameState={gameState} />
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
