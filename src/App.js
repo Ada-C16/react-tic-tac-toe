@@ -28,6 +28,7 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
   // squares - 2D array
 
   // Wave 2
@@ -57,15 +58,21 @@ const App = () => {
     // while (row < 3 && !clicked) {
     //   while (col < 3 && !clicked) {
     // let presentSquares = newSquares[row][col];
+
     for (let row of newSquares) {
       for (let square of row) {
         if (square.id === id) {
           console.log(square);
           if (square.value === '') {
-            console.log('Inside If');
             // how to render the x and o
-            square.value = PLAYER_1;
+            square.value = currentPlayer;
             //clicked = true;
+
+            if (currentPlayer === PLAYER_1) {
+              setCurrentPlayer(PLAYER_2);
+            } else {
+              setCurrentPlayer(PLAYER_1);
+            }
           }
           // square.value = PLAYER_2;
         }
