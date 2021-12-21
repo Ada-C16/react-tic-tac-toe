@@ -48,7 +48,7 @@ Board.propTypes = {
     )
   ),
   onClickCallback: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
+  isDisabled: PropTypes.bool,
 };
 
 export default Board;

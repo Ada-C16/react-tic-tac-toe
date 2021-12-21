@@ -8,11 +8,18 @@ const Square = (props) => {
   //  Component to alert a parent
   //  component when it's clicked on.
 
+  const handleClick = () => {
+    // only allow a click if the square hasn't been clicked yet
+    if (props.value === '') {
+      props.onClickCallback(props.id);
+    }
+  };
+
   return (
     <button
       id={props.id}
       className="square"
-      onClick={() => props.onClickCallback(props.id)}
+      onClick={handleClick}
       disabled={props.isDisabled}
     >
       {props.value}
@@ -24,7 +31,7 @@ Square.propTypes = {
   value: PropTypes.string.isRequired,
   onClickCallback: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
+  isDisabled: PropTypes.bool,
 };
 
 export default Square;
