@@ -19,7 +19,7 @@ const generateSquares = () => {
     for (let col = 0; col < 3; col += 1) {
       squares[row].push({
         id: currentId,
-        value: '_',
+        value: '',
       });
       currentId += 1;
     }
@@ -54,7 +54,14 @@ const App = () => {
       for (let n=0; n<3; n++){
         //console.log(squares[i][n].id);
         if (squares[i][n].id == mySquare){
-          squares[i][n].value = currentPlayer;
+          //This next conditional makes sure that you can only put an x or o in a blank square
+          //the return false keeps the game from advancing to the next player 
+          //(because until a player fills in a square it is not their turn)
+          if (squares[i][n].value == ''){
+            squares[i][n].value = currentPlayer;
+          }else{
+            return false
+          }
         }
       }
     }
@@ -104,80 +111,84 @@ const App = () => {
     return '';
 };
 
-// const makeWinningCombos = (n) =>{
-  // // This creates the array based on position, not the IDs like we want
-  // // Giving up because we can just keep it simple for now.
-//   // #this will create an array of arrays of winning combos
-//   let winningArray = []
+const makeWinningCombos = (n) =>{
+  // This creates the array based on position, not the IDs like we want
+  // Giving up because we can just keep it simple for now.
+  // #this will create an array of arrays of winning combos
+  let winningArray = []
 
-//   // #make the row winners
-//   for (let row=0; row<n; row++){
-//     let tmpArray = []  
-//     for (let col=0; col<n; col++){ 
-//       tmpArray.push(row + col)
-//     }
-//     winningArray.push(tmpArray)
-//   }
+  // #make the row winners
+  for (let row=0; row<n; row++){
+    let tmpArray = []  
+    for (let col=0; col<n; col++){ 
+      tmpArray.push([row, col])
+    }
+    winningArray.push(tmpArray)
+  }
 
-//   //Make the column winners
-//   for (let col=0; col<n; col++){
-//     let tmpArray2 = []  
-//     for (let row=0; row<n; row++){ 
-//       tmpArray2.push([row + col])
-//     }
-//     winningArray.push(tmpArray2)
-//   }
+  //Make the column winners
+  for (let col=0; col<n; col++){
+    let tmpArray2 = []  
+    for (let row=0; row<n; row++){ 
+      tmpArray2.push([row, col])
+    }
+    winningArray.push(tmpArray2)
+  }
 
-//   //now for the daigs
-//   let tmpArray3 = []  
-//   for (let diag=0; diag<n; diag++){
-//       tmpArray3.push([diag + diag])
-//   }
-//   winningArray.push(tmpArray3)
+  //now for the daigs
+  let tmpArray3 = []  
+  for (let diag=0; diag<n; diag++){
+      tmpArray3.push([diag, diag])
+  }
+  winningArray.push(tmpArray3)
 
-//   //now for the diag the other way
-//   let tmpArray4 = []  
-//   for (let diag=0; diag<n; diag++){
-//       tmpArray4.push([diag + (diag-1-n)])
-//   }
-//   winningArray.push(tmpArray4)
+  //now for the diag the other way
+  let tmpArray4 = []  
+  for (let diag=0; diag<n; diag++){
+      tmpArray4.push([diag, (n-1-diag)])
+  }
+  winningArray.push(tmpArray4)
 
-//   return winningArray
+  return winningArray
 
-// }
+}
 
 const checkForWinnerChickenDinner = () => {
   //Only so many ways to win this game...
   
-  //let winningIDCombos = makeWinningCombos(3);
-  let winningIDCombos = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
+  let winningIDCombos = makeWinningCombos(3);
+  // let winningIDCombos = [
+  //   [0, 1, 2],
+  //   [3, 4, 5],
+  //   [6, 7, 8],
+  //   [0, 3, 6],
+  //   [1, 4, 7],
+  //   [2, 5, 8],
+  //   [0, 4, 8],
+  //   [2, 4, 6],
+  // ];
   console.log('winningIDCombos:' +JSON.stringify(winningIDCombos));
   console.log('length of winningIDCombos:' + winningIDCombos.length)
 
   //recreate the 1dimArray to make life easier
-  let oneDimensionalArray = [];
-  for (let i = 0; i < squares.length; i++) {
-    for (let element of squares[i]) {
-      oneDimensionalArray.push(element);
-    }
-  }  
+  // let oneDimensionalArray = [];
+  // for (let i = 0; i < squares.length; i++) {
+  //   for (let element of squares[i]) {
+  //     oneDimensionalArray.push(element);
+  //   }
+  // }  
   //Loop through the winning combinations and see if all 3 have the same value
   //if they do, return true.  We know the winner is the currentPlayer
   for (let i = 0; i < winningIDCombos.length; i++) {
-    let firstOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][0]);
-    let secondOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][1]);
-    let thirdOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][2]);
+    // let firstOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][0]);
+    // let secondOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][1]);
+    // let thirdOne = oneDimensionalArray.find((element) => element.id == winningIDCombos[i][2]);
 
-    if (((firstOne.value == secondOne.value) && (secondOne.value == thirdOne.value))&&(firstOne.value !== '_')){
+    let firstOne = squares[winningIDCombos[i][0][0]][winningIDCombos[i][0][1]];
+    let secondOne = squares[winningIDCombos[i][1][0]][winningIDCombos[i][1][1]];
+    let thirdOne = squares[winningIDCombos[i][2][0]][winningIDCombos[i][2][1]];
+
+    if (((firstOne.value == secondOne.value) && (secondOne.value == thirdOne.value))&&(firstOne.value !== '')){
       console.log('WE HAVE A WINNER');
       return true
     } 
