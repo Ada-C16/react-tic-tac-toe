@@ -186,13 +186,11 @@ const checkForWinnerChickenDinner = () => {
   return false
 
 };
-
+  // resetGame function generates anew board that's empy and updates the state of the squares.
   const resetGame = () => {
     // Complete in Wave 4
-    let playAgainAnswer = confirm('Play again?')
-    if (playAgainAnswer){
-      document.location.reload();
-    }
+    const newGame = generateSquares();
+    setSquares(newGame);
   };
 
 
