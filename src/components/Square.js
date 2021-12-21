@@ -9,7 +9,6 @@ const Square = (props) => {
   //  component when it's clicked on.
 
   //step 5: make the function that calls the event handler defined in app and give it props
-  //Step 6: send in the id of the square clicked
   const clickSquareButton = () => {
     props.onClickCallback(props.id);
   };

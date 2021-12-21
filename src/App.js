@@ -56,7 +56,7 @@ const App = () => {
         }
         return square;
       });
-      //check for the winner here
+      //check for/update the winner here
       setWinner((checkForWinner()));
       //return newsquares to tell React to display the new squares
       return newSquares;
@@ -65,7 +65,7 @@ const App = () => {
     if(currentPlayer === PLAYER_1){
       setCurrentPlayer(PLAYER_2);
     }else{
-      setCurrentPlayer(PLAYER_1)
+      setCurrentPlayer(PLAYER_1);
     }
   };
 
@@ -83,39 +83,58 @@ const App = () => {
     let i = 0;
     while (i < 3) {
       if (
+        squares[i][0].value !== '' &&
         squares[i][0].value === squares[i][1].value &&
-        squares[i][2].value === squares[i][1].value &&
-        squares[i][0].value !== ''
+        squares[i][1].value === squares[i][2].value
       ) {
         return squares[i][0].value;
       } else if (
+        squares[0][i].value !== '' &&
         squares[0][i].value === squares[1][i].value &&
-        squares[2][i].value === squares[1][i].value &&
-        squares[0][i].value !== ''
+        squares[1][i].value === squares[2][i].value
       ) {
         return squares[0][i].value;
       }
       i += 1;
     }
     
-    // Check Top-Left to bottom-right diagonal
+    // top-Left bottom-right
     if (
+      squares[1][1].value !== '' &&
       squares[0][0].value === squares[1][1].value &&
-      squares[2][2].value === squares[1][1].value &&
-      squares[1][1].value !== ''
+      squares[1][1].value === squares[2][2].value
     ) {
       return squares[0][0].value;
     }
     
-    // Check Top-right to bottom-left diagonal
+    //top-right bottom-left
     if (
+      squares[1][1].value !== '' &&
       squares[0][2].value === squares[1][1].value &&
-      squares[2][0].value === squares[1][1].value &&
-      squares[1][1].value !== ''
+      squares[1][1].value === squares[2][0].value
     ) {
       return squares[0][2].value;
     }
     return null; //no winner 
+  };
+
+const isBoardFull = (squares) => {
+  let count = 0;
+  let row = 0;
+  let column = 0;
+
+  while(row < 3){
+    while(column < 3){
+      if(squares[row][column] === 'X' || squares[row][column] === 'O')
+        count += 1;
+    }
+  }          
+  if(count == 9){
+      return true;
+  }
+  else{
+      return false;
+  }
   };
 // };
 
