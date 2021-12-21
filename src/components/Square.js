@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import './Square.css';
 
 const Square = ({ id, value, updateSquares }) => {
@@ -21,7 +20,7 @@ const Square = ({ id, value, updateSquares }) => {
 };
 
 Square.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.any.isRequired,
   updateSquares: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
 };
