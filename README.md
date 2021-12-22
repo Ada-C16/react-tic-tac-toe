@@ -81,7 +81,7 @@ We can run `yarn install` multiple times safely, but we only need to do this onc
 
 The file `package.json` contains details about our project, the scripts available, and the dependencies needed. We can inspect this file when we are curious about the details of our dependencies.
 
-6. Follow the directions in the "Getting Started" section.
+6. Follow the directions in the "Getting Started" section.w
 
 7. Follow the directions in the "Project Requirements" section.
 
