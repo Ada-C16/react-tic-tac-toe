@@ -36,11 +36,7 @@ const App = () => {
   //   Then pass it into the squares as a callback
 
   const setSquareValue = (id) => {
-<<<<<<< HEAD
-    console.log(id);
-=======
     // console.log(id);
->>>>>>> 7b720bdfe8cee2925a5b7d184d0294243f8770fc
     const newSquares = [...squares];
     // console.log(squares);
 
@@ -75,11 +71,7 @@ const App = () => {
         squares[i][2].value !== ''
       ) {
         newWinner = squares[i][0].value;
-<<<<<<< HEAD
-        console.log('Inside CheckForWinner!');
-=======
         // console.log('Inside CheckForWinner!');
->>>>>>> 7b720bdfe8cee2925a5b7d184d0294243f8770fc
         //Vertical wins
       } else if (
         squares[0][i].value === squares[1][i].value &&
