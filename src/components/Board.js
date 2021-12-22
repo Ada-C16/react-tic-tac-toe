@@ -3,29 +3,42 @@ import './Board.css';
 import Square from './Square';
 import PropTypes from 'prop-types';
 
-
 const generateSquareComponents = (squares, onClickCallback) => {
   // Complete this for Wave 1
-  // squares is a 2D Array, but 
+  // squares is a 2D Array, but
   //  you need to return a 1D array
   //  of square components
+  // itterate over 2D array and return 1D
+  const squareComponents = [];
+  for (let innerSquares of squares) {
+    for (let square of innerSquares) {
+      squareComponents.push(
+        <Square
+          key={square.id}
+          value={square.value}
+          id={square.id}
+          onClickCallback={onClickCallback}
+        />
+      );
+    }
+  }
+  return squareComponents;
+};
 
-}
+
 
 const Board = ({ squares, onClickCallback }) => {
   const squareList = generateSquareComponents(squares, onClickCallback);
   console.log(squareList);
-  return <div className="grid" >
-    {squareList}
-  </div>
-}
+  return <div className="grid">{squareList}</div>;
+};
 
 Board.propTypes = {
   squares: PropTypes.arrayOf(
     PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        value: PropTypes.string.isRequired
+        value: PropTypes.string.isRequired,
       })
     )
   ),
