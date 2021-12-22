@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import Board from './Board';
-import { render, screen, fireEvent} from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react';
 
 // Sample input to the Board component
 const SAMPLE_BOARD = [
@@ -46,15 +46,14 @@ const SAMPLE_BOARD = [
       value: 'X',
       id: 8,
     },
-  ],    
+  ],
 ];
 
 describe('Wave 1: Board', () => {
-
   test('that board will render with the proper number of Xs and Os', () => {
     // Act
-    render(<Board squares={SAMPLE_BOARD} onClickCallback={() => { }} />);
-      
+    render(<Board squares={SAMPLE_BOARD} onClickCallback={() => {}} />);
+
     // Assert
     const xSquares = screen.getAllByText('X');
     expect(xSquares.length).toEqual(5);
@@ -70,12 +69,14 @@ describe('Wave 1: Board', () => {
         return {
           ...square,
           value: '',
-        }
+        };
       });
     });
 
     // Act
-    const { container } = render(<Board squares={emptyBoard} onClickCallback={() => { }} />);
+    const { container } = render(
+      <Board squares={emptyBoard} onClickCallback={() => {}} />
+    );
 
     // Assert
     const buttons = container.querySelectorAll('.grid button');
@@ -84,10 +85,12 @@ describe('Wave 1: Board', () => {
 });
 describe('Wave 2: Board', () => {
   describe('button click callbacks', () => {
-    test.skip('that the callback is called for the 1st button', () => {
+    test('that the callback is called for the 1st button', () => {
       // Arrange
       const callback = jest.fn();
-      const { container } = render(<Board squares={SAMPLE_BOARD} onClickCallback={callback} />);
+      const { container } = render(
+        <Board squares={SAMPLE_BOARD} onClickCallback={callback} />
+      );
       const buttons = container.querySelectorAll('.grid button');
 
       // Act
@@ -97,10 +100,12 @@ describe('Wave 2: Board', () => {
       expect(callback).toHaveBeenCalled();
     });
 
-    test.skip('that the callback is called for the last button', () => {
+    test('that the callback is called for the last button', () => {
       // Arrange
       const callback = jest.fn();
-      const { container } = render(<Board squares={SAMPLE_BOARD} onClickCallback={callback} />);
+      const { container } = render(
+        <Board squares={SAMPLE_BOARD} onClickCallback={callback} />
+      );
       const buttons = container.querySelectorAll('.grid button');
 
       // Act
