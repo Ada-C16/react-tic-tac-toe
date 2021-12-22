@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -72,6 +72,7 @@ const App = () => {
  
   const onClickCallback = (id) => {
     setSquares((squares) => {
+      console.log(`squares in callback: ${squares}`)
       let newBoard = squares.map((square)=>{
         for (let property of square){
           if (property.id === id && property.value === ''){
