@@ -31,7 +31,35 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
+  const [currentSquare, setCurrentSquare] = useState(false);
+
   // Wave 2
+  const changeTheSquare = (id) => {
+    const newSquares = squares.map((row) => {
+      for (let square of row) {
+        if (square.id === id) {
+          if (!square.value) {
+            if (!currentSquare) {
+              square.value = PLAYER_1;
+            } else {
+              square.value = PLAYER_2;
+            }
+
+            setCurrentSquare(!currentSquare);
+          }
+          // return {
+          //   ...square,
+          //   value: square.id,
+          // };
+        }
+        newSquares[row].push(square);
+        // console.log(row);
+        // return row;
+      }
+    });
+    setSquares(newSquares);
+  };
+
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
@@ -60,7 +88,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={changeTheSquare} />
       </main>
     </div>
   );

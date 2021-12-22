@@ -12,7 +12,11 @@ const generateSquareComponents = (squares, onClickCallback) => {
   for (let i = 0; i < squares.length; i++) {
     for (let j = 0; j < squares[i].length; j++) {
       oneDimension = oneDimension.concat(
-        <Square value={squares[i][j].value} id={squares[i][j].id} />
+        <Square
+          value={squares[i][j].value}
+          id={squares[i][j].id}
+          onClickCallback={onClickCallback}
+        />
       );
       console.log(squares[i].value);
     }
@@ -23,10 +27,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
 
 const Board = ({ squares, onClickCallback }) => {
   const squareList = generateSquareComponents(squares, onClickCallback);
-  console.log(`This is squares:`);
-  console.log(squares);
-  console.log(`This is squareList:`);
-  console.log(squareList);
+
   return <div className="grid">{squareList}</div>;
 };
 
