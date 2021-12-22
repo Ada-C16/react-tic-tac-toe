@@ -60,16 +60,80 @@ const App = () => {
   //   Then pass it into the squares as a callback
 
   const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+    //check rows
+    for (let row = 0; row < 3; row += 1) {
+      let countX = 0;
+      let countO = 0;
+      for (let col = 0; col < 3; col += 1) {
+        if (squares[row][col] === 'X') {
+          countX += 1;
+        } else if (squares[row][col] === 'O') {
+          countO += 1;
+        }
+        if (countX === 3) {
+          return 'X';
+        }
+        if (countO === 3) {
+          return 'O';
+        }
+        //check columns
+        for (let row = 0; row < 3; row += 1) {
+          let countX = 0;
+          let countO = 0;
+          for (let col = 0; col < 3; col += 1) {
+            if (squares[col][row] === 'X') {
+              countX += 1;
+            } else if (squares[col][row] === 'O') {
+              countO += 1;
+            }
+            if (countX === 3) {
+              return 'X';
+            }
+            if (countO === 3) {
+              return 'O';
+            }
+        //Check dioganals
+        if (
+          squares[0][0] == 'X' &&
+          squares[1][1] == 'X' &&
+          squares[2][2] == 'X'
+        ) {
+          return 'X';
+        }
+        if (
+          squares[0][0] == 'O' &&
+          squares[1][1] == 'O' &&
+          squares[2][2] == 'O'
+        ) {
+          return 'O';
+        }
+        // check other diagonal
+        if (
+          squares[2][0] == 'X' &&
+          squares[1][1] == 'X' &&
+          squares[0][2] == 'X'
+        ) {
+          return 'X';
+        }
+        if (
+          squares[2][0] == 'O' &&
+          squares[1][1] == 'O' &&
+          squares[0][2] == 'O'
+        ) {
+          return 'O';
+        }
+      }
+    }
   };
+  // Complete in Wave 3
+  // You will need to:
+  // 1. Go accross each row to see if
+  //    3 squares in the same row match
+  //    i.e. same value
+  // 2. Go down each column to see if
+  //    3 squares in each column match
+  // 3. Go across each diagonal to see if
+  //    all three squares have the same value.
 
   const resetGame = () => {
     // Complete in Wave 4
