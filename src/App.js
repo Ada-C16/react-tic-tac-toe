@@ -37,7 +37,6 @@ const App = () => {
 
   const setSquareValue = (id) => {
     console.log(id);
-    // [...array[0]]
     const newSquares = [...squares];
     console.log(squares);
 
@@ -55,11 +54,12 @@ const App = () => {
           }
         }
       }
+      checkForWinner(newSquares);
       setSquares(newSquares);
     }
   };
 
-  const checkForWinner = () => {
+  const checkForWinner = (squares) => {
     let newWinner;
     let i = 0;
     while (i < 3) {
@@ -67,30 +67,41 @@ const App = () => {
       if (
         squares[i][0].value === squares[i][1].value &&
         squares[i][1].value === squares[i][2].value &&
+        // line below checks all horizontal squares are not empty
         squares[i][2].value !== ''
       ) {
         newWinner = squares[i][0].value;
         console.log('Inside CheckForWinner!');
+        //Vertical wins
+      } else if (
+        squares[0][i].value === squares[1][i].value &&
+        squares[1][i].value === squares[2][i].value &&
+        squares[2][i].value !== ''
+      ) {
+        newWinner = squares[0][i].value;
       }
-
-      //Vertical wins
-
-      //Diagonal wins
+      i += 1;
     }
+
+    //Diagonal wins
+    if (
+      squares[0][0].value === squares[1][1].value &&
+      squares[1][1].value === squares[2][2].value &&
+      squares[1][1].value !== ''
+    ) {
+      newWinner = squares[0][0].value;
+    } else if (
+      squares[0][2].value === squares[1][1].value &&
+      squares[1][1].value === squares[2][0].value &&
+      squares[1][1].value !== ''
+    ) {
+      newWinner = squares[0][2].value;
+    }
+
     if (newWinner !== winner) {
       setWinner(newWinner);
     }
-    // Check all the rows and columns for a winner
-
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+    setWinner('Tie');
   };
 
   // const resetGame = () => {
@@ -102,7 +113,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is {winner} </h2>
+        <h2>Winner is {winner}</h2>
         <button>Reset Game</button>
       </header>
       <main>
