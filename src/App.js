@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -21,45 +21,113 @@ const generateSquares = () => {
       currentId += 1;
     }
   }
-
   return squares;
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [player, setPlayer] = useState(PLAYER_1);
+  const [winner, setWinner] = useState('...');
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+  const onSquareClickCallback = (id) => {
+    const boardCopy = squares.map((row) => {
+      row.forEach((column) => {
+        if (column.id === id) {
+          if (column.value === '') {
+            if (player === PLAYER_1) {
+              column.value = PLAYER_1;
+            } else {
+              column.value = PLAYER_2;
+            }
+          }
+        }
+      });
+      return row;
+    });
+    setSquares(boardCopy);
+    if (player === PLAYER_1) {
+      setPlayer(PLAYER_2);
+    } else {
+      setPlayer(PLAYER_1);
+    }
+
+    checkForWinner();
+  };
 
   const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+    let r = 0;
+    let c = 0;
+    let winner = '...';
+
+    // checking for descending diagnol winner
+    if (
+      squares[r][c].value === squares[r + 1][c + 1].value &&
+      squares[r + 1][c + 1].value === squares[r + 2][c + 2].value &&
+      squares[r][c].value != ''
+    ) {
+      winner = squares[r][c].value;
+      setWinner(winner);
+    }
+
+    // checking for ascending diagnol winner
+    if (
+      squares[r][c + 2].value === squares[r + 1][c + 1].value &&
+      squares[r + 1][c + 1].value === squares[r + 2][c].value &&
+      squares[r][c].value != ''
+    ) {
+      winner = squares[r][c + 2].value;
+      setWinner(winner);
+    }
+
+    // checking for horizontal winner
+    while (r < 3) {
+      if (
+        squares[r][c].value === squares[r][c + 1].value &&
+        squares[r][c + 1].value === squares[r][c + 2].value &&
+        squares[r][c].value != ''
+      ) {
+        winner = squares[r][c].value;
+        setWinner(winner);
+        return winner;
+      }
+      r += 1;
+    }
+    // checking for vertical winner
+    while (c < 3) {
+      r = 0;
+      if (
+        squares[r][c].value === squares[r + 1][c].value &&
+        squares[r + 1][c].value === squares[r + 2][c].value &&
+        squares[r][c].value != ''
+      ) {
+        winner = squares[r][c].value;
+        setWinner(winner);
+        return winner;
+      }
+      c += 1;
+    }
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    const boardCopy = squares.map((row) => {
+      row.forEach((column) => {
+        column.value = '';
+      });
+      return row;
+    });
+    setSquares(boardCopy);
+    setWinner('...');
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>Winner is {winner} </h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onSquareClickCallback} />
       </main>
     </div>
   );
