@@ -14,7 +14,7 @@ describe('App', () => {
     expect(buttons[buttonIndex].innerHTML).toEqual(expectedResult);
   }
 
-  describe.skip('Wave 2: clicking on squares and rendering App', () => {
+  describe('Wave 2: clicking on squares and rendering App', () => {
 
   test('App renders with a board of 9 empty buttons', () => {
     // Arrange-Act - Render the app
@@ -47,13 +47,13 @@ describe('App', () => {
     clickButtonAndVerifyResult(container, 0, 'x');
   });
 
-  test('Clicking on the 1st button makes it an "x" and the 2nd an "o"', () => {
+  test('Clicking on the 1st button makes it an "X" and the 2nd an "O"', () => {
     // Arrange
     const { container } = render(<App />);
 
     //Act-Assert
-    clickButtonAndVerifyResult(container, 0, 'x');
-    clickButtonAndVerifyResult(container, 8, 'o');
+    clickButtonAndVerifyResult(container, 0, 'X');
+    clickButtonAndVerifyResult(container, 8, 'O');
   });
 
   test('clicking on the same square twice doesn\'t change things', () => {
@@ -64,28 +64,28 @@ describe('App', () => {
     let buttons = container.querySelectorAll('.grid button');
     fireEvent.click(buttons[0]);
 
-    // after the click there should be a square with an "x"
-    let clickedButton = screen.getByText('x');
+    // after the click there should be a square with an "X"
+    let clickedButton = screen.getByText('X');
     expect(clickedButton).toBeInTheDocument();
 
     buttons = container.querySelectorAll('.grid button');
     fireEvent.click(buttons[0]);
 
     // Assert
-    // after the 2nd click there should still be a square with an "x"
-    clickedButton = screen.getByText('x');
+    // after the 2nd click there should still be a square with an "X"
+    clickedButton = screen.getByText('X');
     expect(clickedButton).toBeInTheDocument();
 
 
-    const xButtons = screen.queryAllByText('x');
+    const xButtons = screen.queryAllByText('X');
     expect(xButtons.length).toEqual(1);
-    const oButtons = screen.queryAllByText('o');
+    const oButtons = screen.queryAllByText('O');
     expect(oButtons.length).toEqual(0);
   });
 });
 
   
-  describe.skip('Wave 3:  Winner tests', () => {
+  describe('Wave 3:  Winner tests', () => {
     describe('Prints "Winner is x" when x wins', () => {
       test('that a winner will be identified when 3 Xs get in a row across the top', () => {
         // Arrange
@@ -364,7 +364,7 @@ describe('App', () => {
     });       
   });
 
-  describe.skip('Wave 4:  reset game button', () => {
+  describe('Wave 4:  reset game button', () => {
     test('App has a "Reset Game" button', () => {
       // Arrange-Act
       render(<App />);
