@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Rock+3D&display=swap');
 
 .square {
-  background-color: white;
-  border: 4px solid #ffffff;
+  background-color: transparent;
+  border: 4px solid #000000;
   border-radius: 2px;
   font-family: 'Rock 3D';
   font-weight: bold;

@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Rock+3D&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shizuru&display=swap');
 body {
+  background-image: url('img/blue_cat.png');
+  background-size: cover;
   margin: 0;
   font-family: 'Rock 3D', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -13,7 +15,7 @@ code {
 }
 .button {
   font-family: 'Shizuru';
-  background-color: #ffffff; /* Green */
+  background-color: white; /* Green */
   border: 4px solid;
   border-color: #ffff00;
 
@@ -23,5 +25,5 @@ code {
   text-decoration: none;
   display: inline-block;
   border-radius: 12px;
-  font-size: 36px;
+  font-size: 24px;
 }

@@ -27,7 +27,7 @@ const generateSquareComponents = (squares, updateSquares) => {
 
 const Board = ({ squares, updateSquares }) => {
   const squareList = generateSquareComponents(squares, updateSquares);
-  console.log(squareList);
+
   return <div className="grid">{squareList}</div>;
 };
 
