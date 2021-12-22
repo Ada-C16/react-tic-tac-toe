@@ -30,20 +30,12 @@ const App = () => {
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
   const [winner, setWinner] = useState(null);
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
-
   const setSquareValue = (id) => {
-    // console.log(id);
     const newSquares = [...squares];
-    // console.log(squares);
 
     for (let row of newSquares) {
       for (let square of row) {
         if (square.id === id) {
-          // console.log(square);
           if (square.value === '') {
             square.value = currentPlayer;
             if (currentPlayer === PLAYER_1) {
@@ -71,7 +63,7 @@ const App = () => {
         squares[i][2].value !== ''
       ) {
         newWinner = squares[i][0].value;
-        // console.log('Inside CheckForWinner!');
+
         //Vertical wins
       } else if (
         squares[0][i].value === squares[1][i].value &&
@@ -101,14 +93,12 @@ const App = () => {
     if (newWinner !== winner) {
       setWinner(newWinner);
     }
-    // setWinner('Tie');
   };
 
   // const resetGame = () => {
   //   // Complete in Wave 4
   // };
 
-  // checkForWinner();
   return (
     <div className="App">
       <header className="App-header">

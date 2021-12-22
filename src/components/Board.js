@@ -3,13 +3,7 @@ import './Board.css';
 import Square from './Square';
 import PropTypes from 'prop-types';
 
-// Complete this for Wave 1
-// squares is a 2D Array, but
-//  you need to return a 1D array
-//  of square components
-// squares currently " ", saves it in a state at the beginning of app
 const generateSquareComponents = (squares, onClickCallback) => {
-  // console.log('rendering square components');
   const squareArray1D = [];
 
   for (let row of squares) {
@@ -32,7 +26,6 @@ const generateSquareComponents = (squares, onClickCallback) => {
 
 const Board = ({ squares, onClickCallback }) => {
   const squareList = generateSquareComponents(squares, onClickCallback);
-  // console.log(squareList);
   return <div className="grid">{squareList}</div>;
 };
 
