@@ -76,55 +76,56 @@ const App = () => {
         if (countO === 3) {
           return 'O';
         }
-        //check columns
-        for (let row = 0; row < 3; row += 1) {
-          let countX = 0;
-          let countO = 0;
-          for (let col = 0; col < 3; col += 1) {
-            if (squares[col][row] === 'X') {
-              countX += 1;
-            } else if (squares[col][row] === 'O') {
-              countO += 1;
-            }
-            if (countX === 3) {
-              return 'X';
-            }
-            if (countO === 3) {
-              return 'O';
-            }
-        //Check dioganals
-        if (
-          squares[0][0] == 'X' &&
-          squares[1][1] == 'X' &&
-          squares[2][2] == 'X'
-        ) {
+      }
+    }
+    //check columns
+    for (let row = 0; row < 3; row += 1) {
+      let countX = 0;
+      let countO = 0;
+      for (let col = 0; col < 3; col += 1) {
+        if (squares[col][row] === 'X') {
+          countX += 1;
+        } else if (squares[col][row] === 'O') {
+          countO += 1;
+        }
+        if (countX === 3) {
           return 'X';
         }
-        if (
-          squares[0][0] == 'O' &&
-          squares[1][1] == 'O' &&
-          squares[2][2] == 'O'
-        ) {
-          return 'O';
-        }
-        // check other diagonal
-        if (
-          squares[2][0] == 'X' &&
-          squares[1][1] == 'X' &&
-          squares[0][2] == 'X'
-        ) {
-          return 'X';
-        }
-        if (
-          squares[2][0] == 'O' &&
-          squares[1][1] == 'O' &&
-          squares[0][2] == 'O'
-        ) {
+        if (countO === 3) {
           return 'O';
         }
       }
     }
+    //Check dioganals
+    if (squares[0][0] == 'X' && squares[1][1] == 'X' && squares[2][2] == 'X') {
+      return 'X';
+    }
+    if (squares[0][0] == 'O' && squares[1][1] == 'O' && squares[2][2] == 'O') {
+      return 'O';
+    }
+    // check other diagonal
+    if (squares[2][0] == 'X' && squares[1][1] == 'X' && squares[0][2] == 'X') {
+      return 'X';
+    }
+    if (squares[2][0] == 'O' && squares[1][1] == 'O' && squares[0][2] == 'O') {
+      return 'O';
+    }
+
+    // check for a tie
+    let count = 0;
+    for (let row = 0; row < 3; row += 1) {
+      for (let col = 0; col < 3; col += 1) {
+        if (squares[row][col] == 'X' || squares[row][col] == 'O') {
+          count += 1;
+        }
+      }
+    }
+    if (count != 9) {
+      return ' ';
+    }
+    return 'Tie';
   };
+
   // Complete in Wave 3
   // You will need to:
   // 1. Go accross each row to see if
