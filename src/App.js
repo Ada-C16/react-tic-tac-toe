@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -35,28 +35,23 @@ const App = () => {
 
   // Wave 2
   const changeTheSquare = (id) => {
-    const newSquares = squares.map((row) => {
-      for (let square of row) {
-        if (square.id === id) {
-          if (!square.value) {
+    let newSquares = [];
+    for (let row = 0; row < 3; row += 1) {
+      newSquares.push([]);
+      for (let col = 0; col < 3; col += 1) {
+        if (id === squares[row][col].id) {
+          if (!squares[row][col].value) {
             if (!currentSquare) {
-              square.value = PLAYER_1;
+              squares[row][col].value = PLAYER_1;
             } else {
-              square.value = PLAYER_2;
+              squares[row][col].value = PLAYER_2;
             }
-
             setCurrentSquare(!currentSquare);
           }
-          // return {
-          //   ...square,
-          //   value: square.id,
-          // };
         }
-        newSquares[row].push(square);
-        // console.log(row);
-        // return row;
+        newSquares[row].push(squares[row][col]);
       }
-    });
+    }
     setSquares(newSquares);
   };
 
