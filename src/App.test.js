@@ -9,12 +9,12 @@ describe('App', () => {
   const clickButtonAndVerifyResult = (container, buttonIndex, expectedResult) => {
     let buttons = container.querySelectorAll('.grid button');
     fireEvent.click(buttons[buttonIndex]);
-    
+   
     buttons = container.querySelectorAll('.grid button');
     expect(buttons[buttonIndex].innerHTML).toEqual(expectedResult);
   }
 
-  describe.skip('Wave 2: clicking on squares and rendering App', () => {
+  describe('Wave 2: clicking on squares and rendering App', () => {
 
   test('App renders with a board of 9 empty buttons', () => {
     // Arrange-Act - Render the app
