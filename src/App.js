@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const Player_1 = 'X';
-const Player_2 = 'O';
+const Player1 = 'X';
+const Player2 = 'O';
 
 const generateSquares = () => {
   const squares = [];
@@ -29,7 +29,8 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
-
+  // const [winner, setWinner] = useState('');
+  const [currentPlayer, setCurrentPlayer] = useState(Player1);
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
@@ -38,9 +39,23 @@ const App = () => {
   const onClickSquare = (id) => {
     console.log(id);
     const newSquares = [...squares];
-      for (square in newSquares) {
-        if id == square
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (id === newSquares[i][j].id && newSquares[i][j].value === '') {
+          newSquares[i][j].value = currentPlayer;
+        }
       }
+    }
+    // setWinner(checkForWinner());
+    setSquares(newSquares);
+    // console.log(winner);
+
+    if (currentPlayer === Player1) {
+      setCurrentPlayer(Player2);
+    } else {
+      setCurrentPlayer(Player1);
+    }
+    checkForWinner();
   };
 
   const checkForWinner = () => {
@@ -88,10 +103,12 @@ const App = () => {
     // Complete in Wave 4
   };
 
+  // **NEXT STEP** consider writing a helper function that will change the header to reflect the winner of the game
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
+        {/* I will render the helper function from like 106 here  */}
         <h2>The winner is ... -- Fill in for wave 3 </h2>
         <button>Reset Game</button>
       </header>
