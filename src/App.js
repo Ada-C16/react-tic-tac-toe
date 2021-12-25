@@ -47,6 +47,11 @@ const App = () => {
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
   const onClickCallback = (id) => {
+    // doesn't allow anymore moves after a win.
+    if (winner) {
+      return;
+    }
+
     // variable 'move' flag for valid move
     let move = false;
     const updateSquares = squares.map((row) =>
@@ -118,16 +123,27 @@ const App = () => {
     return null;
   };
 
+  // resets squares state and player state.
   const resetGame = () => {
-    // Complete in Wave 4
+    setSquares(generateSquares());
+    setPlayer(PLAYER_1);
+  };
+
+  // checkForWinner() being used to update the status line until we have a winner. Then the winner is diplayed.
+  const winner = checkForWinner();
+  const statusLine = () => {
+    if (winner) {
+      return `Winner is ${winner}`;
+    }
+    return `${player}'s turn`;
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>{statusLine()} </h2>
+        <button onClick={() => resetGame()}>Reset Game</button>
       </header>
       <main>
         {/* properties being passed. React is going to take this and anything that we've put as attrs it's going to make a new dict of values and each of the attr names is going to become a key and the value is the JS expression in the curly braces (state variable) */}
