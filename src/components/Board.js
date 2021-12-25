@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 
 // This turns the 2D array into a 1D array
 const generateSquareComponents = (squares, onClickCallback) => {
+  // .concat() is like .expand() in python.
+  // flattening the 2D array into a 1D array by spreading the squares out.
+  // makes a 1D array of objects that represent each square!
   const singleArraySquares = [].concat(...squares);
   return singleArraySquares.map((square) => {
     return (
@@ -18,6 +21,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
   });
 };
 
+// destructuring props syntax
 const Board = ({ squares, onClickCallback }) => {
   const squareList = generateSquareComponents(squares, onClickCallback);
   console.log(squareList);
