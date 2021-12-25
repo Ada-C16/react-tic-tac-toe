@@ -47,6 +47,7 @@ const App = () => {
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
   const onClickCallback = (id) => {
+    // variable 'move' flag for valid move
     let move = false;
     const updateSquares = squares.map((row) =>
       row.map((pos) => {
@@ -54,15 +55,19 @@ const App = () => {
           return pos;
         }
 
+        // valid move if passes all checks
         move = true;
 
+        // create new array that includes played square(s)
         const playedSquare = { ...pos, value: player };
         return playedSquare;
       })
     );
 
+    // if valid move, state for squares and player updates
     if (move) {
       setSquares(updateSquares);
+      // ternary swithes player state
       setPlayer(player === PLAYER_1 ? PLAYER_2 : PLAYER_1);
     }
   };
