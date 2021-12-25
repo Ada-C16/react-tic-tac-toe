@@ -8,17 +8,13 @@ const Square = (props) => {
   //  Component to alert a parent
   //  component when it's clicked on.
 
-  // explicit way of showing all of the operations that need to done to handle the onClick event.
-  const alertBoard = () => {
-    props.onClickCallback(props.id);
-  };
-
-  const buttonClickHandler = () => {
-    alertBoard();
-  };
-
   return (
-    <button onClick={buttonClickHandler} className="square">
+    <button
+      onClick={() => {
+        props.onClickCallback(props.id);
+      }}
+      className="square"
+    >
       {props.value}
     </button>
   );

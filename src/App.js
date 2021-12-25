@@ -40,13 +40,31 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares()); // if the parentheses are removed from the function call, it will still work, because if the value is a function reference, then React will call the function the first time we need to initialize state, but every time after that it won't call the function. It can tell the difference between a function and not a function, so technically the no parentheses is a little bit more efficient, because they call the function every time, building a new 2D array pass it into useState the first time and ignore it everytime after that, but we will have called generateSquares ourselves every time. Without parentheses, we give it a function reference to generate squares and React will just call that function only the first timr and use the return value as an initial vlaue for the state.
+  const [player, setPlayer] = useState(PLAYER_1);
 
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
   const onClickCallback = (id) => {
-    console.log(id);
+    let move = false;
+    const updateSquares = squares.map((row) =>
+      row.map((pos) => {
+        if (pos.id !== id || pos.value !== '') {
+          return pos;
+        }
+
+        move = true;
+
+        const playedSquare = { ...pos, value: player };
+        return playedSquare;
+      })
+    );
+
+    if (move) {
+      setSquares(updateSquares);
+      setPlayer(player === PLAYER_1 ? PLAYER_2 : PLAYER_1);
+    }
   };
 
   const checkForWinner = () => {
