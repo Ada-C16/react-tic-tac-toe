@@ -1,5 +1,4 @@
-.square
-{
+.square {
   border: 4px solid #2c3e50;
   border-radius: 2px;
   font-family: Helvetica;
@@ -9,4 +8,12 @@
   justify-content: center;
   align-items: center;
   margin: 2px;
+}
+
+.green {
+  color: rgb(199, 238, 199);
+}
+
+.red {
+  color: rgb(187, 133, 133);
 }

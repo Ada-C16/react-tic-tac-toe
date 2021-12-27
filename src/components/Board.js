@@ -3,11 +3,12 @@ import './Board.css';
 import Square from './Square';
 import PropTypes from 'prop-types';
 
-// This turns the 2D array into a 1D array
 const generateSquareComponents = (squares, onClickCallback) => {
+  //transforms 2D array of JS objects into 1d array of Square components
   const singleArraySquares = [].concat(...squares);
   return singleArraySquares.map((square) => {
     return (
+      // map returns a square component for each object in the array
       <Square
         value={square.value}
         id={square.id}
@@ -20,8 +21,9 @@ const generateSquareComponents = (squares, onClickCallback) => {
 
 const Board = ({ squares, onClickCallback }) => {
   const squareList = generateSquareComponents(squares, onClickCallback);
-  console.log(squareList);
-  return <div className='grid'>{squareList}</div>;
+  // console.log(squareList);
+  //div contains array of square components
+  return <div className="grid">{squareList}</div>;
 };
 
 Board.propTypes = {
