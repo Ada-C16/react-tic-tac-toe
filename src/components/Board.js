@@ -3,33 +3,41 @@ import './Board.css';
 import Square from './Square';
 import PropTypes from 'prop-types';
 
+// This turns the 2D array into a 1D array
+const generateSquareComponents = (squares, onClickCallback, playerTurn, winnerState) => {
+  const singleArraySquares = [].concat(...squares);
+  return singleArraySquares.map((square) => {
+    return (
+      <Square
+        value={square.value}
+        id={square.id}
+        onClickCallback={onClickCallback}
+        playerTurn={playerTurn}
+        key={square.id}
+        winnerState={winnerState}
+      />
+    );
+  });
+};
 
-const generateSquareComponents = (squares, onClickCallback) => {
-  // Complete this for Wave 1
-  // squares is a 2D Array, but 
-  //  you need to return a 1D array
-  //  of square components
-
-}
-
-const Board = ({ squares, onClickCallback }) => {
-  const squareList = generateSquareComponents(squares, onClickCallback);
+const Board = ({ squares, onClickCallback, playerTurn, winnerState }) => {
+  const squareList = generateSquareComponents(squares, onClickCallback, playerTurn , winnerState);
   console.log(squareList);
-  return <div className="grid" >
-    {squareList}
-  </div>
-}
+  return <div className='grid'>{squareList}</div>;
+};
 
 Board.propTypes = {
   squares: PropTypes.arrayOf(
     PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        value: PropTypes.string.isRequired
+        value: PropTypes.string.isRequired,
       })
     )
   ),
   onClickCallback: PropTypes.func.isRequired,
+  playerTurn: PropTypes.string.isRequired,
+  winnerState: PropTypes.oneOf(['X', 'O', null])
 };
 
 export default Board;
