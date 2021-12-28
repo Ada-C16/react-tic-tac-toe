@@ -97,6 +97,23 @@ const App = () => {
   };
   const nameColor = player === PLAYER_1 ? 'green' : 'red';
 
+  // const playersList = () => (
+  //   <div>
+  //     <h5>Players: {player1Name} vs. {player2Name}</h5>
+  //   </
+  //   div>
+  // );
+
+  {
+    /* const addPlayerNames = (newPlayers) => {
+    newPlayersList(() => (
+      userName1: userName1,
+      userName2: userName2,  
+    ));
+    setFormFields(newPlayers);
+  }; */
+  }
+
   const winner = checkForWinner();
   const getStatus = () => {
     if (winner) {
@@ -118,6 +135,7 @@ const App = () => {
         <h1>React Tic Tac Toe</h1>
         <Login />
         <h2 className={nameColor}>{getStatus()}</h2>
+
         <button onClick={() => resetGame()}>Reset Game</button>
       </header>
       <main>

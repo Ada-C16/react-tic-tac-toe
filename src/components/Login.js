@@ -21,6 +21,10 @@ const Login = () => {
     });
   };
 
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <form>
       <div>
@@ -43,7 +47,7 @@ const Login = () => {
           id="player2"
         />
       </div>
-      <button type="submit" value="Add Player Name">
+      <button type="submit" value="Add Player Name" onSubmit={onFormSubmit}>
         Submit
       </button>
     </form>
