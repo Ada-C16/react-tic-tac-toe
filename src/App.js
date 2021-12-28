@@ -5,9 +5,7 @@ import Board from './components/Board';
 
 const PLAYER_1 = 'x';
 const PLAYER_2 = 'o';
-// const isPlayedIn = PLAYER_1;
 
-// creates a 2D array of JS objects with empty value and unique ids
 const generateSquares = () => {
   const squares = [];
 
@@ -31,7 +29,6 @@ const App = () => {
   // useState
   const [squares, setSquares] = useState(generateSquares());
   const [player, setPlayer] = useState(PLAYER_1);
-  // const [isTied, setIsTied] = useState(false);
 
   const onClickCallback = (id) => {
     if (winner) {
