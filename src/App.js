@@ -7,7 +7,6 @@ const PLAYER_1 = 'x';
 const PLAYER_2 = 'o';
 // const isPlayedIn = PLAYER_1;
 
-
 // creates a 2D array of JS objects with empty value and unique ids
 const generateSquares = () => {
   const squares = [];
@@ -28,33 +27,36 @@ const generateSquares = () => {
   return squares;
 };
 
-
-
 const App = () => {
-
   // useState
   const [squares, setSquares] = useState(generateSquares());
   const [player, setPlayer] = useState(PLAYER_1);
-  const [winner, setWinner] = useState(false);
-  const [isTied, setIsTied] = useState(false);
+  // const [isTied, setIsTied] = useState(false);
 
-  
-  const markSquare = (clickedSquare) => {
-    if (clickedSquare.value == '') {
-      const playedInSquares = squares.map((row) => {
-        row.map((square) => {
-          if (square.id === clickedSquare.id) {
-            square.value = player;
-          }
-          return square;
-        });
-        return row;
-      });
-      setSquares(playedInSquares);
-      setPlayer(player === PLAYER_1 ? PLAYER_2 : PLAYER_1);
+  const onClickCallback = (id) => {
+    if (winner) {
+      return;
     }
 
+    let madeMove = false;
+    const newState = squares.map((row) =>
+      row.map((pos) => {
+        if (pos.id !== id) {
+          return pos;
+        }
+        if (pos.value !== '') {
+          return pos;
+        }
+        madeMove = true;
+        return { ...pos, value: player };
+      })
+    );
 
+    if (madeMove) {
+      setSquares(newState);
+      setPlayer(player === PLAYER_1 ? PLAYER_2 : PLAYER_1);
+    }
+  };
 
   const checkForWinner = () => {
     let i = 0;
@@ -96,16 +98,18 @@ const App = () => {
 
     return null;
   };
-  
-  const updateBoard = () => {
-  
 
-  
-      const winner = checkForWinner();
-    
-      const checkForTie = () => {
+  const winner = checkForWinner();
+  const getStatus = () => {
+    if (winner) {
+      return `Winner is ${winner}`;
+    }
+    return `It is now ${player}'s turn`;
+  };
+
   const resetGame = () => {
-    // Complete in Wave 4
+    setSquares(generateSquares());
+    setPlayer(PLAYER_1);
   };
 
   // ========= App rendered ===========
@@ -114,11 +118,11 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is </h2>
-        <button>Reset Game</button>
+        <h2>{getStatus()}</h2>
+        <button onClick={() => resetGame()}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={onClickCallback} />
       </main>
     </div>
   );

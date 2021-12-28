@@ -4,19 +4,16 @@ import PropTypes from 'prop-types';
 import './Square.css';
 
 const Square = ({ id, value, onClickCallback }) => {
-  const updateSquare = () => {
-    onClickCallback(id); //passes id to onClickCallback
+  const notifyBoard = () => {
+    onClickCallback(id);
   };
 
-  // const playerColor = isPlayedIn ? 'green' : 'red'; //ternary operator
+  const buttonClickedHandler = () => {
+    notifyBoard();
+  };
 
   return (
-    <button
-      key={id}
-      className="square"
-      // className={playerColor}
-      onClick={updateSquare}
-    >
+    <button key={id} className="square" onClick={buttonClickedHandler}>
       {value}
     </button>
   );
