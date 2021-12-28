@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-
+import Login from './components/Login';
 import Board from './components/Board';
 
 const PLAYER_1 = 'x';
@@ -115,6 +115,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
+        <Login />
         <h2>{getStatus()}</h2>
         <button onClick={() => resetGame()}>Reset Game</button>
       </header>
