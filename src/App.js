@@ -95,6 +95,7 @@ const App = () => {
 
     return null;
   };
+  const nameColor = player === PLAYER_1 ? 'green' : 'red';
 
   const winner = checkForWinner();
   const getStatus = () => {
@@ -116,7 +117,7 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <Login />
-        <h2>{getStatus()}</h2>
+        <h2 className={nameColor}>{getStatus()}</h2>
         <button onClick={() => resetGame()}>Reset Game</button>
       </header>
       <main>
