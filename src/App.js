@@ -106,13 +106,13 @@ const App = () => {
         for (let openSquare of square){
           if (openSquare.id === id && openSquare.value === ''){
             openSquare.value = currentPlayer;
-              if (!winner) {
+              // if (!winner) {
                 if (currentPlayer === PLAYER_1) {
                   setCurrentPlayer(PLAYER_2);
                 } else if (currentPlayer === PLAYER_2) {
                   setCurrentPlayer(PLAYER_1);
                 }
-              }
+              // }
           }
         }
         return square;
@@ -133,7 +133,7 @@ const App = () => {
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is {winner}</h2>
+        <h2>Winner is {winner}</h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
