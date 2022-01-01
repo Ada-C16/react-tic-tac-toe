@@ -12,7 +12,10 @@
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
+<<<<<<< HEAD
     "plugin:jest/recommended"
+=======
+>>>>>>> f4d1eafbd37ba036a8648dc83f68aa3127277dcf
   ],
   "parserOptions": {
     "ecmaFeatures": {
