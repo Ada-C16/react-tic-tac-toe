@@ -23,8 +23,6 @@ const generateSquares = () => {
   return squares;
 };
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
 

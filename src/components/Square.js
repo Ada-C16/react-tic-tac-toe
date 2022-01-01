@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import "./Square.css";
+import './Square.css';
 
 const Square = (props) => {
   // For Wave 1 enable this
