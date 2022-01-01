@@ -8,7 +8,6 @@ const PLAYER_2 = "o";
 
 const generateSquares = () => {
   const squares = [];
-
   let currentId = 0;
 
   for (let row = 0; row < 3; row += 1) {
@@ -16,15 +15,13 @@ const generateSquares = () => {
     for (let col = 0; col < 3; col += 1) {
       squares[row].push({
         id: currentId,
-        value: ""
+        value: '',
       });
       currentId += 1;
     }
   }
-
   return squares;
 };
-
 const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
@@ -116,7 +113,7 @@ const App = () => {
       return `Winner is ${winner}`;
     }
     if (isTieGame) {
-      return "Tie game";
+      return 'Tie game';
     }
     return `Current player is ${currentPlayer}`;
   };
