@@ -100,7 +100,7 @@ const App = () => {
   //   }
   // };
 
-  const onClickCallBack = (id) => {
+  const onClickCallback = (id) => {
     setSquares((squares) => {
       let emptyBoard = squares.map((square)=>{
         for (let openSquare of square){
@@ -137,7 +137,7 @@ const App = () => {
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} onClickCallback={onClickCallBack}/>
+        <Board squares={squares} onClickCallback={onClickCallback}/>
       </main>
     </div>
   );
