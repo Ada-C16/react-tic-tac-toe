@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -30,12 +30,40 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
 
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+  const onClickCallback = (squareID) => {
+    console.log('the current plauer is', currentPlayer);
+    let madeMove = false;
+    console.log(squareID);
+    console.log('bestie... you clicked a square');
+    const newSquares = squares.map(row => row.map(position => {
+      if (position.id != squareID){
+        return position;
+      }
+      if (position.value !== ''){
+        return position;
+      }
+      madeMove = true;
+      const newSquare = {...position, value: currentPlayer};
+      return newSquare;
+    }));
 
-  const checkForWinner = () => {
+    if (madeMove) {
+      //update the board
+      setSquares(newSquares);
+    
+      // change the player with each click
+      let nextPlayer = (currentPlayer === PLAYER_1) ? PLAYER_2 : PLAYER_1;
+      setCurrentPlayer(nextPlayer);
+    }
+  };
+
+  const checkForWinner = (event) => {
     let i = 0;
 
     // Check all the rows and columns for a winner
@@ -83,12 +111,15 @@ const App = () => {
   return (
     <div className='App'>
       <header className='App-header'>
-        <h1>React Tic Tac Toe</h1>
+        <h1>Vange React Tic Tac Toe</h1>
         <h2>The winner is ... -- Fill in for wave 3 </h2>
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board 
+          squares={squares}
+          onClickCallback={onClickCallback} 
+        />
       </main>
     </div>
   );

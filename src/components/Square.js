@@ -8,7 +8,20 @@ const Square = (props) => {
   //  Component to alert a parent 
   //  component when it's clicked on.
 
-  return <button className='square'>{props.value}</button>;
+  const handleOnClickSquareButton = () => {
+    // if (props.value){
+    //   console.log('you cant play that square!');
+    // }else{
+      props.onClickCallback(props.id);
+    // }
+  };
+
+  return <button 
+      className='square' 
+      onClick={handleOnClickSquareButton}
+      >
+        {props.value}
+      </button>;
 };
 
 Square.propTypes = {
