@@ -37,10 +37,12 @@ const App = () => {
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
   const onClickCallback = (squareID) => {
-    console.log('the current plauer is', currentPlayer);
+    if (winner){
+      return;
+    }
+
     let madeMove = false;
-    console.log(squareID);
-    console.log('bestie... you clicked a square');
+
     const newSquares = squares.map(row => row.map(position => {
       if (position.id != squareID){
         return position;
@@ -108,11 +110,22 @@ const App = () => {
     // Complete in Wave 4
   };
 
+  const winner = checkForWinner();
+
+  const showStatus = () => {
+    if (winner){
+      // alert(`You did amazing ${winner}!`)
+      return `Winner is ${winner}`;
+    }else{
+      return `Your turn ${currentPlayer}`;
+    }
+  };
+
   return (
     <div className='App'>
       <header className='App-header'>
-        <h1>Vange React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
+        <h1>React Tic Tac Toe</h1>
+        <h2> {showStatus()} </h2>
         <button>Reset Game</button>
       </header>
       <main>
