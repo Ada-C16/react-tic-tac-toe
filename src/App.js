@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const player_1 = 'X';
-const player_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -29,12 +29,33 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+  //const [winner, setWinner] = useState(null);
+
+  const squareClicked =(id)=>{
+    let didPlay = false 
+    const newState = squares.map(row =>row.map(pos =>{
+      if (pos.id !== id) {return pos;}
+      if (pos.value !== '') {return pos;} 
+  //we know the id matches
+      didPlay = true
+      const newPos = {...pos}
+      newPos.value = currentPlayer
+      return newPos 
+    }))
+    if (didPlay) {
+      setSquares(newState) 
+      if (currentPlayer === PLAYER_1) {
+        setCurrentPlayer(PLAYER_2)
+      } else {setCurrentPlayer(PLAYER_1)}
+    }
+  };
 
   // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
-
+ 
   const checkForWinner = () => {
     let i = 0;
 
@@ -77,18 +98,24 @@ const App = () => {
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    setSquares(generateSquares());
+    setTurn(1);
+    setWinner(null);
+    setGameEnd(false);
   };
+
+  const winner = checkForWinner()
+  console.log(winner)
 
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>The winner is {winner} -- Fill in for wave 3 </h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={squareClicked} />
       </main>
     </div>
   );
