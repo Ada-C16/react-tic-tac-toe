@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const Player1 = 'X';
-const Player2 = 'O';
+const Player1 = 'x';
+const Player2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -39,10 +39,12 @@ const App = () => {
   const onClickSquare = (id) => {
     console.log(id);
     const newSquares = [...squares];
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (id === newSquares[i][j].id && newSquares[i][j].value === '') {
-          newSquares[i][j].value = currentPlayer;
+    if (checkForWinner() === null) {
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          if (id === newSquares[i][j].id && newSquares[i][j].value === '') {
+            newSquares[i][j].value = currentPlayer;
+          }
         }
       }
     }
@@ -101,6 +103,7 @@ const App = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
+    setSquares(generateSquares);
   };
 
   // **NEXT STEP** consider writing a helper function that will change the header to reflect the winner of the game
@@ -109,8 +112,8 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         {/* I will render the helper function from like 106 here  */}
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>Winner is {checkForWinner()}</h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         <Board squares={squares} onClickCallback={onClickSquare} />
