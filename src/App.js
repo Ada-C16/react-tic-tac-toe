@@ -1,3 +1,4 @@
+import { check } from 'prettier';
 import React, { useState } from 'react';
 import './App.css';
 
@@ -30,10 +31,12 @@ const App = () => {
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
-  //const [winner, setWinner] = useState(null);
+  // const [winner, setWinner] = useState(null);
+  // const [gameEnd, setGameEnd] = useState(false);
 
   const squareClicked =(id)=>{
     let didPlay = false 
+    if (winner !== null) {return}
     const newState = squares.map(row =>row.map(pos =>{
       if (pos.id !== id) {return pos;}
       if (pos.value !== '') {return pos;} 
@@ -50,8 +53,16 @@ const App = () => {
       } else {setCurrentPlayer(PLAYER_1)}
     }
   };
-
-  // Wave 2
+  
+  // let winner = checkForWinner();
+  // console.log(winner);
+  // if (winner !== null){
+  //   setWinner(winner);
+  //   setGameEnd(true);
+    
+    // break;
+  // }
+  // // Wave 2
   // You will need to create a method to change the square
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
@@ -99,19 +110,19 @@ const App = () => {
 
   const resetGame = () => {
     setSquares(generateSquares());
-    setTurn(1);
-    setWinner(null);
-    setGameEnd(false);
+    setCurrentPlayer(PLAYER_1);
+    // setWinner(null);
+    // setGameEnd(false);
   };
 
   const winner = checkForWinner()
-  console.log(winner)
+  // console.log(winner)
 
   return (
     <div className='App'>
       <header className='App-header'>
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is {winner} -- Fill in for wave 3 </h2>
+        <h2>Winner is {winner} </h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
