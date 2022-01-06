@@ -105,7 +105,7 @@ const App = () => {
         squares[a[0]][a[1]].value === squares[b[0]][b[1]].value &&
         squares[a[0]][a[1]].value === squares[c[0]][c[1]].value
       ) {
-        console.log(winner);
+        // console.log(winner);
         setWinner(squares[a[0]][a[1]].value);
         return;
       }
@@ -114,13 +114,13 @@ const App = () => {
     for (const row of squares) {
       for (const elem of row) {
         if (elem.value === '') {
-          console.log(winner);
+          // console.log(winner);
           setWinner('');
           return;
         }
       }
     }
-    console.log(winner);
+    // console.log(winner);
     setWinner('Tie');
   };
 
