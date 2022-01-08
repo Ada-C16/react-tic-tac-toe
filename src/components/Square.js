@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Square.css'
+import './Square.css';
 
-const Square = (props) => {
+const Square = ({id, onClick, value}) => {
   // For Wave 1 enable this 
   //  Component to alert a parent 
   //  component when it's clicked on.
 
-  return <button
-    className="square"
-  >
-    {props.value}
-  </button>
-}
+  return (
+    <button
+      className= "square"
+      onClick={() => {onClick(id);
+      }}
+      > {value} </button>
+  );
+};
 
 Square.propTypes = {
   value: PropTypes.string.isRequired,
@@ -22,3 +24,5 @@ Square.propTypes = {
 };
 
 export default Square;
+
+
