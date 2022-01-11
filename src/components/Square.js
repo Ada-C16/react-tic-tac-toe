@@ -1,19 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Square.css'
+import './Square.css';
 
 const Square = (props) => {
-  // For Wave 1 enable this 
-  //  Component to alert a parent 
-  //  component when it's clicked on.
+  let color = '';
+  
+  if (props.id === 0 || props.id === 5) {
+    color = 'blue';
+  } else if (props.id === 1 || props.id === 6) {
+    color = 'yellow';
+  } else if (props.id === 2 || props.id === 7) {
+    color = 'green';
+  } else if (props.id === 3 || props.id === 8) {
+    color = 'pink';
+  } else if (props.id === 4) { 
+    color = 'orange';
+  }
 
-  return <button
-    className="square"
-  >
-    {props.value}
-  </button>
-}
+  const selectedSquare = () => {
+    props.onClickCallback(props.id);
+  };
+
+  return <button className='square' id={color} onClick={selectedSquare}>{props.value}</button>;
+};
 
 Square.propTypes = {
   value: PropTypes.string.isRequired,

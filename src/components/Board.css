@@ -1,10 +1,10 @@
 div.grid {
-    width: 600px;
-    height: 600px;
+    width: 500px;
+    height: 500px;
     margin: 0 auto;
-    background-color: #34495e;
+    background-color: rgb(219, 219, 219);
     color: #fff;
-    border: 6px solid #2c3e50;
+    border: 3px solid black;
     border-radius: 10px;
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
