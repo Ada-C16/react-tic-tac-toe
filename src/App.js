@@ -3,8 +3,8 @@ import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -29,22 +29,82 @@ const App = () => {
   // This starts state off as a 2D array of JS objects with
   // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setCurrentPlayer] = useState(PlAYER_1);
+    // Wave 2
+    //  will need to create a method to change the square
+    //   When it is clicked on.
+    //   Then pass it into the squares as a callback
+  const squareClick = (id) => {
+    let madeMove = false;
+    const updateState = squares.map(row => row.map(pos => {
+      if (pos.id !== id) {return pos;}
+      madeMove =true;
+      return {...pos, value: currentPlayer};
+    }));
+    if (madeMove){
+    setSquares(newState);
+    let newPlayer;
+    if (currentPlayer == PLAYER_1) {
+      newPlayer = PlAYER_2;
+    }
+    setCurrentPlayer();
+    }  
+  };
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+    // to map every id to the row and column on the array
+    // the row for any number is going to be this formula
+    // and the column is also this formula
+    const row = parseInt(id / 3);
+    const col = id - 3 * parseInt(id / 3);
+
+    
+    // will pass whoevers turn it is here
+
+    squares[row][col] = 'x';
+
+    // change the state
+    setSquares(squares);
+  };
 
   const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+    let i = 0;
+
+    // Check all the rows and columns for a winner
+    while (i < 3) {
+      if (
+        squares[i][0].value === squares[i][1].value &&
+        squares[i][2].value === squares[i][1].value &&
+        squares[i][0].value !== ''
+      ) {
+        return squares[i][0].value;
+      } else if (
+        squares[0][i].value === squares[1][i].value &&
+        squares[2][i].value === squares[1][i].value &&
+        squares[0][i].value !== ''
+      ) {
+        return squares[0][i].value;
+      }
+      i += 1;
+    }
+    // Check Top-Left to bottom-right diagonal
+    if (
+      squares[0][0].value === squares[1][1].value &&
+      squares[2][2].value === squares[1][1].value &&
+      squares[1][1].value !== ''
+    ) {
+      return squares[0][0].value;
+    }
+
+    // Check Top-right to bottom-left diagonal
+    if (
+      squares[0][2].value === squares[1][1].value &&
+      squares[2][0].value === squares[1][1].value &&
+      squares[1][1].value !== ''
+    ) {
+      return squares[0][2].value;
+    }
+    // need to update this for ties
+    return null;
   };
 
   const resetGame = () => {
@@ -59,7 +119,7 @@ const App = () => {
         <button>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={squareClick} />
       </main>
     </div>
   );
