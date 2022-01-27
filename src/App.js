@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
 import './App.css';
-
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
+
+const WINFORMATIONS = [
+  // Rows
+  [[0,0], [0,1], [0,2]],
+  [[1,0], [1,1], [1,2]],
+  [[2,0], [2,1], [2,2]],
+  // Cols
+  [[0,0], [1,0], [2,0]],
+  [[0,1], [1,1], [2,1]],
+  [[0,2], [1,2], [2,2]],
+  // Diagonals
+  [[0,0], [1,1], [2,2]],
+  [[0,2], [1,1], [2,0]],
+];
 
 const generateSquares = () => {
+  // Creates array of current squares
   const squares = [];
 
   let currentId = 0;
@@ -17,49 +31,107 @@ const generateSquares = () => {
       squares[row].push({
         id: currentId,
         value: '',
+        disabled: false,
       });
       currentId += 1;
     }
   }
-
   return squares;
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
   const [squares, setSquares] = useState(generateSquares());
+  const [turn, setTurn] = useState(PLAYER_1);
+  const [winner, setWinner] = useState(null);
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
-
-  const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+  const togglePlayerTurn = () => {
+    // Toggles turn between player 'x' and 'o'
+    let newTurn = '';
+    if (turn === PLAYER_1) {
+      newTurn = PLAYER_2;
+    } else {
+      newTurn = PLAYER_1;
+    }
+    setTurn(newTurn);
   };
 
+  const onClickCallback = (squareId) => {
+    // Updates squares state with latest action
+    const newSquares = [...squares];
+    newSquares.forEach((row) => {
+      row.forEach((square) => {
+        if (square.id === squareId && square.value === '') {
+          square.value = turn;
+        }
+      });
+    });
+    setSquares(newSquares);
+    setWinner(checkForWinner());
+    togglePlayerTurn();
+
+    let someoneWon = checkForWinner();
+    if (someoneWon) {
+      setWinner(someoneWon);
+      // If winner, disable all squares
+      squares.forEach((row) => {
+        row.map((square) => {
+          if (square.value == '') {
+            square.disabled = true;
+          }
+        });
+      });
+    }
+  };
+
+  const checkForWinner = () => {  
+    // Checks current board for a winner
+    let winner = null;
+
+    // Examine each winning formation as it applys to current board
+    for (let win of WINFORMATIONS) {
+      let current = new Set();
+      // Create a winning formation set from reference indicies 
+      for (let idx of win) {
+        current.add(squares[idx[0]][idx[1]].value);
+      }
+      // If set contains one type, that is not '', we have a winner
+      if (current.size == 1 && current.values().next().value != '') {
+        winner = current.values().next().value;
+      }
+    }
+    // If board has '', game in progress
+    for (let row of squares) {
+      for (let col of row) {
+        if (col.value == '') {
+          return winner;
+        }
+      }
+    }
+    
+    // If no '' present and no winner, game is tie
+    return 'tie';
+  };
+
+
   const resetGame = () => {
-    // Complete in Wave 4
+    // Clears board for new game
+    setSquares(generateSquares());
+    setTurn(PLAYER_1);
+    setWinner(null);
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>Winner is {winner}</h2>
+        <button className='reset' onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board
+          squares={squares}
+          onClickCallback={onClickCallback}
+        />
       </main>
     </div>
   );

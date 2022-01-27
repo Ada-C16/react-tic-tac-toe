@@ -14,7 +14,7 @@ describe('App', () => {
     expect(buttons[buttonIndex].innerHTML).toEqual(expectedResult);
   }
 
-  describe.skip('Wave 2: clicking on squares and rendering App', () => {
+  describe('Wave 2: clicking on squares and rendering App', () => {
 
   test('App renders with a board of 9 empty buttons', () => {
     // Arrange-Act - Render the app
@@ -85,7 +85,7 @@ describe('App', () => {
 });
 
   
-  describe.skip('Wave 3:  Winner tests', () => {
+  describe('Wave 3:  Winner tests', () => {
     describe('Prints "Winner is x" when x wins', () => {
       test('that a winner will be identified when 3 Xs get in a row across the top', () => {
         // Arrange
@@ -310,24 +310,7 @@ describe('App', () => {
       expect(winnerScreen).not.toBeNull();
       expect(winnerScreen).toBeInTheDocument();
     });
-    test('that a winner will be identified when 3 Os go accross the right column', () => {
-      // Arrange
-      const { container } = render(<App />);
-
-      // Act
-      clickButtonAndVerifyResult(container, 1, 'x');
-      clickButtonAndVerifyResult(container, 2, 'o');
-      clickButtonAndVerifyResult(container, 0, 'x');
-      clickButtonAndVerifyResult(container, 5, 'o');
-      clickButtonAndVerifyResult(container, 7, 'x');
-      clickButtonAndVerifyResult(container, 8, 'o');
-
-      // Assert
-      const winnerScreen = screen.queryByText('Winner is o')
-      expect(winnerScreen).not.toBeNull();
-      expect(winnerScreen).toBeInTheDocument();
-    });    
-
+    
     test('that a winner will be identified when 3 Os go accross the top-left to bottom-right', () => {
       // Arrange
       const { container } = render(<App />);
@@ -361,10 +344,28 @@ describe('App', () => {
       const winnerScreen = screen.queryByText('Winner is o')
       expect(winnerScreen).not.toBeNull();
       expect(winnerScreen).toBeInTheDocument();
-    });       
+    });
+
+    test('that a winner will be identified when 3 Os go accross the right column', () => {
+      // Arrange
+      const { container } = render(<App />);
+
+      // Act
+      clickButtonAndVerifyResult(container, 1, 'x');
+      clickButtonAndVerifyResult(container, 2, 'o');
+      clickButtonAndVerifyResult(container, 0, 'x');
+      clickButtonAndVerifyResult(container, 5, 'o');
+      clickButtonAndVerifyResult(container, 7, 'x');
+      clickButtonAndVerifyResult(container, 8, 'o');
+
+      // Assert
+      const winnerScreen = screen.queryByText('Winner is o')
+      expect(winnerScreen).not.toBeNull();
+      expect(winnerScreen).toBeInTheDocument();
+    });           
   });
 
-  describe.skip('Wave 4:  reset game button', () => {
+  describe('Wave 4:  reset game button', () => {
     test('App has a "Reset Game" button', () => {
       // Arrange-Act
       render(<App />);
@@ -396,4 +397,21 @@ describe('App', () => {
       expect(oSquare).toBeNull();
     });
   });
+  test('that a winner will be identified when 3 Os go accross the right column', () => {
+    // Arrange
+    const { container } = render(<App />);
+    // Act
+    clickButtonAndVerifyResult(container, 1, 'x');
+    clickButtonAndVerifyResult(container, 2, 'o');
+    clickButtonAndVerifyResult(container, 0, 'x');
+    clickButtonAndVerifyResult(container, 5, 'o');
+    clickButtonAndVerifyResult(container, 7, 'x');
+    clickButtonAndVerifyResult(container, 8, 'o');
+
+    // Assert
+    
+    const winnerScreen = screen.queryByText('Winner is o');
+    expect(winnerScreen).not.toBeNull();
+    expect(winnerScreen).toBeInTheDocument();
+  });    
 });
