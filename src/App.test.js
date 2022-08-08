@@ -14,7 +14,7 @@ describe('App', () => {
     expect(buttons[buttonIndex].innerHTML).toEqual(expectedResult);
   }
 
-  describe.skip('Wave 2: clicking on squares and rendering App', () => {
+  describe('Wave 2: clicking on squares and rendering App', () => {
 
   test('App renders with a board of 9 empty buttons', () => {
     // Arrange-Act - Render the app
@@ -85,7 +85,7 @@ describe('App', () => {
 });
 
   
-  describe.skip('Wave 3:  Winner tests', () => {
+  describe('Wave 3:  Winner tests', () => {
     describe('Prints "Winner is x" when x wins', () => {
       test('that a winner will be identified when 3 Xs get in a row across the top', () => {
         // Arrange
@@ -198,7 +198,7 @@ describe('App', () => {
         clickButtonAndVerifyResult(container, 8, 'x');
 
         // Assert
-        const winnerScreen = screen.queryByText('Winner is x')
+        const winnerScreen = screen.queryByText('Winner is x');
         expect(winnerScreen).not.toBeNull();
         expect(winnerScreen).toBeInTheDocument();
       });
@@ -214,7 +214,7 @@ describe('App', () => {
         clickButtonAndVerifyResult(container, 6, 'x');
 
         // Assert
-        const winnerScreen = screen.queryByText('Winner is x')
+        const winnerScreen = screen.queryByText('Winner is x');
         expect(winnerScreen).not.toBeNull();
         expect(winnerScreen).toBeInTheDocument();
       });
@@ -236,7 +236,7 @@ describe('App', () => {
       clickButtonAndVerifyResult(container, 2, 'o');
 
       // Assert
-      const winnerScreen = screen.queryByText('Winner is o')
+      const winnerScreen = screen.queryByText('Winner is o');
       expect(winnerScreen).not.toBeNull();
       expect(winnerScreen).toBeInTheDocument();
     });
@@ -254,7 +254,7 @@ describe('App', () => {
       clickButtonAndVerifyResult(container, 5, 'o');
 
       // Assert
-      const winnerScreen = screen.queryByText('Winner is o')
+      const winnerScreen = screen.queryByText('Winner is o');
       expect(winnerScreen).not.toBeNull();
       expect(winnerScreen).toBeInTheDocument();
     });
@@ -271,7 +271,7 @@ describe('App', () => {
       clickButtonAndVerifyResult(container, 7, 'o');
 
       // Assert
-      const winnerScreen = screen.queryByText('Winner is o')
+      const winnerScreen = screen.queryByText('Winner is o');
       expect(winnerScreen).not.toBeNull();
       expect(winnerScreen).toBeInTheDocument();
     });
@@ -289,7 +289,7 @@ describe('App', () => {
       clickButtonAndVerifyResult(container, 6, 'o');
 
       // Assert
-      const winnerScreen = screen.queryByText('Winner is o')
+      const winnerScreen = screen.queryByText('Winner is o');
       expect(winnerScreen).not.toBeNull();
       expect(winnerScreen).toBeInTheDocument();
     });
@@ -306,7 +306,7 @@ describe('App', () => {
       clickButtonAndVerifyResult(container, 7, 'o');
 
       // Assert
-      const winnerScreen = screen.queryByText('Winner is o')
+      const winnerScreen = screen.queryByText('Winner is o');
       expect(winnerScreen).not.toBeNull();
       expect(winnerScreen).toBeInTheDocument();
     });
@@ -323,7 +323,7 @@ describe('App', () => {
       clickButtonAndVerifyResult(container, 8, 'o');
 
       // Assert
-      const winnerScreen = screen.queryByText('Winner is o')
+      const winnerScreen = screen.queryByText('Winner is o');
       expect(winnerScreen).not.toBeNull();
       expect(winnerScreen).toBeInTheDocument();
     });    
@@ -341,7 +341,7 @@ describe('App', () => {
       clickButtonAndVerifyResult(container, 8, 'o');
 
       // Assert
-      const winnerScreen = screen.queryByText('Winner is o')
+      const winnerScreen = screen.queryByText('Winner is o');
       expect(winnerScreen).not.toBeNull();
       expect(winnerScreen).toBeInTheDocument();
     });  
@@ -358,13 +358,13 @@ describe('App', () => {
       clickButtonAndVerifyResult(container, 6, 'o');
 
       // Assert
-      const winnerScreen = screen.queryByText('Winner is o')
+      const winnerScreen = screen.queryByText('Winner is o');
       expect(winnerScreen).not.toBeNull();
       expect(winnerScreen).toBeInTheDocument();
     });       
   });
 
-  describe.skip('Wave 4:  reset game button', () => {
+  describe('Wave 4:  reset game button', () => {
     test('App has a "Reset Game" button', () => {
       // Arrange-Act
       render(<App />);
