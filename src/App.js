@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
-
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
+const PLAYER_1 = 'x';
+const PLAYER_2 = 'o';
 
 const generateSquares = () => {
   const squares = [];
@@ -21,45 +20,110 @@ const generateSquares = () => {
       currentId += 1;
     }
   }
-
   return squares;
 };
 
 const App = () => {
-  // This starts state off as a 2D array of JS objects with
-  // empty value and unique ids.
+  // make sure to put all your hooks at the top of your component!!!
   const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+  const [winner, setWinner] = useState(null);
 
-  // Wave 2
-  // You will need to create a method to change the square
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+  const changeCurrentPlayer = () => {
+    if (currentPlayer === PLAYER_1) {
+      setCurrentPlayer(PLAYER_2);
+    } else {
+      setCurrentPlayer(PLAYER_1);
+    }
+  };
 
   const checkForWinner = () => {
-    // Complete in Wave 3
-    // You will need to:
-    // 1. Go accross each row to see if
-    //    3 squares in the same row match
-    //    i.e. same value
-    // 2. Go down each column to see if
-    //    3 squares in each column match
-    // 3. Go across each diagonal to see if
-    //    all three squares have the same value.
+    let i = 0;
+
+    // Check all the rows and columns for a winner
+    while (i < 3) {
+      if (
+        squares[i][0].value === squares[i][1].value &&
+        squares[i][2].value === squares[i][1].value &&
+        squares[i][0].value !== ''
+      ) {
+        return squares[i][0].value;
+      } else if (
+        squares[0][i].value === squares[1][i].value &&
+        squares[2][i].value === squares[1][i].value &&
+        squares[0][i].value !== ''
+      ) {
+        return squares[0][i].value;
+      }
+      i += 1;
+    }
+    // Check Top-Left to bottom-right diagonal
+    if (
+      squares[0][0].value === squares[1][1].value &&
+      squares[2][2].value === squares[1][1].value &&
+      squares[1][1].value !== ''
+    ) {
+      return squares[0][0].value;
+    }
+
+    // Check Top-right to bottom-left diagonal
+    if (
+      squares[0][2].value === squares[1][1].value &&
+      squares[2][0].value === squares[1][1].value &&
+      squares[1][1].value !== ''
+    ) {
+      return squares[0][2].value;
+    }
+
+    return null;
+  };
+
+  const updateBoard = (id) => {
+    const updatedSquares = [...squares];
+
+    for (const nestedArr of squares) {
+      for (const currentSquare of nestedArr) {
+        if (
+          currentSquare.id === id &&
+          currentSquare.value === '' &&
+          checkForWinner() === null
+        ) {
+          currentSquare.value = currentPlayer;
+        }
+      }
+    }
+
+    // update the board
+    setSquares(updatedSquares);
+
+    // either declare the winner or change the current player
+    checkForWinner() ? setWinner(currentPlayer) : changeCurrentPlayer();
   };
 
   const resetGame = () => {
-    // Complete in Wave 4
+    setSquares(generateSquares());
+    setWinner(null);
+    setCurrentPlayer(PLAYER_1);
   };
 
+  // this returns a bunch of HTML-looking JavaScript (JSX),
+  // including the board as well as other pieces
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        {/* if there's a winner, show winner is... msg; else show player is... msg  */}
+        {winner ? (
+          <h2>Winner is {winner}</h2>
+        ) : (
+          <h2>Player is {currentPlayer}</h2>
+        )}
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        {/* // to board, provide a squares prop and an onClickCallBack prop 
+        so the app parent knows what to do if the board child updates */}
+        <Board squares={squares} onClickCallback={updateBoard} />
       </main>
     </div>
   );
